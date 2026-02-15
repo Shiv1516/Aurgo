@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import AuctionCard from "@/components/auction/AuctionCard";
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import { auctionAPI, categoryAPI } from "@/lib/api";
@@ -64,16 +62,12 @@ export default function HomePage() {
   if (isLoading)
     return (
       <>
-        <Header />
         <PageLoader />
-        <Footer />
       </>
     );
 
   return (
     <>
-      {/* <Header /> */}
-
       {/* Hero Section */}
       <section className="relative bg-dark min-h-[600px] flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/95 to-dark/70" />
@@ -341,8 +335,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* <Footer /> */}
     </>
   );
 }

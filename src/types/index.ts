@@ -6,12 +6,20 @@ export interface User {
   email: string;
   phone?: string;
   avatar?: string;
-  role: 'user' | 'client' | 'client_staff' | 'client_editor' | 'client_manager' | 'admin' | 'superadmin';
+  companyWebsite?: string;
+  role:
+    | "user"
+    | "client"
+    | "client_staff"
+    | "client_editor"
+    | "client_manager"
+    | "admin"
+    | "superadmin";
   isEmailVerified: boolean;
   isPhoneVerified: boolean;
   isActive: boolean;
   isSuspended: boolean;
-  kycStatus: 'none' | 'pending' | 'approved' | 'rejected';
+  kycStatus: "none" | "pending" | "approved" | "rejected";
   addresses: Address[];
   savedPaymentMethods: PaymentMethod[];
   companyName?: string;
@@ -63,6 +71,7 @@ export interface Auction {
   slug: string;
   description: string;
   shortDescription?: string;
+  termsAndConditions?: string;
   client: User | string;
   category?: Category | string;
   tags: string[];
@@ -72,10 +81,17 @@ export interface Auction {
   startTime: string;
   endTime: string;
   timezone: string;
-  status: 'draft' | 'scheduled' | 'live' | 'ended' | 'cancelled' | 'paused' | 'suspended';
+  status:
+    | "draft"
+    | "scheduled"
+    | "live"
+    | "ended"
+    | "cancelled"
+    | "paused"
+    | "suspended";
   isPublished: boolean;
   isFeatured: boolean;
-  auctionType: 'timed' | 'live';
+  auctionType: "timed" | "live";
   buyersPremium: number;
   currency: string;
   location?: {
@@ -138,7 +154,7 @@ export interface Lot {
   currentBid: number;
   currentBidder?: User | string;
   totalBids: number;
-  status: 'pending' | 'active' | 'sold' | 'unsold' | 'withdrawn' | 'passed';
+  status: "pending" | "active" | "sold" | "unsold" | "withdrawn" | "passed";
   isReserveMet: boolean;
   autoBidEnabled: boolean;
   category?: Category | string;
@@ -167,8 +183,15 @@ export interface Bid {
   bidder: User | string;
   amount: number;
   maxAutoBid?: number;
-  bidType: 'manual' | 'auto' | 'proxy';
-  status: 'active' | 'outbid' | 'winning' | 'won' | 'lost' | 'cancelled' | 'rejected';
+  bidType: "manual" | "auto" | "proxy";
+  status:
+    | "active"
+    | "outbid"
+    | "winning"
+    | "won"
+    | "lost"
+    | "cancelled"
+    | "rejected";
   isWinning: boolean;
   timestamp: string;
   createdAt: string;
@@ -189,17 +212,32 @@ export interface Order {
   taxRate: number;
   shippingCost: number;
   totalAmount: number;
-  paymentStatus: 'pending' | 'processing' | 'paid' | 'failed' | 'refunded';
+  paymentStatus: "pending" | "processing" | "paid" | "failed" | "refunded";
   paymentMethod?: string;
   paidAt?: string;
   shippingMethod?: string;
   shippingAddress?: Address;
-  shippingStatus: 'pending' | 'processing' | 'shipped' | 'in_transit' | 'delivered' | 'returned';
+  shippingStatus:
+    | "pending"
+    | "processing"
+    | "shipped"
+    | "in_transit"
+    | "delivered"
+    | "returned";
   trackingNumber?: string;
   trackingUrl?: string;
   shippedAt?: string;
   deliveredAt?: string;
-  status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'completed' | 'cancelled' | 'disputed' | 'refunded';
+  status:
+    | "pending"
+    | "confirmed"
+    | "processing"
+    | "shipped"
+    | "delivered"
+    | "completed"
+    | "cancelled"
+    | "disputed"
+    | "refunded";
   invoiceNumber?: string;
   invoiceUrl?: string;
   commissionRate?: number;
@@ -222,7 +260,7 @@ export interface Notification {
   actionUrl?: string;
   isRead: boolean;
   readAt?: string;
-  priority: 'low' | 'normal' | 'high' | 'urgent';
+  priority: "low" | "normal" | "high" | "urgent";
   createdAt: string;
 }
 

@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { useAuthStore } from "@/store/authStore";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import {
   LayoutDashboard,
