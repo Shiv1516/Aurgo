@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Lot, Auction } from '@/types';
-import { formatCurrency } from '@/lib/utils';
-import { Gavel, Eye } from 'lucide-react';
+import Link from "next/link";
+import Image from "next/image";
+import { Lot, Auction } from "@/types";
+import { formatCurrency } from "@/lib/utils";
+import { Gavel, Eye } from "lucide-react";
 
 interface LotCardProps {
   lot: Lot;
@@ -21,7 +21,11 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
         <div className="relative aspect-square overflow-hidden bg-gray-100">
           {mainImage ? (
             <Image
-              src={mainImage.startsWith('http') ? mainImage : `http://localhost:5000${mainImage}`}
+              src={
+                mainImage.startsWith("http")
+                  ? mainImage
+                  : `https://aurgo-backend-1.onrender.com${mainImage}`
+              }
               alt={lot.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -36,9 +40,11 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
             Lot {lot.lotNumber}
           </div>
 
-          {lot.status === 'sold' && (
+          {lot.status === "sold" && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <span className="bg-red-600 text-white text-sm font-bold px-4 py-1.5 rounded -rotate-12">SOLD</span>
+              <span className="bg-red-600 text-white text-sm font-bold px-4 py-1.5 rounded -rotate-12">
+                SOLD
+              </span>
             </div>
           )}
         </div>
@@ -55,17 +61,20 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
 
           {lot.estimateLow && lot.estimateHigh && (
             <p className="text-xs text-gray-500 mb-1">
-              Est. {formatCurrency(lot.estimateLow)} - {formatCurrency(lot.estimateHigh)}
+              Est. {formatCurrency(lot.estimateLow)} -{" "}
+              {formatCurrency(lot.estimateHigh)}
             </p>
           )}
 
           <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
             <div>
               <p className="text-[10px] text-gray-500 uppercase">
-                {lot.currentBid > 0 ? 'Current Bid' : 'Starting Bid'}
+                {lot.currentBid > 0 ? "Current Bid" : "Starting Bid"}
               </p>
               <p className="text-sm font-bold text-dark">
-                {formatCurrency(lot.currentBid > 0 ? lot.currentBid : lot.startingBid)}
+                {formatCurrency(
+                  lot.currentBid > 0 ? lot.currentBid : lot.startingBid,
+                )}
               </p>
             </div>
             <div className="flex items-center gap-1 text-xs text-gray-500">

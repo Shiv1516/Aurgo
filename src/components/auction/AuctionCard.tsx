@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { Auction } from '@/types';
-import { formatCurrency, formatDate, getAuctionStatusColor } from '@/lib/utils';
-import CountdownTimer from '@/components/common/CountdownTimer';
-import { Calendar, MapPin, Layers, Eye } from 'lucide-react';
+import Link from "next/link";
+import Image from "next/image";
+import { Auction } from "@/types";
+import { formatCurrency, formatDate, getAuctionStatusColor } from "@/lib/utils";
+import CountdownTimer from "@/components/common/CountdownTimer";
+import { Calendar, MapPin, Layers, Eye } from "lucide-react";
 
 interface AuctionCardProps {
   auction: Auction;
 }
 
 export default function AuctionCard({ auction }: AuctionCardProps) {
-  const isLive = auction.status === 'live';
-  const isScheduled = auction.status === 'scheduled';
+  const isLive = auction.status === "live";
+  const isScheduled = auction.status === "scheduled";
 
   return (
     <Link href={`/auctions/${auction.slug}`}>
@@ -22,27 +22,37 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
         <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
           {auction.coverImage ? (
             <Image
-              src={auction.coverImage.startsWith('http') ? auction.coverImage : `http://localhost:5000${auction.coverImage}`}
+              src={
+                auction.coverImage.startsWith("http")
+                  ? auction.coverImage
+                  : `https://aurgo-backend-1.onrender.com${auction.coverImage}`
+              }
               alt={auction.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
             <div className="w-full h-full bg-gradient-to-br from-dark to-dark-lighter flex items-center justify-center">
-              <span className="text-gold text-4xl font-heading font-bold">A</span>
+              <span className="text-gold text-4xl font-heading font-bold">
+                A
+              </span>
             </div>
           )}
 
           {/* Status badge */}
           <div className="absolute top-3 left-3">
-            <span className={`${getAuctionStatusColor(auction.status)} text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide`}>
-              {isLive ? 'Live Now' : auction.status}
+            <span
+              className={`${getAuctionStatusColor(auction.status)} text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide`}
+            >
+              {isLive ? "Live Now" : auction.status}
             </span>
           </div>
 
           {auction.isFeatured && (
             <div className="absolute top-3 right-3">
-              <span className="bg-gold text-white text-xs font-semibold px-3 py-1 rounded-full">Featured</span>
+              <span className="bg-gold text-white text-xs font-semibold px-3 py-1 rounded-full">
+                Featured
+              </span>
             </div>
           )}
 
@@ -61,13 +71,19 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
           </h3>
 
           {auction.shortDescription && (
-            <p className="text-gray-500 text-sm line-clamp-2 mb-3">{auction.shortDescription}</p>
+            <p className="text-gray-500 text-sm line-clamp-2 mb-3">
+              {auction.shortDescription}
+            </p>
           )}
 
           <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500 mb-3">
             <div className="flex items-center gap-1">
               <Calendar className="h-3.5 w-3.5" />
-              <span>{isScheduled ? `Starts ${formatDate(auction.startTime)}` : formatDate(auction.startTime)}</span>
+              <span>
+                {isScheduled
+                  ? `Starts ${formatDate(auction.startTime)}`
+                  : formatDate(auction.startTime)}
+              </span>
             </div>
             {auction.location?.city && (
               <div className="flex items-center gap-1">
