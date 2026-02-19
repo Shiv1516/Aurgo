@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
@@ -20,7 +20,16 @@ export default function LoginPage() {
     try {
       await login(form.email, form.password);
       toast.success("Welcome back!");
-      router.push("/dashboard");
+      const user = useAuthStore.getState().user;
+      const role = user?.role;
+
+      if (role === "admin") {
+        router.push("/admin");
+      } else if (role === "client") {
+        router.push("/client");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (error: any) {
       toast.error(error.response?.data?.error || "Login failed");
     } finally {
