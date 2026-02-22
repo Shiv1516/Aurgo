@@ -12,6 +12,16 @@ export default function RegisterPage() {
   const { register } = useAuthStore();
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', password: '', confirmPassword: '', phone: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordStrength, setPasswordStrength] = useState(0);
+
+  const calculateStrength = (pass: string) => {
+    let score = 0;
+    if (pass.length >= 8) score++;
+    if (/[A-Z]/.test(pass)) score++;
+    if (/[0-9]/.test(pass)) score++;
+    if (/[^A-Za-z0-9]/.test(pass)) score++;
+    return score;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,16 +88,39 @@ export default function RegisterPage() {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input type="password" required value={form.password} onChange={e => update('password', e.target.value)} className="input-field pl-9 text-sm" placeholder="Min 8 characters" />
+                  <input 
+                    type="password" 
+                    required 
+                    value={form.password} 
+                    onChange={e => {
+                        update('password', e.target.value);
+                        setPasswordStrength(calculateStrength(e.target.value));
+                    }} 
+                    className="input-field pl-9 text-sm" 
+                    placeholder="Min 8 characters" 
+                  />
                 </div>
+                {form.password && (
+                  <div className="mt-1.5 flex gap-1">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div 
+                        key={i} 
+                        className={`h-1 flex-1 rounded-full transition-colors ${i <= passwordStrength ? (passwordStrength <= 2 ? 'bg-red-400' : passwordStrength === 3 ? 'bg-yellow-400' : 'bg-green-500') : 'bg-gray-100'}`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <input type="password" required value={form.confirmPassword} onChange={e => update('confirmPassword', e.target.value)} className="input-field pl-9 text-sm" placeholder="Re-enter password" />
+                  <input type="password" required value={form.confirmPassword} onChange={e => update('confirmPassword', e.target.value)} className={`input-field pl-9 text-sm ${form.confirmPassword && form.password !== form.confirmPassword ? 'border-red-500' : ''}`} placeholder="Re-enter password" />
                 </div>
+                {form.confirmPassword && form.password !== form.confirmPassword && (
+                    <p className="text-[10px] text-red-500 mt-1 font-medium">Passwords do not match</p>
+                )}
               </div>
 
               <button type="submit" disabled={isLoading} className="btn-primary w-full !py-3.5 disabled:opacity-50">

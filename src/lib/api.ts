@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "https://aurgo-backend-1.onrender.com/api";
@@ -25,10 +26,12 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Response interceptor - handle auth errors
+// Response interceptor - handle errors
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    const message = error.response?.data?.error || error.message || "An unexpected error occurred";
+    
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
         localStorage.removeItem("augeo_token");
@@ -37,7 +40,12 @@ api.interceptors.response.use(
           window.location.href = "/auth/login";
         }
       }
+    } else if (error.response?.status === 403) {
+      toast.error("Access forbidden: " + message);
+    } else if (error.response?.status >= 500) {
+      toast.error("Server error: " + message);
     }
+    
     return Promise.reject(error);
   },
 );

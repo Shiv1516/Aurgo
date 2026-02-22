@@ -1,7 +1,136 @@
+"use client";
+
+import Link from "next/link";
+import { Receipt, Info, CheckCircle2, AlertCircle, Percent, Gavel, FileText } from "lucide-react";
+
 export default function Buyers() {
   return (
-    <div className="flex justify-center py-10">
-      this is page for the buyers premium
+    <div className="bg-white min-h-screen">
+      {/* Hero Section */}
+      <section className="py-24 bg-gray-50 border-b border-gray-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/4 h-full bg-gold/5 blur-[120px] rounded-full translate-x-1/2" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center gap-2 text-gold text-xs font-black uppercase tracking-[0.4em] mb-4">
+            <Percent className="h-3 w-3" /> Transparency Framework
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black text-dark tracking-tighter uppercase leading-none mb-6">
+            Buyers <span className="text-gold italic">Premium</span>
+          </h1>
+          <p className="text-gray-500 text-xl font-medium max-w-2xl italic leading-relaxed">
+            A comprehensive guide to our standardized fee structures, designed to maintain the Augeo platform's world-class operational integrity.
+          </p>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-12">
+            
+            {/* Left: Explanation */}
+            <div className="lg:col-span-2 space-y-12">
+               <div>
+                  <h2 className="text-3xl font-black text-dark tracking-tighter uppercase mb-6">What is a <span className="text-gold italic">Buyers Premium?</span></h2>
+                  <p className="text-gray-500 text-lg leading-relaxed font-medium italic mb-6">
+                    The Buyer's Premium is a standardized industry fee added to the "Hammer Price" of an asset. This premium directly funds our multi-stage authentication, global logistics infrastructure, and cryptographically secure settlement protocols.
+                  </p>
+                  <div className="p-8 bg-dark rounded-[2rem] text-white">
+                     <div className="flex items-center gap-4 mb-4">
+                        <Receipt className="h-6 w-6 text-gold" />
+                        <h3 className="text-xl font-black uppercase tracking-tight">Standard Formula</h3>
+                     </div>
+                     <p className="text-gray-400 font-medium text-lg leading-relaxed">
+                        Total Payable = Hammer Price + (Hammer Price × Premium Rate) + Applicable Taxes & Logistics
+                     </p>
+                  </div>
+               </div>
+
+               {/* Fee Tiers */}
+               <div>
+                  <h2 className="text-2xl font-black text-dark tracking-tighter uppercase mb-8">Premium <span className="text-gold italic">Schedules</span></h2>
+                  <div className="overflow-hidden rounded-[2rem] border border-gray-100 shadow-xl shadow-black/5">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-gray-50">
+                          <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Asset Class</th>
+                          <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Price Threshold</th>
+                          <th className="p-6 text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-100">Premium Rate</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50">
+                        {[
+                          { class: "Fine Art & Classics", threshold: "Up to $100,000", rate: "15%" },
+                          { class: "Fine Art & Classics", threshold: "Above $100,000", rate: "12%" },
+                          { class: "Rare Horology", threshold: "Any Limit", rate: "18%" },
+                          { class: "Investment Spirits", threshold: "Any Limit", rate: "15%" },
+                          { class: "Digital Assets", threshold: "High Velocity", rate: "2.5%" },
+                        ].map((row, i) => (
+                          <tr key={i} className="hover:bg-gray-50/50 transition-colors">
+                            <td className="p-6 font-bold text-dark text-sm">{row.class}</td>
+                            <td className="p-6 text-gray-500 text-sm">{row.threshold}</td>
+                            <td className="p-6 font-black text-gold">{row.rate}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+               </div>
+            </div>
+
+            {/* Right: Sidebar Info */}
+            <div className="space-y-8">
+               <div className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100">
+                  <h3 className="text-xl font-black text-dark mb-6 uppercase tracking-tight">Key Provisions</h3>
+                  <div className="space-y-6">
+                    {[
+                      { icon: CheckCircle2, text: "All premiums are settled in the final invoice." },
+                      { icon: AlertCircle, text: "Rates are subject to specific lot notations." },
+                      { icon: Gavel, text: "The premium is legally part of the final contract." },
+                      { icon: FileText, text: "Institutional tax forms provided automatically." }
+                    ].map((item, i) => (
+                      <div key={i} className="flex gap-3">
+                        <item.icon className="h-5 w-5 text-gold flex-shrink-0" />
+                        <p className="text-xs text-gray-500 font-bold leading-relaxed">{item.text}</p>
+                      </div>
+                    ))}
+                  </div>
+               </div>
+
+               <div className="p-8 bg-gold rounded-[2.5rem] shadow-xl shadow-gold/20 flex flex-col items-center text-center">
+                  <div className="h-16 w-16 bg-white/20 rounded-full flex items-center justify-center mb-6">
+                    <Info className="h-8 w-8 text-dark" />
+                  </div>
+                  <h3 className="text-lg font-black text-dark mb-4 uppercase tracking-tight">Logistical Surcharge</h3>
+                  <p className="text-sm text-dark/70 font-bold italic mb-6">
+                    Note: Premiums do not include shipping, insurance, or import duties.
+                  </p>
+                  <Link href="/pages/shipping-taxes" className="text-[10px] font-black text-dark uppercase tracking-widest underline decoration-2 underline-offset-4">
+                    View Logistics Guide
+                  </Link>
+               </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-4xl font-black text-dark tracking-tighter uppercase mb-8">Execute with <span className="text-gold italic">Confidence</span></h2>
+          <p className="text-gray-500 text-lg mb-12 font-medium italic">
+            Institutional-grade transparency for every acquisition.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-6">
+             <Link href="/auctions" className="btn-primary !px-12 !py-4 uppercase tracking-widest font-black text-xs">
+                Browse Live Assets
+             </Link>
+             <Link href="/pages/how-it-works" className="px-12 py-4 border border-gray-200 hover:border-gold rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+                The Bidding Protocol
+             </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

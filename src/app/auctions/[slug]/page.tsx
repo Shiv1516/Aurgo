@@ -1,4 +1,5 @@
 "use client";
+import { Socket } from "socket.io-client";
 
 import { useState, useEffect } from "react";
 import { useParams, useSearchParams } from "next/navigation";
@@ -61,7 +62,31 @@ export default function AuctionDetailPage() {
 
   useEffect(() => {
     if (auction?._id) {
-      joinAuction(auction._id);
+      const socket = joinAuction(auction._id);
+      
+      socket.on('bid:new', (data: any) => {
+        // Update the lot in the auction's lots array
+        setAuction(prev => {
+          if (!prev || !prev.lots) return prev;
+          const updatedLots = prev.lots.map(l => {
+            if (l._id === data.lotId) {
+              return { ...l, currentBid: data.amount, totalBids: data.totalBids };
+            }
+            return l;
+          });
+          return { ...prev, lots: updatedLots };
+        });
+
+        // Update selectedLot if it's the one that received the bid
+        if (selectedLot && selectedLot._id === data.lotId) {
+          setSelectedLot(prev => prev ? { ...prev, currentBid: data.amount, totalBids: data.totalBids } : null);
+          setBidHistory(prev => [data, ...prev].slice(0, 50));
+        }
+
+        // Update global auction stats if needed
+        setAuction(prev => prev ? { ...prev, totalBids: (prev.totalBids || 0) + 1 } : null);
+      });
+
       if (isAuthenticated) {
         watchlistAPI
           .check(auction._id)
@@ -73,9 +98,10 @@ export default function AuctionDetailPage() {
       }
       return () => {
         leaveAuction(auction._id);
+        socket.off('bid:new');
       };
     }
-  }, [auction?._id, isAuthenticated]);
+  }, [auction?._id, isAuthenticated, selectedLot?._id]);
 
   useEffect(() => {
     if (selectedLot) {

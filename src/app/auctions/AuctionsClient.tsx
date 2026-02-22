@@ -29,8 +29,11 @@ export default function AuctionsPage() {
   useEffect(() => {
     categoryAPI
       .getAll()
-      .then((res) => setCategories(res.data.data || []))
-      .catch(() => {});
+      .then((res) => {
+          if (res.data.data?.length > 0) setCategories(res.data.data);
+          else setCategories([]);
+      })
+      .catch(() => setCategories([]));
   }, []);
 
   useEffect(() => {
@@ -43,10 +46,18 @@ export default function AuctionsPage() {
     auctionAPI
       .getAll(params)
       .then((res) => {
-        setAuctions(res.data.data || []);
-        setPagination(res.data.pagination || { page: 1, pages: 1, total: 0 });
+        if (res.data.data?.length > 0) {
+            setAuctions(res.data.data);
+            setPagination(res.data.pagination || { page: 1, pages: 1, total: 0 });
+        } else {
+            setAuctions([]);
+            setPagination({ page: 1, pages: 1, total: 0 });
+        }
       })
-      .catch(() => {})
+      .catch(() => {
+          setAuctions([]);
+          setPagination({ page: 1, pages: 1, total: 0 });
+      })
       .finally(() => setIsLoading(false));
   }, [filters]);
 

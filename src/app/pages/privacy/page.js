@@ -1,3 +1,117 @@
+"use client";
+
+import Link from "next/link";
+import { Shield, Eye, Lock, Database, Globe, ChevronRight, UserCheck } from "lucide-react";
+
 export default function Privacy() {
-  return <div className="flex justify-center py-10">this is privacy page</div>;
+  return (
+    <div className="bg-white min-h-screen">
+      {/* Header Section */}
+      <section className="py-24 bg-dark text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-gold/5 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex items-center gap-2 text-gold text-xs font-black uppercase tracking-[0.4em] mb-4">
+            <Lock className="h-3 w-3" /> Data Sovereignty
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none mb-6">
+            Privacy <span className="text-gold italic">Policy</span>
+          </h1>
+          <p className="text-gray-400 text-xl font-medium max-w-2xl italic leading-relaxed">
+            Our commitment to the cryptographic protection and absolute privacy of your identity and asset data.
+          </p>
+          <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest mt-8">Effective: February 2026</p>
+        </div>
+      </section>
+
+      {/* Content Section */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-3 gap-16">
+            
+            {/* Main Legal Text */}
+            <div className="lg:col-span-2 space-y-12">
+               <div>
+                  <h2 className="text-3xl font-black text-dark tracking-tighter uppercase mb-6 flex items-center gap-4">
+                     <Shield className="h-8 w-8 text-gold" /> Data Collection
+                  </h2>
+                  <p className="text-gray-500 font-medium leading-relaxed mb-6">
+                    In order to facilitate high-value acquisitions, Augeo collects essential identity packets during the Trust Clearance phase. This includes government-issued identification, biometric liveness data, and certified proof of residency.
+                  </p>
+                  <div className="bg-gray-50 p-8 rounded-[2rem] border border-gray-100">
+                     <h3 className="text-sm font-black text-dark uppercase tracking-widest mb-4">The "Zero-Leach" Guarantee</h3>
+                     <p className="text-xs text-gray-400 leading-relaxed italic">
+                       We do not sell, rent, or trade your personal data to third-party marketing entities. Your data exists only to ensure the security of the auction ecosystem.
+                     </p>
+                  </div>
+               </div>
+
+               <div>
+                  <h2 className="text-3xl font-black text-dark tracking-tighter uppercase mb-6 flex items-center gap-4">
+                     <Database className="h-8 w-8 text-gold" /> Storage & Retention
+                  </h2>
+                  <p className="text-gray-500 font-medium leading-relaxed">
+                    Identity data is stored in air-gapped, encrypted environments using AES-256 Bit standards. We retain your data only as long as required for jurisdictional compliance and to maintain your Guild Membership status.
+                  </p>
+               </div>
+
+               <div>
+                  <h2 className="text-3xl font-black text-dark tracking-tighter uppercase mb-6 flex items-center gap-4">
+                     <Globe className="h-8 w-8 text-gold" /> Cookie Protocol
+                  </h2>
+                  <p className="text-gray-500 font-medium leading-relaxed">
+                    Augeo uses essential session cookies to maintain your login status and ensure the stability of real-time bidding sockets. We do not use intrusive tracking or behavioral profiling scripts.
+                  </p>
+               </div>
+            </div>
+
+            {/* Sidebar Highlights */}
+            <div className="space-y-8">
+               <div className="p-8 bg-gray-50 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-black/5">
+                  <h3 className="text-xl font-black text-dark mb-6 uppercase tracking-tight">Privacy FAQ</h3>
+                  <div className="space-y-6">
+                    {[
+                      { q: "Is my data encrypted?", a: "Yes, 100% of identity packets are pre-encrypted before storage." },
+                      { q: "Who can see my bids?", a: "Only your Guild Rank is visible. Your real identity remains hidden." },
+                      { q: "Can I delete my data?", a: "Yes, per GDPR/CCPA protocols, barring active financial commitments." }
+                    ].map((item, i) => (
+                      <div key={i} className="space-y-2">
+                        <p className="text-xs font-black text-gold uppercase tracking-widest">{item.q}</p>
+                        <p className="text-xs text-gray-500 font-bold leading-relaxed">{item.a}</p>
+                      </div>
+                    ))}
+                  </div>
+               </div>
+
+               <div className="p-10 bg-dark rounded-[2.5rem] text-white flex flex-col items-center text-center">
+                  <UserCheck className="h-12 w-12 text-gold mb-6" />
+                  <h3 className="text-lg font-black uppercase tracking-tight mb-4">Trust Verified</h3>
+                  <p className="text-xs text-gray-400 font-medium italic mb-6">
+                    Our privacy framework is audited quarterly by leading cybersecurity agencies.
+                  </p>
+                  <Link href="/pages/authentication-process" className="text-[10px] font-black text-gold uppercase tracking-widest underline decoration-2 underline-offset-4">
+                    View Verification Journey
+                  </Link>
+               </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Footer CTA */}
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-4xl font-black text-dark tracking-tighter uppercase mb-8 leading-tight">
+            Security <span className="text-gold italic">Matters</span>
+          </h2>
+          <p className="text-gray-500 text-lg mb-12 font-medium italic">
+            For specific data access requests or privacy inquiries, please contact our Compliance Officer.
+          </p>
+          <Link href="/pages/contact" className="btn-primary !px-12 !py-4 uppercase tracking-widest font-black text-xs">
+             Contact Compliance
+          </Link>
+        </div>
+      </section>
+    </div>
+  );
 }

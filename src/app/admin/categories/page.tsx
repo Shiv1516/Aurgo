@@ -117,7 +117,7 @@ export default function AdminCategoriesPage() {
               </thead>
               <tbody className="divide-y">
                 {categories.map((cat, idx) => (
-                  <tr key={cat._id} className="hover:bg-gray-50">
+                  <tr key={cat._id} className="hover:bg-gray-50 whitespace-nowrap">
                     <td className="px-4 py-3 text-gray-400"><GripVertical className="h-4 w-4 inline" /> {cat.displayOrder || idx + 1}</td>
                     <td className="px-4 py-3 font-medium">{cat.name}</td>
                     <td className="px-4 py-3 text-gray-500">{cat.slug}</td>

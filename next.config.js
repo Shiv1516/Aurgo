@@ -8,6 +8,16 @@ const nextConfig = {
         port: "5000",
         pathname: "/uploads/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "aurgo-backend-1.onrender.com",
+        pathname: "/uploads/**",
+      },
     ],
   },
   env: {

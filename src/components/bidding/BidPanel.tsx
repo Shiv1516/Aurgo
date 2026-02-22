@@ -24,9 +24,10 @@ export default function BidPanel({ lot, auctionEndTime, auctionStatus, onBidPlac
   const [showAutoBid, setShowAutoBid] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmation, setShowConfirmation] = useState(false);
-  const [currentBid, setCurrentBid] = useState(lot.currentBid);
-  const [totalBids, setTotalBids] = useState(lot.totalBids);
-  const [recentBids, setRecentBids] = useState<any[]>([]);
+
+  // We now rely on lot props which are updated by the parent via Sockets
+  const currentBid = lot.currentBid;
+  const totalBids = lot.totalBids;
 
   const minimumBid = getMinimumBid(currentBid, lot.startingBid, lot.bidIncrement);
   const isLive = auctionStatus === 'live';
@@ -35,23 +36,6 @@ export default function BidPanel({ lot, auctionEndTime, auctionStatus, onBidPlac
   useEffect(() => {
     setBidAmount(minimumBid.toString());
   }, [minimumBid]);
-
-  // Listen for real-time bid updates
-  useEffect(() => {
-    const socket = getSocket();
-
-    socket.on('bid:new', (data: any) => {
-      if (data.lotId === lot._id) {
-        setCurrentBid(data.amount);
-        setTotalBids(data.totalBids);
-        setRecentBids(prev => [data, ...prev].slice(0, 5));
-      }
-    });
-
-    return () => {
-      socket.off('bid:new');
-    };
-  }, [lot._id]);
 
   const handleBidSubmit = async () => {
     if (!isAuthenticated) {
@@ -230,21 +214,6 @@ export default function BidPanel({ lot, auctionEndTime, auctionStatus, onBidPlac
           </div>
         )}
       </div>
-
-      {/* Recent bids */}
-      {recentBids.length > 0 && (
-        <div className="border-t border-gray-100 px-4 py-3">
-          <h4 className="text-xs font-semibold text-gray-500 uppercase mb-2">Recent Activity</h4>
-          <div className="space-y-1.5">
-            {recentBids.map((bid, i) => (
-              <div key={i} className="flex items-center justify-between text-sm animate-slide-up">
-                <span className="text-gray-600">Bidder ***{bid.bidderName?.slice(-3) || '***'}</span>
-                <span className="font-semibold">{formatCurrency(bid.amount)}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Confirmation modal */}
       {showConfirmation && (

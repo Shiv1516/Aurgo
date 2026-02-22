@@ -204,30 +204,40 @@ export default function AdminSettingsPage() {
                     {formatLabel(key)}
                   </label>
                   {isBool ? (
-                    <div className="flex items-center gap-3">
-                      <button
-                        onClick={() =>
-                          setEditedSettings({
-                            ...editedSettings,
-                            [key]:
-                              editedSettings[key] === "true" ||
-                              editedSettings[key] === true
-                                ? "false"
-                                : "true",
-                          })
-                        }
-                        className={`relative w-12 h-6 rounded-full transition-colors ${value === "true" || value === true ? "bg-gold" : "bg-gray-300"}`}
-                      >
-                        <span
-                          className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${value === "true" || value === true ? "translate-x-6" : "translate-x-0.5"}`}
-                        />
-                      </button>
-                      <span className="text-sm text-gray-600">
-                        {value === "true" || value === true
-                          ? "Enabled"
-                          : "Disabled"}
-                      </span>
-                    </div>
+                      <div className="flex items-center gap-4">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setEditedSettings({
+                              ...editedSettings,
+                              [key]:
+                                editedSettings[key] === "true" ||
+                                editedSettings[key] === true
+                                  ? "false"
+                                  : "true",
+                            })
+                          }
+                          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gold/20 ${
+                            value === "true" || value === true
+                              ? "bg-gold"
+                              : "bg-gray-200"
+                          }`}
+                        >
+                          <span
+                            aria-hidden="true"
+                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                              value === "true" || value === true
+                                ? "translate-x-5"
+                                : "translate-x-0"
+                            }`}
+                          />
+                        </button>
+                        <span className="text-sm font-medium text-gray-600 min-w-[60px]">
+                          {value === "true" || value === true
+                            ? "Enabled"
+                            : "Disabled"}
+                        </span>
+                      </div>
                   ) : (
                     <input
                       type="text"

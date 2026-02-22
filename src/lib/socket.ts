@@ -5,9 +5,9 @@ const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'https://aurgo-backend-
 let socket: Socket | null = null;
 
 export const getSocket = (): Socket => {
-  if (!socket) {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('augeo_token') : null;
+  const token = typeof window !== 'undefined' ? localStorage.getItem('augeo_token') : null;
 
+  if (!socket) {
     socket = io(SOCKET_URL, {
       auth: { token },
       transports: ['websocket', 'polling'],
@@ -27,6 +27,11 @@ export const getSocket = (): Socket => {
     socket.on('connect_error', (error) => {
       console.error('Socket connection error:', error.message);
     });
+  } else if (socket.auth && (socket.auth as any).token !== token) {
+    // Update token if it has changed
+    socket.auth = { token };
+    socket.disconnect().connect();
+    console.log('Socket reconnected with new token');
   }
 
   return socket;
@@ -39,19 +44,22 @@ export const disconnectSocket = () => {
   }
 };
 
-export const joinAuction = (auctionId: string) => {
+export const joinAuction = (auctionId: string): Socket => {
   const s = getSocket();
   s.emit('auction:join', auctionId);
+  return s;
 };
 
-export const leaveAuction = (auctionId: string) => {
+export const leaveAuction = (auctionId: string): Socket => {
   const s = getSocket();
   s.emit('auction:leave', auctionId);
+  return s;
 };
 
-export const joinUserRoom = (userId: string) => {
+export const joinUserRoom = (userId: string): Socket => {
   const s = getSocket();
   s.emit('user:join', userId);
+  return s;
 };
 
 export default getSocket;

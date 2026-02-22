@@ -1,10 +1,10 @@
-'use client';
+"use client";
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { bidAPI } from '@/lib/api';
 import { formatCurrency, timeAgo } from '@/lib/utils';
 import { PageLoader } from '@/components/common/LoadingSpinner';
-import { Gavel } from 'lucide-react';
+import { Gavel, TrendingUp, TrendingDown, Target, Eye } from 'lucide-react';
 
 const tabs = ['all', 'winning', 'outbid', 'won', 'lost'];
 
@@ -20,43 +20,108 @@ export default function BidsPage() {
     bidAPI.getMyBids(params).then(res => setBids(res.data.data || [])).catch(() => {}).finally(() => setIsLoading(false));
   }, [activeTab]);
 
-  const statusColor = (s: string) => {
-    switch (s) { case 'winning': return 'bg-green-100 text-green-700'; case 'outbid': return 'bg-red-100 text-red-700'; case 'won': return 'bg-green-200 text-green-800'; case 'lost': return 'bg-gray-100 text-gray-700'; default: return 'bg-blue-100 text-blue-700'; }
+  const statusStyle = (s: string) => {
+    switch (s) { 
+      case 'winning': return 'bg-green-50 text-green-600 border-green-100'; 
+      case 'outbid': return 'bg-rose-50 text-rose-600 border-rose-100'; 
+      case 'won': return 'bg-gold/10 text-gold border-gold/20'; 
+      case 'lost': return 'bg-gray-50 text-gray-400 border-gray-100'; 
+      default: return 'bg-blue-50 text-blue-600 border-blue-100'; 
+    }
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-heading font-bold text-dark mb-6">My Bids</h1>
-      <div className="flex gap-2 mb-6 overflow-x-auto">
-        {tabs.map(tab => (
-          <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-lg text-sm font-medium capitalize whitespace-nowrap ${activeTab === tab ? 'bg-gold text-white' : 'bg-white border text-gray-600 hover:bg-gray-50'}`}>{tab}</button>
-        ))}
+    <div className="space-y-8 animate-fade-in">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h1 className="text-3xl font-black text-dark tracking-tight uppercase">High-Stakes Activity</h1>
+          <p className="text-gray-400 text-sm font-bold uppercase tracking-widest mt-1">Live Bidding & Acquisition Feed</p>
+        </div>
+        
+        <div className="flex bg-gray-50 p-1.5 rounded-2xl border border-gray-100/50">
+          {tabs.map(tab => (
+            <button 
+              key={tab} 
+              onClick={() => setActiveTab(tab)} 
+              className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                activeTab === tab ? 'bg-dark text-gold shadow-lg shadow-black/10' : 'text-gray-400 hover:text-dark'
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
       </div>
-      {isLoading ? <PageLoader /> : bids.length === 0 ? (
-        <div className="text-center py-16 card"><Gavel className="h-12 w-12 text-gray-300 mx-auto mb-4" /><p className="text-gray-500">No bids found</p></div>
-      ) : (
-        <div className="card overflow-hidden">
+
+      <div className="bg-white rounded-[2.5rem] p-8 shadow-2xl shadow-black/[0.03] border border-white">
+        {isLoading ? <PageLoader /> : bids.length === 0 ? (
+          <div className="py-20 text-center opacity-50">
+            <div className="h-20 w-20 bg-gray-50 rounded-[2rem] flex items-center justify-center mx-auto mb-6">
+              <Gavel className="h-10 w-10 text-gray-200" />
+            </div>
+            <p className="text-sm font-black text-gray-400 uppercase tracking-widest">No Active Engagements</p>
+          </div>
+        ) : (
           <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead><tr className="table-header"><th className="px-4 py-3">Lot</th><th className="px-4 py-3">Auction</th><th className="px-4 py-3">Your Bid</th><th className="px-4 py-3">Current</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Time</th></tr></thead>
-              <tbody>
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-gray-100">
+                  <th className="pb-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Asset</th>
+                  <th className="pb-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Sphere</th>
+                  <th className="pb-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Engagement</th>
+                  <th className="pb-4 text-[10px] font-black uppercase tracking-widest text-gray-400">Status</th>
+                  <th className="pb-4 text-right text-[10px] font-black uppercase tracking-widest text-gray-400">Dossier</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
                 {bids.map((bid: any) => (
-                  <tr key={bid._id} className="border-t border-gray-50 hover:bg-gray-50">
-                    <td className="px-4 py-3 text-sm font-medium">{bid.lot?.title || 'Lot'}</td>
-                    <td className="px-4 py-3 text-sm text-gray-500">
-                      {bid.auction?.slug ? <Link href={`/auctions/${bid.auction.slug}`} className="text-gold hover:underline">{bid.auction.title}</Link> : bid.auction?.title}
+                  <tr key={bid._id} className="group hover:bg-gray-50/50 transition-colors">
+                    <td className="py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="h-12 w-12 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100">
+                          <img src={bid.lot?.images?.[0] || 'https://images.unsplash.com/photo-1544441893-675973e31985'} className="w-full h-full object-cover" alt="" />
+                        </div>
+                        <div>
+                          <p className="text-xs font-black text-dark uppercase line-clamp-1">{bid.lot?.title || 'Lot Asset'}</p>
+                          <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Lot {bid.lot?.lotNumber}</p>
+                        </div>
+                      </div>
                     </td>
-                    <td className="px-4 py-3 text-sm font-bold">{formatCurrency(bid.amount)}</td>
-                    <td className="px-4 py-3 text-sm">{bid.lot?.currentBid ? formatCurrency(bid.lot.currentBid) : '-'}</td>
-                    <td className="px-4 py-3"><span className={`text-xs px-2.5 py-1 rounded-full font-medium ${statusColor(bid.status)}`}>{bid.status}</span></td>
-                    <td className="px-4 py-3 text-xs text-gray-500">{timeAgo(bid.createdAt)}</td>
+                    <td className="py-6">
+                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest mb-1">Collection</p>
+                      <Link href={`/auctions/${bid.auction?.slug}`} className="text-[10px] font-black text-gold uppercase hover:underline">
+                        {bid.auction?.title}
+                      </Link>
+                    </td>
+                    <td className="py-6">
+                      <div className="flex items-center gap-2">
+                        <Target className="h-3 w-3 text-gold" />
+                        <p className="text-sm font-black text-dark">{formatCurrency(bid.amount)}</p>
+                      </div>
+                      <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Your Commitment</p>
+                    </td>
+                    <td className="py-6">
+                      <span className={`text-[9px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest border ${statusStyle(bid.status)} inline-flex items-center gap-1.5`}>
+                        {bid.status === 'winning' && <TrendingUp className="h-2.5 w-2.5" />}
+                        {bid.status === 'outbid' && <TrendingDown className="h-2.5 w-2.5" />}
+                        {bid.status}
+                      </span>
+                    </td>
+                    <td className="py-6 text-right">
+                      <Link 
+                        href={`/auctions/${bid.auction?.slug}`}
+                        className="p-2.5 bg-gray-50 text-dark hover:bg-dark hover:text-gold rounded-xl transition-all inline-flex opacity-0 group-hover:opacity-100 shadow-xl shadow-black/5"
+                      >
+                        <Eye className="h-4 w-4" />
+                      </Link>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
