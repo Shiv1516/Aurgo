@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import TermsPopup from "@/components/common/TermsPopup";
 
 export const metadata: Metadata = {
   title: "Augeo - Premium Auction Platform",
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col">
         <Providers>
           <Header />
+          <TermsPopup />
           {children}
           <Footer />
           <Toaster
