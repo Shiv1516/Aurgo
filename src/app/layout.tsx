@@ -11,6 +11,28 @@ export const metadata: Metadata = {
   description:
     "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, jewelry, and more from world-class auction houses.",
   keywords: "auction, bidding, fine art, collectibles, luxury, auction house",
+  metadataBase: new URL("https://augeo.auction"),
+  openGraph: {
+    title: "Augeo - Premium Auction Platform",
+    description: "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, jewelry, and more.",
+    url: "https://augeo.auction",
+    siteName: "Augeo",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Augeo - Premium Auction Platform",
+    description: "Discover extraordinary items at premium auctions.",
+    images: ["/og-image.jpg"],
+  },
 };
 
 export default function RootLayout({

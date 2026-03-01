@@ -51,6 +51,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   loadUser: async () => {
+    if (typeof window === 'undefined') return;
     const token = localStorage.getItem('augeo_token');
     if (!token) {
       set({ isLoading: false, isAuthenticated: false });
@@ -60,8 +61,10 @@ export const useAuthStore = create<AuthState>((set) => ({
       const res = await authAPI.getMe();
       set({ user: res.data.data, isAuthenticated: true, isLoading: false, token });
     } catch {
-      localStorage.removeItem('augeo_token');
-      localStorage.removeItem('augeo_user');
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('augeo_token');
+        localStorage.removeItem('augeo_user');
+      }
       set({ user: null, token: null, isAuthenticated: false, isLoading: false });
     }
   },

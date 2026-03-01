@@ -24,7 +24,7 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
               src={
                 mainImage.startsWith("http")
                   ? mainImage
-                  : `https://aurgo-backend-1.onrender.com${mainImage}`
+                  : `${process.env.NEXT_PUBLIC_BACKEND_URL}${mainImage}`
               }
               alt={lot.title}
               fill

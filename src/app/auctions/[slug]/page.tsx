@@ -272,7 +272,7 @@ export default function AuctionDetailPage() {
                               "http",
                             )
                               ? selectedLot.images[selectedImage].url
-                              : `https://aurgo-backend-1.onrender.com${selectedLot.images[selectedImage].url}`
+                              : `${process.env.NEXT_PUBLIC_BACKEND_URL}${selectedLot.images[selectedImage].url}`
                           }
                           alt={selectedLot.title}
                           fill
@@ -296,7 +296,7 @@ export default function AuctionDetailPage() {
                               src={
                                 img.url.startsWith("http")
                                   ? img.url
-                                  : `https://aurgo-backend-1.onrender.com${img.url}`
+                                  : `${process.env.NEXT_PUBLIC_BACKEND_URL}${img.url}`
                               }
                               alt=""
                               width={64}

@@ -26,7 +26,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
               src={
                 auction.coverImage.startsWith("http")
                   ? auction.coverImage
-                  : `https://aurgo-backend-1.onrender.com${auction.coverImage}`
+                  : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`
               }
               alt={auction.title}
               fill

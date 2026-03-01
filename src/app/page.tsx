@@ -144,7 +144,7 @@ export default function HomePage() {
                     {liveAuctions.slice(0, 2).map((a, i) => (
                       <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/5">
                         <div className="h-16 w-16 rounded-xl bg-gray-800 overflow-hidden relative">
-                           {a.coverImage && <Image src={a.coverImage.startsWith('http') ? a.coverImage : `https://aurgo-backend-1.onrender.com${a.coverImage}`} alt="" fill className="object-cover" />}
+                           {a.coverImage && <Image src={a.coverImage.startsWith('http') ? a.coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL}${a.coverImage}`} alt="" fill className="object-cover" />}
                         </div>
                         <div className="flex-grow">
                            <div className="text-white font-bold text-sm truncate max-w-[150px]">{a.title}</div>

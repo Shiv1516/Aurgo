@@ -1,12 +1,12 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://aurgo-backend-1.onrender.com/api";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
+  timeout: 15000, // 15 second timeout for production resilience
   headers: {
     "Content-Type": "application/json",
   },

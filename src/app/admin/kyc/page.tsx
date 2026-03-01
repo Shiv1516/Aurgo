@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import { adminAPI } from "@/lib/api";
 import { formatDate } from "@/lib/utils";
@@ -271,7 +272,7 @@ export default function AdminKYCPage() {
                         </div>
                         {doc.url && (
                           <a
-                            href={`${process.env.NEXT_PUBLIC_API_URL}/${doc.url}`}
+                            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${doc.url}`}
                             target="_blank"
                             className="p-2 hover:bg-gray-200 rounded"
                           >

@@ -1,8 +1,7 @@
 "use client";
+export const dynamic = "force-dynamic";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import { orderAPI, paymentAPI } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
@@ -10,13 +9,20 @@ import { formatCurrency } from "@/lib/utils";
 import toast from "react-hot-toast";
 import { CreditCard, Shield, CheckCircle, MapPin } from "lucide-react";
 
+
+import CheckoutForm from "@/components/common/CheckoutForm";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
+
 export default function CheckoutPage() {
   const params = useParams();
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
   const [order, setOrder] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isPaying, setIsPaying] = useState(false);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [selectedAddress, setSelectedAddress] = useState(0);
 
   useEffect(() => {
@@ -31,22 +37,31 @@ export default function CheckoutPage() {
       .finally(() => setIsLoading(false));
   }, [params.orderId, isAuthenticated, router]);
 
-  const handlePayment = async () => {
-    setIsPaying(true);
+  const initiatePayment = async () => {
     try {
-      const address = user?.addresses?.[selectedAddress];
-      if (address) {
-        await orderAPI.getById(order._id); // Ensure we have latest
+      // Mock mode if Stripe keys are placeholders
+      const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+      const isPlaceholder = !publishableKey || 
+                           publishableKey.includes("your_stripe") || 
+                           publishableKey === "pk_test_placeholder";
+
+      if (isPlaceholder) {
+        console.log('Using mock payment flow due to placeholder/missing publishable key');
+        // Bypass intent creation and confirm immediately
+        await paymentAPI.confirmPayment(order._id, 'pi_mock_' + Date.now());
+        handlePaymentSuccess();
+        return;
       }
+
       const res = await paymentAPI.createPaymentIntent(order._id);
-      // In production, use Stripe Elements here
-      toast.success("Payment initiated! Redirecting...");
-      setTimeout(() => router.push(`/dashboard/orders/${order._id}`), 2000);
+      setClientSecret(res.data.clientSecret);
     } catch (error: any) {
-      toast.error(error.response?.data?.error || "Payment failed");
-    } finally {
-      setIsPaying(false);
+      toast.error(error.response?.data?.error || "Failed to initiate payment");
     }
+  };
+
+  const handlePaymentSuccess = () => {
+    router.push(`/dashboard/orders/${order._id}?success=true`);
   };
 
   if (isLoading)
@@ -55,13 +70,12 @@ export default function CheckoutPage() {
         <PageLoader />
       </>
     );
+
   if (!order)
     return (
-      <>
-        <div className="min-h-[60vh] flex items-center justify-center">
-          <p className="text-gray-500">Order not found</p>
-        </div>
-      </>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <p className="text-gray-500">Order not found</p>
+      </div>
     );
 
   return (
@@ -119,26 +133,39 @@ export default function CheckoutPage() {
               <h3 className="font-heading font-semibold text-lg mb-4 flex items-center gap-2">
                 <CreditCard className="h-5 w-5 text-gold" /> Payment
               </h3>
-              <div className="bg-gray-50 rounded-lg p-4 mb-4">
-                <p className="text-sm text-gray-600">
-                  Secure payment powered by Stripe. Your payment information is
-                  encrypted and never stored on our servers.
-                </p>
-              </div>
-              <button
-                onClick={handlePayment}
-                disabled={isPaying || order.paymentStatus === "paid"}
-                className="btn-primary w-full !py-4 text-lg disabled:opacity-50"
-              >
-                {order.paymentStatus === "paid"
-                  ? "Already Paid"
-                  : isPaying
-                    ? "Processing..."
-                    : `Pay ${formatCurrency(order.totalAmount)}`}
-              </button>
-              <p className="text-xs text-center text-gray-500 mt-2 flex items-center justify-center gap-1">
-                <Shield className="h-3 w-3" /> Secure & encrypted payment
-              </p>
+
+              {order.paymentStatus === "paid" ? (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3">
+                  <CheckCircle className="h-6 w-6 text-green-600" />
+                  <div>
+                    <p className="font-bold text-green-700">Payment Complete</p>
+                    <p className="text-sm text-green-600">This order has already been paid for.</p>
+                  </div>
+                </div>
+              ) : clientSecret ? (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <CheckoutForm
+                    orderId={order._id}
+                    totalAmount={order.totalAmount}
+                    onSuccess={handlePaymentSuccess}
+                  />
+                </Elements>
+              ) : (
+                <div className="space-y-4">
+                  <div className="bg-gray-50 rounded-lg p-4">
+                    <p className="text-sm text-gray-600">
+                      Secure payment powered by Stripe. Your payment information
+                      is encrypted and never stored on our servers.
+                    </p>
+                  </div>
+                  <button
+                    onClick={initiatePayment}
+                    className="btn-primary w-full !py-4 text-lg"
+                  >
+                    Proceed to Payment
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
