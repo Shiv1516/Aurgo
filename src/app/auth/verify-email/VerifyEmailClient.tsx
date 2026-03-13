@@ -28,7 +28,7 @@ export default function VerifyEmailClient() {
       <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 text-center">
         {status === "loading" && (
           <>
-            <Loader2 className="h-16 w-16 text-gold animate-spin mx-auto mb-4" />
+            <Loader2 className="h-16 w-16 text-burgundy animate-spin mx-auto mb-4" />
             <p>Verifying your email...</p>
           </>
         )}

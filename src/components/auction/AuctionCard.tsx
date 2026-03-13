@@ -1,123 +1,139 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { Auction } from "@/types";
 import { formatCurrency, formatDate, getAuctionStatusColor } from "@/lib/utils";
+import { watchlistAPI } from "@/lib/api";
+import { useAuthStore } from "@/store/authStore";
 import CountdownTimer from "@/components/common/CountdownTimer";
-import { Calendar, MapPin, Layers, Eye, Gavel, ChevronRight } from "lucide-react";
+import { Calendar, MapPin, Layers, Eye, Gavel, ChevronRight, Package, Clock, Heart } from "lucide-react";
 
 interface AuctionCardProps {
   auction: Auction;
 }
 
 export default function AuctionCard({ auction }: AuctionCardProps) {
+  const { isAuthenticated } = useAuthStore();
+  const [isWatched, setIsWatched] = useState(false);
+  const [watchlistId, setWatchlistId] = useState<string | null>(null);
+  const [isWatching, setIsWatching] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      watchlistAPI.check(auction._id).then(res => {
+        if (res.data.isWatched) {
+          setIsWatched(true);
+          setWatchlistId(res.data.watchlistId);
+        }
+      }).catch(() => {});
+    }
+  }, [auction._id, isAuthenticated]);
+
+  const toggleWatchlist = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isAuthenticated) {
+      toast.error("Please sign in to add to watchlist");
+      return;
+    }
+
+    setIsWatching(true);
+    try {
+      if (isWatched && watchlistId) {
+        await watchlistAPI.remove(watchlistId);
+        setIsWatched(false);
+        setWatchlistId(null);
+        toast.success("Removed from watchlist");
+      } else {
+        const res = await watchlistAPI.add({ auctionId: auction._id });
+        setIsWatched(true);
+        setWatchlistId(res.data.data._id);
+        toast.success("Added to watchlist");
+      }
+    } catch (error) {
+      toast.error("Failed to update watchlist");
+    } finally {
+      setIsWatching(false);
+    }
+  };
+
   const isLive = auction.status === "live";
   const isScheduled = auction.status === "scheduled";
   const isHot = (auction.totalBids || 0) > 10 || (auction.viewCount || 0) > 50;
 
   return (
     <Link href={`/auctions/${auction.slug}`}>
-      <div className="card group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-none bg-white overflow-hidden rounded-2xl">
-        {/* Image Section */}
-        <div className="relative aspect-[16/10] overflow-hidden">
+      <div className="card group min-h-[450px] flex flex-col">
+        {/* Main Cover Image */}
+        <div className="relative aspect-[4/3] w-full bg-navy overflow-hidden shrink-0">
           {auction.coverImage ? (
             <Image
-              src={
-                auction.coverImage.startsWith("http")
-                  ? auction.coverImage
-                  : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`
-              }
-              alt={auction.title}
+              src={auction.coverImage.startsWith("http") ? auction.coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`}
+              alt={auction.title || "Auction"}
               fill
-              className="object-cover group-hover:scale-110 transition-transform duration-700"
+              className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-dark to-dark-light flex items-center justify-center">
-              <span className="text-gold text-4xl font-heading font-bold opacity-20">
-                Augeo
-              </span>
+            <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-20 transition-opacity">
+              <Package className="h-12 w-12 text-white" />
             </div>
           )}
-
-          {/* Badges - Glassmorphism style */}
-          <div className="absolute top-3 left-3 flex gap-2">
-            <span
-              className={`${getAuctionStatusColor(auction.status)} backdrop-blur-md bg-opacity-80 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm`}
-            >
-              {isLive ? "● Live" : auction.status}
+          
+          {/* Status Badge overlay */}
+          <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
+            <span className={`badge ${isLive ? 'badge-live' : isScheduled ? 'badge-scheduled' : 'badge-ended'}`}>
+              {isLive ? 'Live Sale' : isScheduled ? 'Upcoming' : 'Closed'}
             </span>
-            {isHot && (
-              <span className="bg-red-500 backdrop-blur-md bg-opacity-80 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm animate-pulse">
-                🔥 Hot
-              </span>
-            )}
           </div>
 
-          {auction.isFeatured && (
-            <div className="absolute top-3 right-3">
-              <span className="bg-gold backdrop-blur-md bg-opacity-90 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-sm">
-                Star Pick
-              </span>
-            </div>
-          )}
+          {/* Watchlist Toggle */}
+          <button
+            onClick={toggleWatchlist}
+            disabled={isWatching}
+            className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group/heart hover:bg-white transition-all duration-500"
+          >
+            <Heart 
+               className={`h-5 w-5 transition-all duration-500 ${isWatched ? 'fill-burgundy text-burgundy scale-125' : 'text-white group-hover/heart:text-burgundy group-hover/heart:scale-110'}`} 
+            />
+          </button>
 
-          {/* Countdown overlay for live auctions */}
-          {isLive && (
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark/90 to-transparent p-4">
-              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/10">
-                <CountdownTimer endTime={auction.endTime} variant="compact" />
-              </div>
-            </div>
-          )}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
+             <span className="text-sm font-black text-white uppercase tracking-[0.3em] flex items-center gap-2">
+                Explore Catalogue <ChevronRight className="h-3 w-3 text-gold" />
+             </span>
+          </div>
         </div>
 
         {/* Content Section */}
-        <div className="p-5 flex flex-col h-full">
-          <div className="flex-grow">
-            <h3 className="font-heading font-bold text-xl text-dark group-hover:text-gold transition-colors line-clamp-1 mb-2">
-              {auction.title}
-            </h3>
-
-            {auction.shortDescription && (
-              <p className="text-gray-500 text-sm line-clamp-2 mb-4 leading-relaxed">
-                {auction.shortDescription}
-              </p>
-            )}
-
-            <div className="flex flex-wrap items-center gap-4 text-[13px] text-gray-400 mb-4">
-              <div className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 text-gold/70" />
-                <span className="font-medium">
-                  {isScheduled
-                    ? `Starts ${formatDate(auction.startTime)}`
-                    : formatDate(auction.startTime)}
-                </span>
-              </div>
-              {auction.location?.city && (
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-gold/70" />
-                  <span className="font-medium">{auction.location.city}</span>
-                </div>
-              )}
-            </div>
+        <div className="p-6 flex flex-col flex-grow bg-white">
+          <div className="flex items-center gap-2 mb-3">
+             <span className="text-sm font-black text-gold uppercase tracking-[0.2em]">Lot Selection</span>
+             <span className="h-px flex-grow bg-gray-100" />
           </div>
-
-          <div className="flex items-center justify-between pt-4 border-t border-gray-50 mt-auto">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center gap-1.5 text-dark font-bold">
-                <Layers className="h-4 w-4 text-gold" />
-                <span>{auction.totalLots} <span className="text-gray-400 font-medium">Lots</span></span>
-              </div>
-              <div className="flex items-center gap-1.5 text-gray-400 font-bold">
-                <Gavel className="h-4 w-4 text-gold/70" />
-                <span>{auction.totalBids || 0} <span className="text-gray-400 font-medium font-normal">Bids</span></span>
-              </div>
-            </div>
-            
-            <div className="text-gold font-semibold text-sm flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
-              {isLive ? "Bid Now" : "Details"} <ChevronRight className="h-4 w-4" />
-            </div>
+          
+          <h3 className="text-navy font-black text-2xl leading-tight mb-4 line-clamp-2 min-h-[3.5rem] group-hover:text-gold transition-colors uppercase tracking-tighter">
+            {auction.title}
+          </h3>
+          
+          <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-50">
+             <div>
+                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-1">Location</p>
+                <div className="flex items-center gap-1.5 text-navy font-black text-sm uppercase tracking-tighter">
+                   <MapPin className="h-3 w-3 text-gold" />
+                   {auction.location?.city || 'Digital'}
+                </div>
+             </div>
+             <div className="text-right">
+                <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-1">Time Left</p>
+                <div className="flex items-center gap-1.5 text-burgundy font-black text-sm uppercase tracking-tighter">
+                   <Clock className="h-3 w-3" />
+                   <CountdownTimer endTime={isLive ? auction.endTime : auction.startTime} variant="compact" />
+                </div>
+             </div>
           </div>
         </div>
       </div>

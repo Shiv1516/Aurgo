@@ -25,7 +25,7 @@ export default function AdminFinancialPage() {
     load();
   }, [period]);
 
-  if (loading) return <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" /></div>;
+  if (loading) return <div className="flex justify-center py-20"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" /></div>;
 
   const totalRevenue = orders.reduce((sum: number, o: any) => sum + (o.totalAmount || 0), 0);
   const totalCommission = orders.reduce((sum: number, o: any) => sum + (o.commission?.amount || 0), 0);
@@ -42,7 +42,7 @@ export default function AdminFinancialPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-heading font-bold text-dark">Financial Overview</h1>
+        <h1 className="text-3xl font-heading font-bold text-dark">Financial Overview</h1>
         <select value={period} onChange={e => setPeriod(e.target.value)} className="input-field w-40">
           <option value="week">This Week</option>
           <option value="month">This Month</option>
@@ -58,65 +58,65 @@ export default function AdminFinancialPage() {
               <div className={`${card.color} p-2.5 rounded-lg`}>
                 <card.icon className="h-5 w-5 text-white" />
               </div>
-              <span className={`text-xs font-medium flex items-center gap-0.5 ${card.up ? 'text-green-600' : 'text-red-500'}`}>
+              <span className={`text-sm font-medium flex items-center gap-0.5 ${card.up ? 'text-green-600' : 'text-red-500'}`}>
                 {card.up ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
                 {card.change}
               </span>
             </div>
-            <p className="text-2xl font-bold text-dark">{card.value}</p>
-            <p className="text-sm text-gray-500 mt-1">{card.label}</p>
+            <p className="text-3xl font-bold text-dark">{card.value}</p>
+            <p className="text-base text-gray-500 mt-1">{card.label}</p>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card p-6">
-          <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2"><TrendingUp className="h-5 w-5 text-gold" /> Revenue Breakdown</h3>
+          <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2"><TrendingUp className="h-5 w-5 text-burgundy" /> Revenue Breakdown</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Hammer Price Total</span>
+              <span className="text-base text-gray-600">Hammer Price Total</span>
               <span className="font-semibold">{formatCurrency(orders.reduce((s: number, o: any) => s + (o.hammerPrice || 0), 0))}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Buyer&apos;s Premium</span>
+              <span className="text-base text-gray-600">Buyer&apos;s Premium</span>
               <span className="font-semibold">{formatCurrency(orders.reduce((s: number, o: any) => s + (o.buyersPremium || 0), 0))}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Tax Collected</span>
+              <span className="text-base text-gray-600">Tax Collected</span>
               <span className="font-semibold">{formatCurrency(orders.reduce((s: number, o: any) => s + (o.tax || 0), 0))}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Shipping Fees</span>
+              <span className="text-base text-gray-600">Shipping Fees</span>
               <span className="font-semibold">{formatCurrency(orders.reduce((s: number, o: any) => s + (o.shippingCost || 0), 0))}</span>
             </div>
             <div className="border-t pt-3 flex items-center justify-between">
               <span className="font-medium">Total Revenue</span>
-              <span className="font-bold text-lg text-gold">{formatCurrency(totalRevenue)}</span>
+              <span className="font-bold text-xl text-burgundy">{formatCurrency(totalRevenue)}</span>
             </div>
           </div>
         </div>
 
         <div className="card p-6">
-          <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2"><CreditCard className="h-5 w-5 text-gold" /> Payout Summary</h3>
+          <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2"><CreditCard className="h-5 w-5 text-burgundy" /> Payout Summary</h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Total Payable to Clients</span>
+              <span className="text-base text-gray-600">Total Payable to Clients</span>
               <span className="font-semibold">{formatCurrency(totalPayouts + pendingPayouts)}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Paid Out</span>
+              <span className="text-base text-gray-600">Paid Out</span>
               <span className="font-semibold text-green-600">{formatCurrency(totalPayouts)}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Pending</span>
+              <span className="text-base text-gray-600">Pending</span>
               <span className="font-semibold text-orange-500">{formatCurrency(pendingPayouts)}</span>
             </div>
             <div className="border-t pt-3">
               <div className="flex items-center justify-between">
                 <span className="font-medium">Platform Earnings</span>
-                <span className="font-bold text-lg text-gold">{formatCurrency(totalCommission)}</span>
+                <span className="font-bold text-xl text-burgundy">{formatCurrency(totalCommission)}</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">After all payouts</p>
+              <p className="text-sm text-gray-400 mt-1">After all payouts</p>
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ export default function AdminFinancialPage() {
       <div className="card p-6">
         <h3 className="font-heading font-semibold text-dark mb-4">Recent Transactions</h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead className="bg-gray-50 border-b">
               <tr>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Order</th>
@@ -144,7 +144,7 @@ export default function AdminFinancialPage() {
                   <td className="px-4 py-3 font-semibold">{formatCurrency(order.totalAmount)}</td>
                   <td className="px-4 py-3 text-blue-600">{formatCurrency(order.commission?.amount || 0)}</td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs px-2 py-1 rounded-full ${
+                    <span className={`text-sm px-2 py-1 rounded-full ${
                       order.commission?.payoutStatus === 'paid' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
                     }`}>{order.commission?.payoutStatus || 'pending'}</span>
                   </td>

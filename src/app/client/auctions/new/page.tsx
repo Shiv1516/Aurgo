@@ -34,25 +34,25 @@ export default function CreateAuctionPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-heading font-bold text-dark mb-6">Create New Auction</h1>
+      <h1 className="text-3xl font-heading font-bold text-dark mb-6">Create New Auction</h1>
       <form onSubmit={e => handleSubmit(e, false)} className="space-y-6">
         <div className="card p-6 space-y-4">
           <h3 className="font-heading font-semibold text-dark">Basic Information</h3>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Title *</label><input type="text" required value={form.title} onChange={e => update('title', e.target.value)} className="input-field" placeholder="e.g., Fine Art Evening Sale" /></div>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Short Description</label><input type="text" maxLength={500} value={form.shortDescription} onChange={e => update('shortDescription', e.target.value)} className="input-field" placeholder="Brief summary" /></div>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Description *</label><textarea required rows={5} value={form.description} onChange={e => update('description', e.target.value)} className="input-field" placeholder="Full auction description..." /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Title *</label><input type="text" required value={form.title} onChange={e => update('title', e.target.value)} className="input-field" placeholder="e.g., Fine Art Evening Sale" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Short Description</label><input type="text" maxLength={500} value={form.shortDescription} onChange={e => update('shortDescription', e.target.value)} className="input-field" placeholder="Brief summary" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Description *</label><textarea required rows={5} value={form.description} onChange={e => update('description', e.target.value)} className="input-field" placeholder="Full auction description..." /></div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">Category</label><select value={form.category} onChange={e => update('category', e.target.value)} className="input-field"><option value="">Select category</option>{categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}</select></div>
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">Buyer&apos;s Premium (%)</label><input type="number" min={0} max={50} value={form.buyersPremium} onChange={e => update('buyersPremium', parseInt(e.target.value))} className="input-field" /></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">Category</label><select value={form.category} onChange={e => update('category', e.target.value)} className="input-field"><option value="">Select category</option>{categories.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}</select></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">Buyer&apos;s Premium (%)</label><input type="number" min={0} max={50} value={form.buyersPremium} onChange={e => update('buyersPremium', parseInt(e.target.value))} className="input-field" /></div>
           </div>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Cover Image URL</label><input type="text" value={form.coverImage} onChange={e => update('coverImage', e.target.value)} className="input-field" placeholder="https://..." /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Cover Image URL</label><input type="text" value={form.coverImage} onChange={e => update('coverImage', e.target.value)} className="input-field" placeholder="https://..." /></div>
         </div>
 
         <div className="card p-6 space-y-4">
           <h3 className="font-heading font-semibold text-dark">Schedule</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">Start Time *</label><input type="datetime-local" required value={form.startTime} onChange={e => update('startTime', e.target.value)} className="input-field" /></div>
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">End Time *</label><input type="datetime-local" required value={form.endTime} onChange={e => update('endTime', e.target.value)} className="input-field" /></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">Start Time *</label><input type="datetime-local" required value={form.startTime} onChange={e => update('startTime', e.target.value)} className="input-field" /></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">End Time *</label><input type="datetime-local" required value={form.endTime} onChange={e => update('endTime', e.target.value)} className="input-field" /></div>
           </div>
         </div>
 
@@ -67,8 +67,8 @@ export default function CreateAuctionPage() {
 
         <div className="card p-6 space-y-4">
           <h3 className="font-heading font-semibold text-dark">Terms</h3>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Terms & Conditions</label><textarea rows={4} value={form.termsAndConditions} onChange={e => update('termsAndConditions', e.target.value)} className="input-field" /></div>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Shipping Terms</label><textarea rows={3} value={form.shippingTerms} onChange={e => update('shippingTerms', e.target.value)} className="input-field" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Terms & Conditions</label><textarea rows={4} value={form.termsAndConditions} onChange={e => update('termsAndConditions', e.target.value)} className="input-field" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Shipping Terms</label><textarea rows={3} value={form.shippingTerms} onChange={e => update('shippingTerms', e.target.value)} className="input-field" /></div>
         </div>
 
         <div className="flex gap-3">

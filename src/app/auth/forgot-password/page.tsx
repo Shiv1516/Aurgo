@@ -32,13 +32,13 @@ export default function ForgotPasswordPage() {
           {sent ? (
             <div className="text-center">
               <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-              <h2 className="text-2xl font-heading font-bold text-dark mb-2">Check Your Email</h2>
+              <h2 className="text-3xl font-heading font-bold text-dark mb-2">Check Your Email</h2>
               <p className="text-gray-500 mb-6">If an account exists for {email}, we&apos;ve sent a password reset link.</p>
               <Link href="/auth/login" className="btn-primary">Back to Login</Link>
             </div>
           ) : (
             <>
-              <h1 className="text-2xl font-heading font-bold text-dark mb-2">Forgot Password?</h1>
+              <h1 className="text-3xl font-heading font-bold text-dark mb-2">Forgot Password?</h1>
               <p className="text-gray-500 mb-6">Enter your email and we&apos;ll send you a reset link.</p>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="relative">
@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
                   {isLoading ? 'Sending...' : 'Send Reset Link'}
                 </button>
               </form>
-              <Link href="/auth/login" className="flex items-center gap-1 text-sm text-gold mt-4 hover:text-gold-dark">
+              <Link href="/auth/login" className="flex items-center gap-1 text-base text-burgundy mt-4 hover:text-burgundy-dark font-bold">
                 <ArrowLeft className="h-4 w-4" /> Back to Login
               </Link>
             </>

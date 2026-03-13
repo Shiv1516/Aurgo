@@ -1,3 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /client/
+Disallow: /dashboard/
+Disallow: /checkout/
+Disallow: /auth/
+
 Sitemap: https://augeo.auction/sitemap.xml

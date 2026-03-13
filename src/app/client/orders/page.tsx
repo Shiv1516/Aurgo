@@ -44,7 +44,7 @@ export default function ClientOrdersPage() {
   if (isLoading) return <PageLoader />;
   return (
     <div>
-      <h1 className="text-2xl font-heading font-bold text-dark mb-6">
+      <h1 className="text-3xl font-heading font-bold text-dark mb-6">
         Order Management
       </h1>
       {orders.length === 0 ? (
@@ -73,26 +73,26 @@ export default function ClientOrdersPage() {
                     key={o._id}
                     className="border-t border-gray-50 hover:bg-gray-50"
                   >
-                    <td className="px-4 py-3 text-sm font-medium">
+                    <td className="px-4 py-3 text-base font-medium">
                       {o.orderNumber}
                     </td>
-                    <td className="px-4 py-3 text-sm">
+                    <td className="px-4 py-3 text-base">
                       {o.buyer?.firstName} {o.buyer?.lastName?.charAt(0)}.
                     </td>
-                    <td className="px-4 py-3 text-sm">{o.lot?.title}</td>
-                    <td className="px-4 py-3 text-sm font-bold">
+                    <td className="px-4 py-3 text-base">{o.lot?.title}</td>
+                    <td className="px-4 py-3 text-base font-bold">
                       {formatCurrency(o.totalAmount)}
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${getOrderStatusColor(o.paymentStatus)}`}
+                        className={`text-sm px-2 py-0.5 rounded-full font-medium ${getOrderStatusColor(o.paymentStatus)}`}
                       >
                         {o.paymentStatus}
                       </span>
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${getOrderStatusColor(o.shippingStatus)}`}
+                        className={`text-sm px-2 py-0.5 rounded-full font-medium ${getOrderStatusColor(o.shippingStatus)}`}
                       >
                         {o.shippingStatus}
                       </span>
@@ -113,7 +113,7 @@ export default function ClientOrdersPage() {
                                     : prev,
                                 )
                               }
-                              className="input-field !py-1 text-xs w-28"
+                              className="input-field !py-1 text-sm w-28"
                             />
                             <button
                               onClick={() =>
@@ -123,7 +123,7 @@ export default function ClientOrdersPage() {
                                   trackingForm?.tracking,
                                 )
                               }
-                              className="text-green-600 text-xs font-medium"
+                              className="text-green-600 text-sm font-medium"
                             >
                               Ship
                             </button>
@@ -133,7 +133,7 @@ export default function ClientOrdersPage() {
                             onClick={() =>
                               setTrackingForm({ id: o._id, tracking: "" })
                             }
-                            className="text-gold text-sm flex items-center gap-1"
+                            className="text-burgundy text-base flex items-center gap-1"
                           >
                             <Truck className="h-3 w-3" /> Ship
                           </button>
@@ -141,7 +141,7 @@ export default function ClientOrdersPage() {
                       {o.shippingStatus === "shipped" && (
                         <button
                           onClick={() => updateShipping(o._id, "delivered")}
-                          className="text-green-600 text-xs font-medium"
+                          className="text-green-600 text-sm font-medium"
                         >
                           Mark Delivered
                         </button>

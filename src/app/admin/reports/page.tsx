@@ -76,22 +76,22 @@ export default function AdminReportsPage() {
   if (loading)
     return (
       <div className="flex justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" />
       </div>
     );
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-heading font-bold text-dark flex items-center gap-2">
-          <BarChart3 className="h-6 w-6 text-gold" /> Reports & Analytics
+        <h1 className="text-3xl font-heading font-bold text-dark flex items-center gap-2">
+          <BarChart3 className="h-6 w-6 text-burgundy" /> Reports & Analytics
         </h1>
       </div>
 
       <div className="card p-4">
         <div className="flex flex-col sm:flex-row items-end gap-3">
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
+            <label className="text-base font-medium text-gray-700 mb-1 block">
               Start Date
             </label>
             <input
@@ -104,7 +104,7 @@ export default function AdminReportsPage() {
             />
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-700 mb-1 block">
+            <label className="text-base font-medium text-gray-700 mb-1 block">
               End Date
             </label>
             <input
@@ -125,37 +125,37 @@ export default function AdminReportsPage() {
       {/* Revenue Report */}
       <div className="card p-6">
         <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2">
-          <TrendingUp className="h-5 w-5 text-gold" /> Revenue Report
+          <TrendingUp className="h-5 w-5 text-burgundy" /> Revenue Report
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
           <div className="bg-green-50 rounded-lg p-4">
-            <p className="text-sm text-green-600">Total Revenue</p>
-            <p className="text-xl font-bold text-green-700">
+            <p className="text-base text-green-600">Total Revenue</p>
+            <p className="text-2xl font-bold text-green-700">
               {formatCurrency(revenueReport?.totalRevenue || 0)}
             </p>
           </div>
           <div className="bg-blue-50 rounded-lg p-4">
-            <p className="text-sm text-blue-600">Total Orders</p>
-            <p className="text-xl font-bold text-blue-700">
+            <p className="text-base text-blue-600">Total Orders</p>
+            <p className="text-2xl font-bold text-blue-700">
               {revenueReport?.totalOrders || 0}
             </p>
           </div>
           <div className="bg-purple-50 rounded-lg p-4">
-            <p className="text-sm text-purple-600">Avg Order Value</p>
-            <p className="text-xl font-bold text-purple-700">
+            <p className="text-base text-purple-600">Avg Order Value</p>
+            <p className="text-2xl font-bold text-purple-700">
               {formatCurrency(revenueReport?.averageOrderValue || 0)}
             </p>
           </div>
           <div className="bg-orange-50 rounded-lg p-4">
-            <p className="text-sm text-orange-600">Commission Earned</p>
-            <p className="text-xl font-bold text-orange-700">
+            <p className="text-base text-orange-600">Commission Earned</p>
+            <p className="text-2xl font-bold text-orange-700">
               {formatCurrency(revenueReport?.totalCommission || 0)}
             </p>
           </div>
         </div>
         {revenueReport?.byMonth && revenueReport.byMonth.length > 0 && (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-2 font-medium text-gray-600">
@@ -196,40 +196,40 @@ export default function AdminReportsPage() {
       {/* Auction Report */}
       <div className="card p-6">
         <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2">
-          <Gavel className="h-5 w-5 text-gold" /> Auction Report
+          <Gavel className="h-5 w-5 text-burgundy" /> Auction Report
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
           <div className="bg-green-50 rounded-lg p-4">
-            <p className="text-sm text-green-600">Total Auctions</p>
-            <p className="text-xl font-bold text-green-700">
+            <p className="text-base text-green-600">Total Auctions</p>
+            <p className="text-2xl font-bold text-green-700">
               {auctionReport?.totalAuctions || 0}
             </p>
           </div>
           <div className="bg-blue-50 rounded-lg p-4">
-            <p className="text-sm text-blue-600">Live</p>
-            <p className="text-xl font-bold text-blue-700">
+            <p className="text-base text-blue-600">Live</p>
+            <p className="text-2xl font-bold text-blue-700">
               {auctionReport?.liveAuctions || 0}
             </p>
           </div>
           <div className="bg-purple-50 rounded-lg p-4">
-            <p className="text-sm text-purple-600">Completed</p>
-            <p className="text-xl font-bold text-purple-700">
+            <p className="text-base text-purple-600">Completed</p>
+            <p className="text-2xl font-bold text-purple-700">
               {auctionReport?.completedAuctions || 0}
             </p>
           </div>
           <div className="bg-orange-50 rounded-lg p-4">
-            <p className="text-sm text-orange-600">Total Bids</p>
-            <p className="text-xl font-bold text-orange-700">
+            <p className="text-base text-orange-600">Total Bids</p>
+            <p className="text-2xl font-bold text-orange-700">
               {auctionReport?.totalBids || 0}
             </p>
           </div>
         </div>
         {auctionReport?.topAuctions && auctionReport.topAuctions.length > 0 && (
           <div className="overflow-x-auto">
-            <h4 className="font-medium text-sm text-gray-700 mb-2">
+            <h4 className="font-medium text-base text-gray-700 mb-2">
               Top Auctions by Revenue
             </h4>
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-2 font-medium text-gray-600">
@@ -255,7 +255,7 @@ export default function AdminReportsPage() {
                     </td>
                     <td className="px-4 py-2">{a.lotsSold || 0}</td>
                     <td className="px-4 py-2">
-                      <span className="text-xs px-2 py-1 rounded-full bg-gray-100">
+                      <span className="text-sm px-2 py-1 rounded-full bg-gray-100">
                         {a.status}
                       </span>
                     </td>
@@ -270,37 +270,37 @@ export default function AdminReportsPage() {
       {/* User Report */}
       <div className="card p-6">
         <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2">
-          <Users className="h-5 w-5 text-gold" /> User Report
+          <Users className="h-5 w-5 text-burgundy" /> User Report
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <div className="bg-green-50 rounded-lg p-4">
-            <p className="text-sm text-green-600">Total Users</p>
-            <p className="text-xl font-bold text-green-700">
+            <p className="text-base text-green-600">Total Users</p>
+            <p className="text-2xl font-bold text-green-700">
               {userReport?.totalUsers || 0}
             </p>
           </div>
           <div className="bg-blue-50 rounded-lg p-4">
-            <p className="text-sm text-blue-600">New (This Month)</p>
-            <p className="text-xl font-bold text-blue-700">
+            <p className="text-base text-blue-600">New (This Month)</p>
+            <p className="text-2xl font-bold text-blue-700">
               {userReport?.newThisMonth || 0}
             </p>
           </div>
           <div className="bg-purple-50 rounded-lg p-4">
-            <p className="text-sm text-purple-600">Active Bidders</p>
-            <p className="text-xl font-bold text-purple-700">
+            <p className="text-base text-purple-600">Active Bidders</p>
+            <p className="text-2xl font-bold text-purple-700">
               {userReport?.activeBidders || 0}
             </p>
           </div>
           <div className="bg-orange-50 rounded-lg p-4">
-            <p className="text-sm text-orange-600">KYC Verified</p>
-            <p className="text-xl font-bold text-orange-700">
+            <p className="text-base text-orange-600">KYC Verified</p>
+            <p className="text-2xl font-bold text-orange-700">
               {userReport?.kycVerified || 0}
             </p>
           </div>
         </div>
         {userReport?.byRole && userReport.byRole.length > 0 && (
           <div className="mt-4 overflow-x-auto">
-            <h4 className="font-medium text-sm text-gray-700 mb-2">
+            <h4 className="font-medium text-base text-gray-700 mb-2">
               Users by Role
             </h4>
             <div className="flex gap-4">
@@ -309,8 +309,8 @@ export default function AdminReportsPage() {
                   key={r._id}
                   className="bg-gray-50 rounded-lg px-4 py-3 text-center"
                 >
-                  <p className="text-lg font-bold">{r.count}</p>
-                  <p className="text-xs text-gray-500 capitalize">{r._id}</p>
+                  <p className="text-xl font-bold">{r.count}</p>
+                  <p className="text-sm text-gray-500 capitalize">{r._id}</p>
                 </div>
               ))}
             </div>

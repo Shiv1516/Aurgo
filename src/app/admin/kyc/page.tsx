@@ -68,8 +68,8 @@ export default function AdminKYCPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-heading font-bold text-dark flex items-center gap-2">
-          <Shield className="h-6 w-6 text-gold" /> KYC Verification
+        <h1 className="text-3xl font-heading font-bold text-dark flex items-center gap-2">
+          <Shield className="h-6 w-6 text-burgundy" /> KYC Verification
         </h1>
       </div>
 
@@ -81,10 +81,10 @@ export default function AdminKYCPage() {
               setStatusFilter(status);
               setPage(1);
             }}
-            className={`card p-4 text-center transition-all ${statusFilter === status ? "ring-2 ring-gold" : ""}`}
+            className={`card p-4 text-center transition-all ${statusFilter === status ? "ring-2 ring-burgundy" : ""}`}
           >
-            <p className="text-2xl font-bold">{status === "" ? "All" : ""}</p>
-            <p className="text-sm text-gray-500 capitalize">
+            <p className="text-3xl font-bold">{status === "" ? "All" : ""}</p>
+            <p className="text-base text-gray-500 capitalize">
               {status || "All Requests"}
             </p>
           </button>
@@ -94,11 +94,11 @@ export default function AdminKYCPage() {
       <div className="card overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-10">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" />
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-3 font-medium text-gray-600">
@@ -138,7 +138,7 @@ export default function AdminKYCPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`text-xs px-2 py-1 rounded-full font-medium ${
+                        className={`text-sm px-2 py-1 rounded-full font-medium ${
                           user.kyc?.status === "verified"
                             ? "bg-green-100 text-green-700"
                             : user.kyc?.status === "rejected"
@@ -203,7 +203,7 @@ export default function AdminKYCPage() {
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <span className="px-4 py-2 text-sm">
+          <span className="px-4 py-2 text-base">
             Page {page} of {totalPages}
           </span>
           <button
@@ -225,11 +225,11 @@ export default function AdminKYCPage() {
             className="bg-white rounded-xl max-w-2xl w-full p-6 max-h-[80vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-heading font-bold mb-4">
+            <h3 className="text-xl font-heading font-bold mb-4">
               KYC Review - {selectedUser.firstName} {selectedUser.lastName}
             </h3>
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-2 gap-4 text-base">
                 <div>
                   <span className="text-gray-500">Email:</span>
                   <p className="font-medium">{selectedUser.email}</p>
@@ -262,10 +262,10 @@ export default function AdminKYCPage() {
                         <div className="flex items-center gap-2">
                           <FileText className="h-5 w-5 text-gray-400" />
                           <div>
-                            <p className="text-sm font-medium">
+                            <p className="text-base font-medium">
                               {doc.type || `Document ${idx + 1}`}
                             </p>
-                            <p className="text-xs text-gray-500">
+                            <p className="text-sm text-gray-500">
                               {doc.filename || doc.url}
                             </p>
                           </div>
@@ -284,7 +284,7 @@ export default function AdminKYCPage() {
                   )}
                   {(!selectedUser.kyc?.documents ||
                     selectedUser.kyc.documents.length === 0) && (
-                    <p className="text-sm text-gray-500">
+                    <p className="text-base text-gray-500">
                       No documents uploaded
                     </p>
                   )}
@@ -296,7 +296,7 @@ export default function AdminKYCPage() {
                   <h4 className="font-medium mb-2 text-red-600">
                     Rejection Reason
                   </h4>
-                  <p className="text-sm text-gray-700 bg-red-50 p-3 rounded">
+                  <p className="text-base text-gray-700 bg-red-50 p-3 rounded">
                     {selectedUser.kyc.rejectionReason}
                   </p>
                 </div>
@@ -308,13 +308,13 @@ export default function AdminKYCPage() {
                 <>
                   <button
                     onClick={() => handleApprove(selectedUser._id)}
-                    className="btn-primary !bg-green-600 !py-2 text-sm flex items-center gap-1"
+                    className="btn-primary !bg-green-600 !py-2 text-base flex items-center gap-1"
                   >
                     <CheckCircle className="h-4 w-4" /> Approve
                   </button>
                   <button
                     onClick={() => handleReject(selectedUser._id)}
-                    className="btn-primary !bg-red-500 !py-2 text-sm flex items-center gap-1"
+                    className="btn-primary !bg-red-500 !py-2 text-base flex items-center gap-1"
                   >
                     <XCircle className="h-4 w-4" /> Reject
                   </button>
@@ -322,7 +322,7 @@ export default function AdminKYCPage() {
               )}
               <button
                 onClick={() => setSelectedUser(null)}
-                className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50"
+                className="px-4 py-2 border rounded-lg text-base hover:bg-gray-50"
               >
                 Close
               </button>

@@ -114,7 +114,7 @@ export default function AdminAuctionsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-heading font-bold text-dark">
+      <h1 className="text-3xl font-heading font-bold text-dark">
         Auction Oversight
       </h1>
 
@@ -158,11 +158,11 @@ export default function AdminAuctionsPage() {
       <div className="card overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-10">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" />
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-3 font-medium text-gray-600">
@@ -193,7 +193,7 @@ export default function AdminAuctionsPage() {
                   <tr key={auction._id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
                       <p className="font-medium">{auction.title}</p>
-                      <p className="text-xs text-gray-500">{auction.slug}</p>
+                      <p className="text-sm text-gray-500">{auction.slug}</p>
                     </td>
                     <td className="px-4 py-3 text-gray-600">
                       {auction.client?.companyName ||
@@ -202,7 +202,7 @@ export default function AdminAuctionsPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`text-xs px-2 py-1 rounded-full font-medium ${statusColors[auction.status] || "bg-gray-100"}`}
+                        className={`text-sm px-2 py-1 rounded-full font-medium ${statusColors[auction.status] || "bg-gray-100"}`}
                       >
                         {auction.status}
                       </span>
@@ -267,7 +267,7 @@ export default function AdminAuctionsPage() {
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <span className="px-4 py-2 text-sm">
+          <span className="px-4 py-2 text-base">
             Page {page} of {totalPages}
           </span>
           <button

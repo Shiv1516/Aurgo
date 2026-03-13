@@ -75,7 +75,7 @@ export default function AdminSettingsPage() {
   if (loading)
     return (
       <div className="flex justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" />
       </div>
     );
 
@@ -165,8 +165,8 @@ export default function AdminSettingsPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-heading font-bold text-dark flex items-center gap-2">
-          <Settings className="h-6 w-6 text-gold" /> System Settings
+        <h1 className="text-3xl font-heading font-bold text-dark flex items-center gap-2">
+          <Settings className="h-6 w-6 text-burgundy" /> System Settings
         </h1>
         <button
           onClick={handleSaveAll}
@@ -185,7 +185,7 @@ export default function AdminSettingsPage() {
       {settingGroups.map((group) => (
         <div key={group.title} className="card p-6">
           <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2">
-            <group.icon className="h-5 w-5 text-gold" /> {group.title}
+            <group.icon className="h-5 w-5 text-burgundy" /> {group.title}
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {group.keys.map((key) => {
@@ -200,7 +200,7 @@ export default function AdminSettingsPage() {
 
               return (
                 <div key={key}>
-                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                  <label className="text-base font-medium text-gray-700 mb-1 block">
                     {formatLabel(key)}
                   </label>
                   {isBool ? (
@@ -217,9 +217,9 @@ export default function AdminSettingsPage() {
                                   : "true",
                             })
                           }
-                          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-gold/20 ${
+                          className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-burgundy/20 ${
                             value === "true" || value === true
-                              ? "bg-gold"
+                              ? "bg-burgundy"
                               : "bg-gray-200"
                           }`}
                         >
@@ -232,7 +232,7 @@ export default function AdminSettingsPage() {
                             }`}
                           />
                         </button>
-                        <span className="text-sm font-medium text-gray-600 min-w-[60px]">
+                        <span className="text-base font-medium text-gray-600 min-w-[60px]">
                           {value === "true" || value === true
                             ? "Enabled"
                             : "Disabled"}
@@ -263,10 +263,10 @@ export default function AdminSettingsPage() {
 
       <div className="card p-6">
         <h3 className="font-heading font-semibold text-dark mb-4 flex items-center gap-2">
-          <Bell className="h-5 w-5 text-gold" /> All Stored Settings
+          <Bell className="h-5 w-5 text-burgundy" /> All Stored Settings
         </h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-base">
             <thead className="bg-gray-50 border-b">
               <tr>
                 <th className="text-left px-4 py-2 font-medium text-gray-600">
@@ -295,13 +295,13 @@ export default function AdminSettingsPage() {
                             [s.key]: e.target.value,
                           })
                         }
-                        className="input-field !py-1 text-sm"
+                        className="input-field !py-1 text-base"
                       />
                     </td>
                     <td className="px-4 py-2">
                       <button
                         onClick={() => handleSave(s.key)}
-                        className="text-xs text-gold hover:underline"
+                        className="text-sm text-burgundy hover:underline"
                       >
                         Save
                       </button>

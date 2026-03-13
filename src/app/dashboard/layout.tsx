@@ -74,15 +74,26 @@ export default function DashboardLayout({
 
   return (
     <>
-      <div className="min-h-screen bg-[#fafafa]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <div className="flex flex-col lg:flex-row gap-10">
-            {/* Sidebar - Executive Guild Style */}
-            <aside
-              className={`fixed lg:static inset-y-0 left-0 z-40 w-72 bg-white/80 backdrop-blur-2xl rounded-[2rem] shadow-2xl shadow-black/5 border border-white p-6 transform transition-transform duration-500 lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
-            >
+      <div className="min-h-screen bg-[#fafafa] flex flex-col">
+        {/* Top Navbar for Mobile/Tablet */}
+        <div className="lg:hidden bg-white border-b border-gray-200 p-4 flex items-center justify-between sticky top-0 z-30">
+          <span className="text-xl font-black text-navy uppercase tracking-tighter">NAVIGATOR</span>
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-2 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors"
+          >
+            <Menu className="h-5 w-5 text-navy" />
+          </button>
+        </div>
+
+        <div className="flex flex-1 w-full relative">
+          {/* Sidebar - Professional Style */}
+          <aside
+            className={`fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-gray-200 flex flex-col transform transition-transform duration-500 lg:sticky lg:top-0 lg:h-screen lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
+          >
+            <div className="p-6 overflow-y-auto flex-1">
               <div className="flex items-center justify-between lg:hidden mb-8">
-                <span className="text-xl font-black tracking-tighter">NAVIGATOR</span>
+                <span className="text-2xl font-black tracking-tighter">NAVIGATOR</span>
                 <button onClick={() => setSidebarOpen(false)} className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
                   <X className="h-5 w-5" />
                 </button>
@@ -90,16 +101,16 @@ export default function DashboardLayout({
 
               {/* Sidebar Header - Mini Profile */}
               <div className="mb-10 px-2 flex items-center gap-4">
-                <div className="h-12 w-12 bg-dark rounded-2xl flex items-center justify-center shadow-xl shadow-gold/10">
-                  <User className="h-6 w-6 text-gold" />
+                <div className="h-12 w-12 bg-navy rounded-2xl flex items-center justify-center shadow-xl shadow-burgundy/5">
+                  <User className="h-6 w-6 text-burgundy" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-sm font-black text-dark uppercase">{user?.firstName}</span>
-                  <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">{user?.role}</span>
+                  <span className="text-base font-black text-dark uppercase">{user?.firstName}</span>
+                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">{user?.role}</span>
                 </div>
               </div>
 
-              <div className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4 px-4">Management</div>
+              <div className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] mb-4 px-4">Management</div>
               <nav className="space-y-2">
                 {(roleLinks[user?.role || "user"] || roleLinks.user).map((link) => {
                   const isActive = pathname === link.href;
@@ -108,11 +119,10 @@ export default function DashboardLayout({
                       key={link.href}
                       href={link.href}
                       onClick={() => setSidebarOpen(false)}
-                      className={`flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all duration-300 group ${isActive ? "bg-dark text-gold shadow-xl shadow-gold/5" : "text-gray-400 hover:bg-gray-50 hover:text-dark"}`}
+                      className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-colors group ${isActive ? "bg-burgundy text-white shadow-sm" : "text-gray-500 hover:bg-gray-50 hover:text-navy"}`}
                     >
-                      <link.icon className={`h-5 w-5 transition-transform duration-300 ${isActive ? "scale-110" : "group-hover:scale-110 group-hover:text-gold"}`} />
-                      <span className={`text-[13px] font-bold tracking-tight ${isActive ? "text-white" : ""}`}>{link.label}</span>
-                      {isActive && <div className="ml-auto w-1.5 h-1.5 bg-gold rounded-full shadow-[0_0_10px_#c9a84c]" />}
+                      <link.icon className={`h-5 w-5 ${isActive ? "" : "group-hover:text-burgundy"}`} />
+                      <span className="font-bold text-sm uppercase tracking-wide">{link.label}</span>
                     </Link>
                   );
                 })}
@@ -120,30 +130,27 @@ export default function DashboardLayout({
 
               {/* Sidebar Footer - Security */}
               <div className="mt-12 pt-8 border-t border-gray-100 px-4">
-                 <div className="flex items-center gap-2 text-[10px] font-black text-green-600 uppercase tracking-widest bg-green-50 px-3 py-1.5 rounded-lg w-fit">
+                 <div className="flex items-center gap-2 text-sm font-black text-green-600 uppercase tracking-widest bg-green-50 px-3 py-1.5 rounded-lg w-fit">
                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                     Secure Access
                  </div>
               </div>
-            </aside>
-            {sidebarOpen && (
-              <div
-                className="fixed inset-0 bg-black/50 z-30 lg:hidden"
-                onClick={() => setSidebarOpen(false)}
-              />
-            )}
+            </div>
+          </aside>
+          
+          {sidebarOpen && (
+            <div
+              className="fixed inset-0 bg-navy/50 backdrop-blur-sm z-30 lg:hidden"
+              onClick={() => setSidebarOpen(false)}
+            />
+          )}
 
-            {/* Main */}
-            <main className="flex-1 min-w-0">
-              <button
-                onClick={() => setSidebarOpen(true)}
-                className="lg:hidden mb-4 p-2 bg-white rounded-lg shadow-sm border"
-              >
-                <Menu className="h-5 w-5" />
-              </button>
+          {/* Main Content Area */}
+          <main className="flex-1 min-w-0 bg-[#fafafa]">
+            <div className="w-full px-4 sm:px-6 lg:px-12 py-8 lg:py-10">
               {children}
-            </main>
-          </div>
+            </div>
+          </main>
         </div>
       </div>
     </>

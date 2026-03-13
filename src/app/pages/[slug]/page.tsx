@@ -34,9 +34,9 @@ export default function StaticPage() {
 
   return (
     <>
-      <div className="bg-dark py-12">
+      <div className="bg-navy py-12">
         <div className="max-w-4xl mx-auto px-4">
-          <h1 className="text-4xl font-heading font-bold text-white">
+          <h1 className="text-5xl font-heading font-bold text-white">
             {page.title}
           </h1>
         </div>

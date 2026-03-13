@@ -63,13 +63,13 @@ export default function AuctionsPage() {
 
   return (
     <>
-      <div className="bg-dark py-12">
+      <div className="bg-white border-b border-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-4xl font-heading font-bold text-white">
-            Browse Auctions
+          <h1 className="text-4xl md:text-6xl font-black text-navy tracking-tighter mb-4">
+            ALL <span className="text-burgundy uppercase">AUCTIONS</span>
           </h1>
-          <p className="text-gray-400 mt-2">
-            Discover extraordinary items from world-class auction houses
+          <p className="text-gray-500 font-medium max-w-2xl">
+            Explore our curated selection of upcoming and live auctions.
           </p>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function AuctionsPage() {
             onChange={(e) =>
               setFilters({ ...filters, status: e.target.value, page: 1 })
             }
-            className="input-field !w-auto !py-2 text-sm"
+            className="input-field !w-auto !py-2 text-base"
           >
             <option value="">All Status</option>
             <option value="live">Live Now</option>
@@ -95,7 +95,7 @@ export default function AuctionsPage() {
             onChange={(e) =>
               setFilters({ ...filters, category: e.target.value, page: 1 })
             }
-            className="input-field !w-auto !py-2 text-sm"
+            className="input-field !w-auto !py-2 text-base"
           >
             <option value="">All Categories</option>
             {categories.map((c) => (
@@ -107,13 +107,13 @@ export default function AuctionsPage() {
           <select
             value={filters.sort}
             onChange={(e) => setFilters({ ...filters, sort: e.target.value })}
-            className="input-field !w-auto !py-2 text-sm"
+            className="input-field !w-auto !py-2 text-base"
           >
             <option value="newest">Newest</option>
             <option value="ending-soon">Ending Soon</option>
             <option value="most-bids">Most Bids</option>
           </select>
-          <span className="ml-auto text-sm text-gray-500">
+          <span className="ml-auto text-base text-gray-500">
             {pagination.total} auctions found
           </span>
         </div>
@@ -123,7 +123,7 @@ export default function AuctionsPage() {
         ) : auctions.length === 0 ? (
           <div className="text-center py-20">
             <SlidersHorizontal className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg">No auctions found</p>
+            <p className="text-gray-500 text-xl">No auctions found</p>
           </div>
         ) : (
           <>
@@ -150,7 +150,7 @@ export default function AuctionsPage() {
                   <button
                     key={p}
                     onClick={() => setFilters({ ...filters, page: p })}
-                    className={`h-10 w-10 rounded-lg text-sm font-medium ${p === filters.page ? "bg-gold text-white" : "border hover:bg-gray-50"}`}
+                    className={`h-10 w-10 rounded-lg text-base font-bold ${p === filters.page ? "bg-burgundy text-white shadow-lg shadow-burgundy/10" : "border border-gray-100 bg-white hover:bg-gray-50 text-navy"}`}
                   >
                     {p}
                   </button>

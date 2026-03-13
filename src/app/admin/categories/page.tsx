@@ -63,7 +63,7 @@ export default function AdminCategoriesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-heading font-bold text-dark">Category Management</h1>
+        <h1 className="text-3xl font-heading font-bold text-dark">Category Management</h1>
         <button onClick={() => { resetForm(); setShowForm(true); }} className="btn-primary !py-2 flex items-center gap-2"><Plus className="h-4 w-4" /> Add Category</button>
       </div>
 
@@ -76,25 +76,25 @@ export default function AdminCategoriesPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Name *</label>
+                <label className="text-base font-medium text-gray-700 mb-1 block">Name *</label>
                 <input type="text" required value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} className="input-field" />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Display Order</label>
+                <label className="text-base font-medium text-gray-700 mb-1 block">Display Order</label>
                 <input type="number" value={form.displayOrder} onChange={e => setForm({ ...form, displayOrder: parseInt(e.target.value) || 0 })} className="input-field" />
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Description</label>
+              <label className="text-base font-medium text-gray-700 mb-1 block">Description</label>
               <textarea rows={3} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="input-field" />
             </div>
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="isActive" checked={form.isActive} onChange={e => setForm({ ...form, isActive: e.target.checked })} className="h-4 w-4 rounded border-gray-300 text-gold" />
-              <label htmlFor="isActive" className="text-sm">Active</label>
+              <input type="checkbox" id="isActive" checked={form.isActive} onChange={e => setForm({ ...form, isActive: e.target.checked })} className="h-4 w-4 rounded border-gray-300 text-burgundy" />
+              <label htmlFor="isActive" className="text-base">Active</label>
             </div>
             <div className="flex gap-2">
               <button type="submit" disabled={saving} className="btn-primary !py-2 flex items-center gap-2 disabled:opacity-50"><Save className="h-4 w-4" /> {saving ? 'Saving...' : editing ? 'Update' : 'Create'}</button>
-              <button type="button" onClick={resetForm} className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50">Cancel</button>
+              <button type="button" onClick={resetForm} className="px-4 py-2 border rounded-lg text-base hover:bg-gray-50">Cancel</button>
             </div>
           </form>
         </div>
@@ -102,10 +102,10 @@ export default function AdminCategoriesPage() {
 
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" /></div>
+          <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" /></div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-3 font-medium text-gray-600 w-10">#</th>
@@ -124,7 +124,7 @@ export default function AdminCategoriesPage() {
                     <td className="px-4 py-3 text-gray-500">{cat.slug}</td>
                     <td className="px-4 py-3 text-gray-500 truncate max-w-[300px]">{cat.description || '-'}</td>
                     <td className="px-4 py-3">
-                      <span className={`text-xs px-2 py-1 rounded-full ${cat.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{cat.isActive ? 'Active' : 'Inactive'}</span>
+                      <span className={`text-sm px-2 py-1 rounded-full ${cat.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>{cat.isActive ? 'Active' : 'Inactive'}</span>
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1">

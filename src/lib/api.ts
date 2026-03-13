@@ -6,13 +6,12 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://aurgo-backend-1.onre
 const api = axios.create({
   baseURL: API_URL,
   withCredentials: true,
-  timeout: 15000, // 15 second timeout for production resilience
+  timeout: 15000, 
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// Request interceptor - attach token
 api.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
@@ -30,20 +29,37 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    const message = error.response?.data?.error || error.message || "An unexpected error occurred";
+    // Extract meaningful error message
+    const message = error.response?.data?.message || 
+                    error.response?.data?.error || 
+                    error.message || 
+                    "An unexpected error occurred";
     
+    // Log error for production monitoring (standard approach)
+    if (process.env.NODE_ENV === 'production') {
+      console.error(`[API Error] ${error.config?.method?.toUpperCase()} ${error.config?.url}:`, message);
+    }
+
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
         localStorage.removeItem("augeo_token");
         localStorage.removeItem("augeo_user");
+        // Only redirect if not already on an auth page
         if (!window.location.pathname.startsWith("/auth/")) {
+          toast.error("Session expired. Please login again.");
           window.location.href = "/auth/login";
         }
       }
     } else if (error.response?.status === 403) {
-      toast.error("Access forbidden: " + message);
+      toast.error("Access denied: " + message);
+    } else if (error.response?.status === 404) {
+      // toast.error("Resource not found"); // Often handled by pages
+    } else if (error.response?.status === 422) {
+      toast.error("Validation error: " + message);
     } else if (error.response?.status >= 500) {
-      toast.error("Server error: " + message);
+      toast.error("Server synchronization error. Please try again later.");
+    } else if (error.code === 'ECONNABORTED') {
+      toast.error("Request timed out. Please check your connection.");
     }
     
     return Promise.reject(error);

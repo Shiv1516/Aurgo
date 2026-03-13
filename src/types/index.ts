@@ -19,7 +19,12 @@ export interface User {
   isPhoneVerified: boolean;
   isActive: boolean;
   isSuspended: boolean;
-  kycStatus: "none" | "pending" | "approved" | "rejected";
+  kyc?: {
+    status: "none" | "pending" | "verified" | "rejected";
+    documents: { type: string; url: string; uploadedAt: string }[];
+    rejectionReason?: string;
+    submittedAt?: string;
+  };
   addresses: Address[];
   savedPaymentMethods: PaymentMethod[];
   companyName?: string;
@@ -27,6 +32,12 @@ export interface User {
   companyLogo?: string;
   clientApproved?: boolean;
   commissionRate?: number;
+  stats?: {
+    won: number;
+    activeBids: number;
+    watchlistCount: number;
+    totalSpent: number;
+  };
   createdAt: string;
   updatedAt: string;
 }

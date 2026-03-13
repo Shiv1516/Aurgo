@@ -14,7 +14,7 @@ export default function LoadingSpinner({ size = 'md', className }: LoadingSpinne
 
   return (
     <div className={cn('flex items-center justify-center', className)}>
-      <div className={cn('rounded-full border-gold/30 border-t-gold animate-spin', sizeClasses[size])} />
+      <div className={cn('rounded-full border-burgundy/30 border-t-burgundy animate-spin', sizeClasses[size])} />
     </div>
   );
 }
@@ -24,7 +24,7 @@ export function PageLoader() {
     <div className="min-h-[60vh] flex items-center justify-center">
       <div className="text-center">
         <LoadingSpinner size="lg" />
-        <p className="mt-4 text-gray-500 text-sm">Loading...</p>
+        <p className="mt-4 text-gray-500 text-base">Loading...</p>
       </div>
     </div>
   );

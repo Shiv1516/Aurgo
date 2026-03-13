@@ -23,7 +23,7 @@ export default function Error({
             <AlertCircle className="h-12 w-12 text-red-600" />
           </div>
         </div>
-        <h2 className="text-3xl font-heading font-bold text-dark mb-4">
+        <h2 className="text-4xl font-heading font-bold text-dark mb-4">
           Something went wrong
         </h2>
         <p className="text-gray-600 mb-8 leading-relaxed">

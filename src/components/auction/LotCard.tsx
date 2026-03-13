@@ -1,10 +1,14 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import toast from "react-hot-toast";
 import { Lot, Auction } from "@/types";
 import { formatCurrency } from "@/lib/utils";
-import { Gavel, Eye } from "lucide-react";
+import { watchlistAPI } from "@/lib/api";
+import { useAuthStore } from "@/store/authStore";
+import { Gavel, Eye, Heart } from "lucide-react";
 
 interface LotCardProps {
   lot: Lot;
@@ -12,6 +16,51 @@ interface LotCardProps {
 }
 
 export default function LotCard({ lot, auctionSlug }: LotCardProps) {
+  const { isAuthenticated } = useAuthStore();
+  const [isWatched, setIsWatched] = useState(false);
+  const [watchlistId, setWatchlistId] = useState<string | null>(null);
+  const [isWatching, setIsWatching] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      watchlistAPI.check(lot._id).then(res => {
+        if (res.data.isWatched) {
+          setIsWatched(true);
+          setWatchlistId(res.data.watchlistId);
+        }
+      }).catch(() => {});
+    }
+  }, [lot._id, isAuthenticated]);
+
+  const toggleWatchlist = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isAuthenticated) {
+      toast.error("Please sign in to add to watchlist");
+      return;
+    }
+
+    setIsWatching(true);
+    try {
+      if (isWatched && watchlistId) {
+        await watchlistAPI.remove(watchlistId);
+        setIsWatched(false);
+        setWatchlistId(null);
+        toast.success("Removed from watchlist");
+      } else {
+        const res = await watchlistAPI.add({ lotId: lot._id });
+        setIsWatched(true);
+        setWatchlistId(res.data.data._id);
+        toast.success("Added to watchlist");
+      }
+    } catch (error) {
+      toast.error("Failed to update watchlist");
+    } finally {
+      setIsWatching(false);
+    }
+  };
+
   const mainImage = lot.images?.[0]?.url;
 
   return (
@@ -36,13 +85,23 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
             </div>
           )}
 
-          <div className="absolute top-2 left-2 bg-dark/80 text-white text-xs px-2 py-1 rounded">
+          <div className="absolute top-2 left-2 bg-dark/80 text-white text-sm px-2 py-0.5 rounded font-black uppercase tracking-widest">
             Lot {lot.lotNumber}
           </div>
 
+          <button
+            onClick={toggleWatchlist}
+            disabled={isWatching}
+            className="absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group/heart hover:bg-white transition-all"
+          >
+            <Heart 
+               className={`h-4 w-4 transition-all ${isWatched ? 'fill-burgundy text-burgundy' : 'text-white group-hover/heart:text-burgundy'}`} 
+            />
+          </button>
+
           {lot.status === "sold" && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <span className="bg-red-600 text-white text-sm font-bold px-4 py-1.5 rounded -rotate-12">
+              <span className="bg-red-600 text-white text-base font-bold px-4 py-1.5 rounded -rotate-12">
                 SOLD
               </span>
             </div>
@@ -51,16 +110,16 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
 
         {/* Content */}
         <div className="p-3">
-          <h4 className="font-medium text-sm text-dark group-hover:text-gold transition-colors line-clamp-2 mb-1">
+          <h4 className="font-bold text-base text-navy group-hover:text-burgundy transition-colors line-clamp-2 mb-1">
             {lot.title}
           </h4>
 
           {lot.artist && (
-            <p className="text-xs text-gray-500 mb-2">{lot.artist}</p>
+            <p className="text-sm text-gray-500 mb-2">{lot.artist}</p>
           )}
 
           {lot.estimateLow && lot.estimateHigh && (
-            <p className="text-xs text-gray-500 mb-1">
+            <p className="text-sm text-gray-500 mb-1">
               Est. {formatCurrency(lot.estimateLow)} -{" "}
               {formatCurrency(lot.estimateHigh)}
             </p>
@@ -68,16 +127,16 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
 
           <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
             <div>
-              <p className="text-[10px] text-gray-500 uppercase">
+              <p className="text-sm text-gray-500 uppercase">
                 {lot.currentBid > 0 ? "Current Bid" : "Starting Bid"}
               </p>
-              <p className="text-sm font-bold text-dark">
+              <p className="text-base font-bold text-dark">
                 {formatCurrency(
                   lot.currentBid > 0 ? lot.currentBid : lot.startingBid,
                 )}
               </p>
             </div>
-            <div className="flex items-center gap-1 text-xs text-gray-500">
+            <div className="flex items-center gap-1 text-sm text-gray-500">
               <Gavel className="h-3 w-3" />
               <span>{lot.totalBids} bids</span>
             </div>

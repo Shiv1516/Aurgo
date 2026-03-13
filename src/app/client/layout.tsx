@@ -52,7 +52,7 @@ export default function ClientLayout({
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex gap-6">
             <aside
-              className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-dark rounded-xl p-4 transform transition-transform lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
+              className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-navy rounded-xl p-4 transform transition-transform lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
             >
               <div className="flex items-center justify-between lg:hidden mb-4">
                 <span className="text-white font-bold">Menu</span>
@@ -61,10 +61,10 @@ export default function ClientLayout({
                 </button>
               </div>
               <div className="px-4 py-3 mb-4 border-b border-gray-700">
-                <p className="text-gold font-semibold text-sm">
+                <p className="text-burgundy font-semibold text-base">
                   {user.companyName || "Auction House"}
                 </p>
-                <p className="text-gray-400 text-xs">Client Panel</p>
+                <p className="text-gray-400 text-sm">Client Panel</p>
               </div>
               <nav className="space-y-1">
                 {links.map((link) => {
@@ -76,7 +76,7 @@ export default function ClientLayout({
                       key={link.href}
                       href={link.href}
                       onClick={() => setSidebarOpen(false)}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all ${isActive ? "bg-gold/20 text-gold font-medium" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base transition-all ${isActive ? "bg-burgundy/10 text-burgundy font-medium" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
                     >
                       <link.icon className="h-5 w-5" />
                       {link.label}

@@ -58,7 +58,7 @@ export default function AdminLayout({
       <div className="min-h-screen bg-gray-100">
         <div className="flex">
           <aside
-            className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-dark min-h-screen p-4 transform transition-transform lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
+            className={`fixed lg:static inset-y-0 left-0 z-40 w-64 bg-navy min-h-screen p-4 transform transition-transform lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
           >
             <div className="flex items-center justify-between lg:hidden mb-4">
               <span className="text-white font-bold">Admin</span>
@@ -67,8 +67,8 @@ export default function AdminLayout({
               </button>
             </div>
             <div className="px-4 py-3 mb-4 border-b border-gray-700">
-              <p className="text-gold font-bold text-lg">AUGEO</p>
-              <p className="text-gray-400 text-xs">Super Admin Panel</p>
+              <p className="text-burgundy font-bold text-xl">AUGEO</p>
+              <p className="text-gray-400 text-sm">Super Admin Panel</p>
             </div>
             <nav className="space-y-1">
               {links.map((link) => {
@@ -80,7 +80,7 @@ export default function AdminLayout({
                     key={link.href}
                     href={link.href}
                     onClick={() => setSidebarOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm transition-all ${isActive ? "bg-gold/20 text-gold font-medium" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
+                    className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-base transition-all ${isActive ? "bg-burgundy/20 text-burgundy font-medium" : "text-gray-400 hover:text-white hover:bg-white/5"}`}
                   >
                     <link.icon className="h-4 w-4" />
                     {link.label}

@@ -67,7 +67,7 @@ export default function AdminOrdersPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-heading font-bold text-dark">
+      <h1 className="text-3xl font-heading font-bold text-dark">
         Order Management
       </h1>
 
@@ -111,11 +111,11 @@ export default function AdminOrdersPage() {
       <div className="card overflow-hidden">
         {loading ? (
           <div className="flex justify-center py-10">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" />
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-3 font-medium text-gray-600">
@@ -163,7 +163,7 @@ export default function AdminOrdersPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`text-xs px-2 py-1 rounded-full ${
+                        className={`text-sm px-2 py-1 rounded-full ${
                           order.paymentStatus === "paid"
                             ? "bg-green-100 text-green-700"
                             : order.paymentStatus === "refunded"
@@ -178,7 +178,7 @@ export default function AdminOrdersPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`text-xs px-2 py-1 rounded-full ${
+                        className={`text-sm px-2 py-1 rounded-full ${
                           order.shippingStatus === "delivered"
                             ? "bg-green-100 text-green-700"
                             : order.shippingStatus === "shipped"
@@ -242,7 +242,7 @@ export default function AdminOrdersPage() {
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <span className="px-4 py-2 text-sm">
+          <span className="px-4 py-2 text-base">
             Page {page} of {totalPages}
           </span>
           <button
@@ -264,10 +264,10 @@ export default function AdminOrdersPage() {
             className="bg-white rounded-xl max-w-2xl w-full p-6 max-h-[80vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <h3 className="text-lg font-heading font-bold mb-4">
+            <h3 className="text-xl font-heading font-bold mb-4">
               Order {selectedOrder.orderNumber}
             </h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="grid grid-cols-2 gap-4 text-base">
               <div>
                 <span className="text-gray-500">Buyer:</span>
                 <p className="font-medium">
@@ -301,7 +301,7 @@ export default function AdminOrdersPage() {
               </div>
               <div>
                 <span className="text-gray-500">Total:</span>
-                <p className="font-bold text-lg">
+                <p className="font-bold text-xl">
                   {formatCurrency(selectedOrder.totalAmount)}
                 </p>
               </div>
@@ -337,7 +337,7 @@ export default function AdminOrdersPage() {
                 !selectedOrder.commission?.payoutStatus && (
                   <button
                     onClick={() => handlePayout(selectedOrder._id)}
-                    className="btn-primary !bg-green-600 !py-2 text-sm"
+                    className="btn-primary !bg-green-600 !py-2 text-base"
                   >
                     Process Payout
                   </button>
@@ -345,14 +345,14 @@ export default function AdminOrdersPage() {
               {selectedOrder.paymentStatus === "paid" && (
                 <button
                   onClick={() => handleRefund(selectedOrder._id)}
-                  className="btn-primary !bg-red-500 !py-2 text-sm"
+                  className="btn-primary !bg-red-500 !py-2 text-base"
                 >
                   Issue Refund
                 </button>
               )}
               <button
                 onClick={() => setSelectedOrder(null)}
-                className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50"
+                className="px-4 py-2 border rounded-lg text-base hover:bg-gray-50"
               >
                 Close
               </button>

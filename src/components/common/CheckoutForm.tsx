@@ -50,12 +50,12 @@ export default function CheckoutForm({ orderId, totalAmount, onSuccess }: Checko
       
       <button
         disabled={isProcessing || !stripe || !elements}
-        className="btn-primary w-full !py-4 text-lg disabled:opacity-50"
+        className="btn-primary w-full !py-4 text-xl disabled:opacity-50"
       >
         {isProcessing ? 'Processing...' : `Pay Now`}
       </button>
       
-      <p className="text-[10px] text-center text-gray-500 flex items-center justify-center gap-1">
+      <p className="text-sm text-center text-gray-500 flex items-center justify-center gap-1">
         <Shield className="h-3 w-3" /> Secure payment powered by Stripe.
       </p>
     </form>

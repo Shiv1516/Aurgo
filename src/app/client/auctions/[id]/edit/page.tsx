@@ -39,19 +39,19 @@ export default function EditAuctionPage() {
   if (isLoading || !form) return <PageLoader />;
   return (
     <div>
-      <h1 className="text-2xl font-heading font-bold text-dark mb-6">Edit Auction</h1>
+      <h1 className="text-3xl font-heading font-bold text-dark mb-6">Edit Auction</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="card p-6 space-y-4">
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Title *</label><input type="text" required value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="input-field" /></div>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Short Description</label><input value={form.shortDescription} onChange={e => setForm({ ...form, shortDescription: e.target.value })} className="input-field" /></div>
-          <div><label className="text-sm font-medium text-gray-700 mb-1 block">Description *</label><textarea required rows={5} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="input-field" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Title *</label><input type="text" required value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="input-field" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Short Description</label><input value={form.shortDescription} onChange={e => setForm({ ...form, shortDescription: e.target.value })} className="input-field" /></div>
+          <div><label className="text-base font-medium text-gray-700 mb-1 block">Description *</label><textarea required rows={5} value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} className="input-field" /></div>
           <div className="grid grid-cols-2 gap-4">
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">Category</label><select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} className="input-field"><option value="">Select</option>{categories.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}</select></div>
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">Buyer&apos;s Premium (%)</label><input type="number" value={form.buyersPremium} onChange={e => setForm({ ...form, buyersPremium: parseInt(e.target.value) })} className="input-field" /></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">Category</label><select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })} className="input-field"><option value="">Select</option>{categories.map((c: any) => <option key={c._id} value={c._id}>{c.name}</option>)}</select></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">Buyer&apos;s Premium (%)</label><input type="number" value={form.buyersPremium} onChange={e => setForm({ ...form, buyersPremium: parseInt(e.target.value) })} className="input-field" /></div>
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">Start Time</label><input type="datetime-local" value={form.startTime} onChange={e => setForm({ ...form, startTime: e.target.value })} className="input-field" /></div>
-            <div><label className="text-sm font-medium text-gray-700 mb-1 block">End Time</label><input type="datetime-local" value={form.endTime} onChange={e => setForm({ ...form, endTime: e.target.value })} className="input-field" /></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">Start Time</label><input type="datetime-local" value={form.startTime} onChange={e => setForm({ ...form, startTime: e.target.value })} className="input-field" /></div>
+            <div><label className="text-base font-medium text-gray-700 mb-1 block">End Time</label><input type="datetime-local" value={form.endTime} onChange={e => setForm({ ...form, endTime: e.target.value })} className="input-field" /></div>
           </div>
         </div>
         <button type="submit" disabled={saving} className="btn-primary gap-2 disabled:opacity-50"><Save className="h-4 w-4" /> {saving ? 'Saving...' : 'Save Changes'}</button>

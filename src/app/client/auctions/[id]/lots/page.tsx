@@ -48,32 +48,32 @@ export default function LotsManagementPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-heading font-bold text-dark">Lot Management</h1>
-        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-sm !py-2.5 gap-2">{showForm ? <><X className="h-4 w-4" /> Cancel</> : <><Plus className="h-4 w-4" /> Add Lot</>}</button>
+        <h1 className="text-3xl font-heading font-bold text-dark">Lot Management</h1>
+        <button onClick={() => setShowForm(!showForm)} className="btn-primary text-base !py-2.5 gap-2">{showForm ? <><X className="h-4 w-4" /> Cancel</> : <><Plus className="h-4 w-4" /> Add Lot</>}</button>
       </div>
 
       {showForm && (
         <form onSubmit={handleCreateLot} className="card p-6 mb-6 space-y-4">
           <h3 className="font-heading font-semibold text-dark">New Lot</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div><label className="text-sm font-medium mb-1 block">Title *</label><input required value={lotForm.title} onChange={e => u('title', e.target.value)} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Lot Number</label><input type="number" value={lotForm.lotNumber || ''} onChange={e => u('lotNumber', parseInt(e.target.value) || 0)} className="input-field text-sm" placeholder="Auto" /></div>
+            <div><label className="text-base font-medium mb-1 block">Title *</label><input required value={lotForm.title} onChange={e => u('title', e.target.value)} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Lot Number</label><input type="number" value={lotForm.lotNumber || ''} onChange={e => u('lotNumber', parseInt(e.target.value) || 0)} className="input-field text-base" placeholder="Auto" /></div>
           </div>
-          <div><label className="text-sm font-medium mb-1 block">Description *</label><textarea required rows={3} value={lotForm.description} onChange={e => u('description', e.target.value)} className="input-field text-sm" /></div>
+          <div><label className="text-base font-medium mb-1 block">Description *</label><textarea required rows={3} value={lotForm.description} onChange={e => u('description', e.target.value)} className="input-field text-base" /></div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div><label className="text-sm font-medium mb-1 block">Starting Bid *</label><input type="number" required min={0} value={lotForm.startingBid || ''} onChange={e => u('startingBid', parseFloat(e.target.value))} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Reserve Price</label><input type="number" min={0} value={lotForm.reservePrice || ''} onChange={e => u('reservePrice', parseFloat(e.target.value))} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Estimate Low</label><input type="number" min={0} value={lotForm.estimateLow || ''} onChange={e => u('estimateLow', parseFloat(e.target.value))} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Estimate High</label><input type="number" min={0} value={lotForm.estimateHigh || ''} onChange={e => u('estimateHigh', parseFloat(e.target.value))} className="input-field text-sm" /></div>
+            <div><label className="text-base font-medium mb-1 block">Starting Bid *</label><input type="number" required min={0} value={lotForm.startingBid || ''} onChange={e => u('startingBid', parseFloat(e.target.value))} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Reserve Price</label><input type="number" min={0} value={lotForm.reservePrice || ''} onChange={e => u('reservePrice', parseFloat(e.target.value))} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Estimate Low</label><input type="number" min={0} value={lotForm.estimateLow || ''} onChange={e => u('estimateLow', parseFloat(e.target.value))} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Estimate High</label><input type="number" min={0} value={lotForm.estimateHigh || ''} onChange={e => u('estimateHigh', parseFloat(e.target.value))} className="input-field text-base" /></div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div><label className="text-sm font-medium mb-1 block">Bid Increment</label><input type="number" min={1} value={lotForm.bidIncrement} onChange={e => u('bidIncrement', parseFloat(e.target.value))} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Artist</label><input value={lotForm.artist} onChange={e => u('artist', e.target.value)} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Origin</label><input value={lotForm.origin} onChange={e => u('origin', e.target.value)} className="input-field text-sm" /></div>
-            <div><label className="text-sm font-medium mb-1 block">Year</label><input value={lotForm.yearCreated} onChange={e => u('yearCreated', e.target.value)} className="input-field text-sm" /></div>
+            <div><label className="text-base font-medium mb-1 block">Bid Increment</label><input type="number" min={1} value={lotForm.bidIncrement} onChange={e => u('bidIncrement', parseFloat(e.target.value))} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Artist</label><input value={lotForm.artist} onChange={e => u('artist', e.target.value)} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Origin</label><input value={lotForm.origin} onChange={e => u('origin', e.target.value)} className="input-field text-base" /></div>
+            <div><label className="text-base font-medium mb-1 block">Year</label><input value={lotForm.yearCreated} onChange={e => u('yearCreated', e.target.value)} className="input-field text-base" /></div>
           </div>
-          <div><label className="text-sm font-medium mb-1 block">Condition Report</label><textarea rows={2} value={lotForm.conditionReport} onChange={e => u('conditionReport', e.target.value)} className="input-field text-sm" /></div>
-          <button type="submit" disabled={saving} className="btn-primary text-sm !py-2.5 gap-2 disabled:opacity-50"><Save className="h-4 w-4" /> {saving ? 'Creating...' : 'Create Lot'}</button>
+          <div><label className="text-base font-medium mb-1 block">Condition Report</label><textarea rows={2} value={lotForm.conditionReport} onChange={e => u('conditionReport', e.target.value)} className="input-field text-base" /></div>
+          <button type="submit" disabled={saving} className="btn-primary text-base !py-2.5 gap-2 disabled:opacity-50"><Save className="h-4 w-4" /> {saving ? 'Creating...' : 'Create Lot'}</button>
         </form>
       )}
 
@@ -83,12 +83,12 @@ export default function LotsManagementPage() {
         <div className="card overflow-hidden"><div className="overflow-x-auto"><table className="w-full"><thead><tr className="table-header"><th className="px-4 py-3">#</th><th className="px-4 py-3">Title</th><th className="px-4 py-3">Starting</th><th className="px-4 py-3">Current</th><th className="px-4 py-3">Bids</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Actions</th></tr></thead><tbody>
           {lots.map(lot => (
             <tr key={lot._id} className="border-t border-gray-50 hover:bg-gray-50">
-              <td className="px-4 py-3 text-sm font-medium">{lot.lotNumber}</td>
-              <td className="px-4 py-3 text-sm">{lot.title}</td>
-              <td className="px-4 py-3 text-sm">{formatCurrency(lot.startingBid)}</td>
-              <td className="px-4 py-3 text-sm font-bold">{lot.currentBid > 0 ? formatCurrency(lot.currentBid) : '-'}</td>
-              <td className="px-4 py-3 text-sm">{lot.totalBids}</td>
-              <td className="px-4 py-3"><span className={`text-xs px-2 py-0.5 rounded-full ${lot.status === 'active' ? 'bg-green-100 text-green-700' : lot.status === 'sold' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>{lot.status}</span></td>
+              <td className="px-4 py-3 text-base font-medium">{lot.lotNumber}</td>
+              <td className="px-4 py-3 text-base">{lot.title}</td>
+              <td className="px-4 py-3 text-base">{formatCurrency(lot.startingBid)}</td>
+              <td className="px-4 py-3 text-base font-bold">{lot.currentBid > 0 ? formatCurrency(lot.currentBid) : '-'}</td>
+              <td className="px-4 py-3 text-base">{lot.totalBids}</td>
+              <td className="px-4 py-3"><span className={`text-sm px-2 py-0.5 rounded-full ${lot.status === 'active' ? 'bg-green-100 text-green-700' : lot.status === 'sold' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'}`}>{lot.status}</span></td>
               <td className="px-4 py-3"><button onClick={() => handleDeleteLot(lot._id)} className="text-red-400 hover:text-red-600" title="Delete"><Trash2 className="h-4 w-4" /></button></td>
             </tr>
           ))}

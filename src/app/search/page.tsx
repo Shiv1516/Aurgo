@@ -32,9 +32,9 @@
 
 //   return (
 //     <>
-//       <div className="bg-dark py-12">
+//       <div className="bg-navy py-12">
 //         <div className="max-w-7xl mx-auto px-4">
-//           <h1 className="text-3xl font-heading font-bold text-white">
+//           <h1 className="text-4xl font-heading font-bold text-white">
 //             Search Results
 //           </h1>
 //           <p className="text-gray-400 mt-2">
@@ -54,7 +54,7 @@
 //         ) : (
 //           <div className="text-center py-20">
 //             <SearchIcon className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-//             <p className="text-gray-500 text-lg">
+//             <p className="text-gray-500 text-xl">
 //               {query ? "No results found" : "Enter a search term"}
 //             </p>
 //           </div>

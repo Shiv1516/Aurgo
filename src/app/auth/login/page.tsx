@@ -1,11 +1,21 @@
 "use client";
 
-import { use, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import toast from "react-hot-toast";
-import { Mail, Lock, Eye, EyeOff, Gavel } from "lucide-react";
+import { motion } from "framer-motion";
+import { Mail, Lock, Eye, EyeOff, Gavel, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
+
+const containerVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" }
+  }
+};
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,118 +29,133 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await login(form.email, form.password);
-      toast.success("Welcome back!");
+      toast.success("Identity Verified: Welcome back to the Vault");
       const user = useAuthStore.getState().user;
       const role = user?.role;
 
       if (role === "admin") {
-        router.push("/admin");
+        router.push("/dashboard");
       } else if (role === "client") {
-        router.push("/client");
+        router.push("/dashboard");
       } else {
         router.push("/dashboard");
       }
     } catch (error: any) {
-      toast.error(error.response?.data?.error || "Login failed");
+      toast.error(error.response?.data?.error || "Access Denied: Invalid credentials");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <div className="min-h-[80vh] bg-gray-50 flex items-center justify-center py-12 px-4">
-        <div className="max-w-md w-full">
-          <div className="text-center mb-8">
-            <Gavel className="h-12 w-12 text-gold mx-auto mb-4" />
-            <h1 className="text-3xl font-heading font-bold text-dark">
-              Welcome Back
-            </h1>
-            <p className="text-gray-500 mt-2">Sign in to continue bidding</p>
+    <div className="min-h-screen bg-white flex items-center justify-center py-20 px-4 relative overflow-hidden">
+      {/* Cinematic Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
+         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-burgundy rounded-full blur-[120px]" />
+         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-navy rounded-full blur-[120px]" />
+      </div>
+
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="max-w-xl w-full"
+      >
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 mb-6">
+             <div className="h-px w-8 bg-gold/30" />
+             <ShieldCheck className="h-5 w-5 text-burgundy" />
+             <div className="h-px w-8 bg-gold/30" />
           </div>
+          <h1 className="text-6xl font-black text-navy tracking-tighter uppercase leading-none mb-4">
+            Security <span className="text-gold italic font-serif lowercase">Gateway</span>
+          </h1>
+          <p className="text-sm font-black text-gray-400 uppercase tracking-[0.4em]">Authorized Access Only</p>
+        </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-8">
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
-                </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                    className="input-field pl-10"
-                    placeholder="your@email.com"
-                  />
-                </div>
+        <div className="bg-white rounded-[3.5rem] p-12 shadow-2xl shadow-black/[0.04] border border-gray-50 relative group overflow-hidden">
+          {/* Subtle Glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50/50 -z-10" />
+          
+          <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
+            <div className="space-y-3">
+              <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Strategic Identifier (Email)</label>
+              <div className="relative group/field">
+                <Mail className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-300 group-focus-within/field:text-gold transition-colors" />
+                <input
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full pl-16 pr-8 py-6 bg-gray-50 border-none rounded-[1.8rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                  placeholder="name@maison.com"
+                />
               </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="block text-sm font-medium text-gray-700">
-                    Password
-                  </label>
-                  <Link
-                    href="/auth/forgot-password"
-                    className="text-sm text-gold hover:text-gold-dark"
-                  >
-                    Forgot password?
-                  </Link>
-                </div>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    required
-                    value={form.password}
-                    onChange={(e) =>
-                      setForm({ ...form, password: e.target.value })
-                    }
-                    className="input-field pl-10 pr-10"
-                    placeholder="Enter password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  >
-                    {showPassword ? (
-                      <EyeOff className="h-5 w-5" />
-                    ) : (
-                      <Eye className="h-5 w-5" />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={isLoading}
-                className="btn-primary w-full !py-3.5 text-base disabled:opacity-50"
-              >
-                {isLoading ? "Signing in..." : "Sign In"}
-              </button>
-            </form>
-
-            <div className="mt-6 text-center">
-              <p className="text-gray-500 text-sm">
-                Don&apos;t have an account?{" "}
-                <Link
-                  href="/auth/register"
-                  className="text-gold font-semibold hover:text-gold-dark"
-                >
-                  Create one
-                </Link>
-              </p>
             </div>
+
+            <div className="space-y-3">
+              <div className="flex items-center justify-between px-1">
+                <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Access Protocol (Password)</label>
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-sm font-black text-burgundy uppercase tracking-widest hover:text-navy transition-colors"
+                >
+                  Reset Sequence
+                </Link>
+              </div>
+              <div className="relative group/field">
+                <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-300 group-focus-within/field:text-burgundy transition-colors" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  className="w-full pl-16 pr-16 py-6 bg-gray-50 border-none rounded-[1.8rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-300 hover:text-navy transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-5 w-5" />
+                  ) : (
+                    <Eye className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full py-6 bg-navy text-white rounded-[1.8rem] transition-all font-black text-sm uppercase tracking-[0.3em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy hover:-translate-y-1 disabled:opacity-50 flex items-center justify-center gap-3 group"
+            >
+              {isLoading ? "Synchronizing..." : "Initiate Session"}
+              <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </form>
+
+          <div className="mt-10 pt-10 border-t border-gray-50 text-center">
+            <p className="text-sm font-black text-gray-400 uppercase tracking-widest">
+              New to the Protocol?{" "}
+              <Link
+                href="/auth/register"
+                className="text-burgundy hover:text-navy transition-colors ml-1"
+              >
+                Request Enrollment
+              </Link>
+            </p>
           </div>
         </div>
-      </div>
-    </>
+
+        {/* Brand Signifier */}
+        <div className="mt-12 flex items-center justify-center gap-3 opacity-20 group hover:opacity-100 transition-opacity">
+           <Gavel className="h-4 w-4 text-navy" />
+           <span className="text-sm font-black text-navy uppercase tracking-[0.5em]">AUGEO • VAULT</span>
+        </div>
+      </motion.div>
+    </div>
   );
 }

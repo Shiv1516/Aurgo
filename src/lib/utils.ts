@@ -1,7 +1,7 @@
 import { format, formatDistanceToNow, differenceInSeconds } from 'date-fns';
 
-export function formatCurrency(amount: number, currency: string = 'USD'): string {
-  return new Intl.NumberFormat('en-US', {
+export function formatCurrency(amount: number, currency: string = 'EUR'): string {
+  return new Intl.NumberFormat('en-IE', {
     style: 'currency',
     currency,
     minimumFractionDigits: 0,
@@ -46,17 +46,18 @@ export function getAuctionStatusColor(status: string): string {
 }
 
 export function getOrderStatusColor(status: string): string {
-  switch (status) {
-    case 'pending': return 'text-yellow-600 bg-yellow-100';
-    case 'confirmed': return 'text-blue-600 bg-blue-100';
-    case 'processing': return 'text-indigo-600 bg-indigo-100';
-    case 'shipped': return 'text-purple-600 bg-purple-100';
-    case 'delivered': return 'text-green-600 bg-green-100';
-    case 'completed': return 'text-green-700 bg-green-200';
-    case 'cancelled': return 'text-red-600 bg-red-100';
-    case 'disputed': return 'text-orange-600 bg-orange-100';
-    case 'refunded': return 'text-gray-600 bg-gray-100';
-    default: return 'text-gray-600 bg-gray-100';
+  switch (status.toLowerCase()) {
+    case 'pending': return 'text-amber-600 bg-amber-50 border-amber-100';
+    case 'paid': return 'text-green-600 bg-green-50 border-green-100';
+    case 'confirmed': return 'text-navy bg-navy/5 border-navy/10';
+    case 'processing': return 'text-gold bg-gold/5 border-gold/10';
+    case 'shipped': return 'text-blue-600 bg-blue-50 border-blue-100';
+    case 'delivered': return 'text-green-700 bg-green-100 border-green-200';
+    case 'completed': return 'text-navy bg-navy/10 border-navy/20';
+    case 'cancelled': return 'text-burgundy bg-burgundy/5 border-burgundy/10';
+    case 'disputed': return 'text-rose-600 bg-rose-50 border-rose-100';
+    case 'refunded': return 'text-gray-600 bg-gray-50 border-gray-100';
+    default: return 'text-gray-600 bg-gray-100 border-gray-200';
   }
 }
 

@@ -8,15 +8,15 @@ export default function AuthenticationProcess() {
     <div className="bg-white min-h-screen">
       {/* Header Section */}
       <section className="py-24 bg-gray-50 border-b border-gray-100 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gold/5 blur-[100px] rounded-full translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-burgundy/5 blur-[100px] rounded-full translate-x-1/2" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex items-center gap-2 text-gold text-xs font-black uppercase tracking-[0.4em] mb-4">
+          <div className="flex items-center gap-2 text-burgundy text-sm font-black uppercase tracking-[0.4em] mb-4">
             <Lock className="h-3 w-3" /> Secure Protocol
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-dark tracking-tighter uppercase leading-none mb-6">
-            Trust <span className="text-gold italic">Clearance</span>
+          <h1 className="text-5xl md:text-7xl font-black text-dark tracking-tighter uppercase leading-none mb-6">
+            Trust <span className="text-burgundy italic">Clearance</span>
           </h1>
-          <p className="text-gray-500 text-xl font-medium max-w-2xl italic leading-relaxed">
+          <p className="text-gray-500 text-2xl font-medium max-w-2xl italic leading-relaxed">
             Our multi-layer verification system ensures every participant in the Augeo ecosystem is rigorously vetted for the protection of all guild members.
           </p>
         </div>
@@ -54,22 +54,22 @@ export default function AuthenticationProcess() {
               const Icon = step.icon;
               return (
                 <div key={i} className="relative group">
-                   <div className="p-8 bg-white border border-gray-100 rounded-[2.5rem] hover:border-gold/30 hover:shadow-2xl hover:shadow-gold/5 transition-all h-full flex flex-col">
+                   <div className="p-8 bg-white border border-gray-100 rounded-[2.5rem] hover:border-burgundy/30 hover:shadow-2xl hover:shadow-burgundy/5 transition-all h-full flex flex-col">
                       <div className="flex justify-between items-start mb-10">
-                         <div className="w-16 h-16 bg-dark rounded-2xl flex items-center justify-center group-hover:bg-gold transition-colors duration-500">
-                            <Icon className="h-8 w-8 text-gold group-hover:text-dark transition-colors duration-500" />
+                         <div className="w-16 h-16 bg-dark rounded-2xl flex items-center justify-center group-hover:bg-burgundy transition-colors duration-500">
+                            <Icon className="h-8 w-8 text-burgundy group-hover:text-dark transition-colors duration-500" />
                          </div>
-                         <span className="text-[10px] font-black text-gray-300 uppercase tracking-widest">Stage 0{i+1}</span>
+                         <span className="text-sm font-black text-gray-300 uppercase tracking-widest">Stage 0{i+1}</span>
                       </div>
-                      <h3 className="text-xl font-black text-dark mb-4 uppercase tracking-tight">
+                      <h3 className="text-2xl font-black text-dark mb-4 uppercase tracking-tight">
                         {step.title}
                       </h3>
                       <p className="text-gray-500 font-medium leading-relaxed mb-8 flex-grow">
                         {step.desc}
                       </p>
                       <div className="pt-6 border-t border-gray-50 flex items-center justify-between">
-                         <span className="text-[10px] font-black text-gold uppercase tracking-widest">Latency</span>
-                         <span className="text-[10px] font-bold text-dark uppercase">{step.time}</span>
+                         <span className="text-sm font-black text-burgundy uppercase tracking-widest">Latency</span>
+                         <span className="text-sm font-bold text-dark uppercase">{step.time}</span>
                       </div>
                    </div>
                    {i < 3 && (
@@ -86,12 +86,12 @@ export default function AuthenticationProcess() {
 
       {/* Security Infrastructure */}
       <section className="py-24 bg-dark text-white overflow-hidden relative">
-         <div className="absolute inset-0 bg-gold/5 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')]" />
+         <div className="absolute inset-0 bg-burgundy/5 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')]" />
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
                <div>
-                  <h2 className="text-4xl font-black tracking-tighter uppercase mb-8">
-                    Institutional <span className="text-gold italic">Encryption</span>
+                  <h2 className="text-5xl font-black tracking-tighter uppercase mb-8">
+                    Institutional <span className="text-burgundy italic">Encryption</span>
                   </h2>
                   <div className="space-y-6">
                     {[
@@ -101,8 +101,8 @@ export default function AuthenticationProcess() {
                       "Real-time monitoring by Certified Security Analysts."
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-4">
-                        <div className="mt-1 h-5 w-5 rounded-full border border-gold/50 flex items-center justify-center p-1">
-                           <div className="h-2 w-2 rounded-full bg-gold" />
+                        <div className="mt-1 h-5 w-5 rounded-full border border-burgundy/50 flex items-center justify-center p-1">
+                           <div className="h-2 w-2 rounded-full bg-burgundy" />
                         </div>
                         <p className="text-gray-400 font-medium">{item}</p>
                       </div>
@@ -111,10 +111,10 @@ export default function AuthenticationProcess() {
                </div>
                <div className="relative">
                   <div className="p-12 bg-white/5 border border-white/10 rounded-[3rem] backdrop-blur-xl">
-                     <ShieldAlert className="h-40 w-40 text-gold/20 mx-auto mb-8" />
+                     <ShieldAlert className="h-40 w-40 text-burgundy/20 mx-auto mb-8" />
                      <div className="text-center">
-                        <p className="text-gold font-black uppercase tracking-[0.3em] text-[10px] mb-2">Our Security Guarantee</p>
-                        <h3 className="text-2xl font-black uppercase tracking-tight">Zero-Leach Infrastructure</h3>
+                        <p className="text-burgundy font-black uppercase tracking-[0.3em] text-sm mb-2">Our Security Guarantee</p>
+                        <h3 className="text-3xl font-black uppercase tracking-tight">Zero-Leach Infrastructure</h3>
                      </div>
                   </div>
                </div>
@@ -125,15 +125,15 @@ export default function AuthenticationProcess() {
       {/* CTA Section */}
       <section className="py-32">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-black text-dark tracking-tighter uppercase mb-8">Ready for <span className="text-gold italic">Clearance?</span></h2>
-          <p className="text-gray-500 text-lg mb-12 font-medium italic">
+          <h2 className="text-5xl font-black text-dark tracking-tighter uppercase mb-8">Ready for <span className="text-burgundy italic">Clearance?</span></h2>
+          <p className="text-gray-500 text-xl mb-12 font-medium italic">
             Most members achieve full verification status in under 15 minutes.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6">
-            <Link href="/dashboard/profile" className="btn-primary !px-12 !py-4 uppercase tracking-widest font-black text-xs">
+            <Link href="/dashboard/profile" className="btn-primary !px-12 !py-4 uppercase tracking-widest font-black text-sm">
               Begin Verification
             </Link>
-            <Link href="/pages/how-it-works" className="px-12 py-4 border border-gray-200 hover:border-gold rounded-2xl font-black text-xs uppercase tracking-widest transition-all">
+            <Link href="/pages/how-it-works" className="px-12 py-4 border border-gray-200 hover:border-burgundy rounded-2xl font-black text-sm uppercase tracking-widest transition-all">
                View Bidding Rules
             </Link>
           </div>

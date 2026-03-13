@@ -70,7 +70,7 @@ export default function AdminPagesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-heading font-bold text-dark">Pages / CMS</h1>
+        <h1 className="text-3xl font-heading font-bold text-dark">Pages / CMS</h1>
         <button onClick={() => { resetForm(); setShowForm(true); }} className="btn-primary !py-2 flex items-center gap-2"><Plus className="h-4 w-4" /> New Page</button>
       </div>
 
@@ -83,35 +83,35 @@ export default function AdminPagesPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Title *</label>
+                <label className="text-base font-medium text-gray-700 mb-1 block">Title *</label>
                 <input type="text" required value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} className="input-field" />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Slug *</label>
+                <label className="text-base font-medium text-gray-700 mb-1 block">Slug *</label>
                 <input type="text" required value={form.slug} onChange={e => setForm({ ...form, slug: e.target.value })} className="input-field" placeholder="e.g. about-us" />
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-700 mb-1 block">Content (HTML) *</label>
-              <textarea rows={12} required value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} className="input-field font-mono text-sm" />
+              <label className="text-base font-medium text-gray-700 mb-1 block">Content (HTML) *</label>
+              <textarea rows={12} required value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} className="input-field font-mono text-base" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Meta Title</label>
+                <label className="text-base font-medium text-gray-700 mb-1 block">Meta Title</label>
                 <input type="text" value={form.metaTitle} onChange={e => setForm({ ...form, metaTitle: e.target.value })} className="input-field" />
               </div>
               <div>
-                <label className="text-sm font-medium text-gray-700 mb-1 block">Meta Description</label>
+                <label className="text-base font-medium text-gray-700 mb-1 block">Meta Description</label>
                 <input type="text" value={form.metaDescription} onChange={e => setForm({ ...form, metaDescription: e.target.value })} className="input-field" />
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <input type="checkbox" id="isPublished" checked={form.isPublished} onChange={e => setForm({ ...form, isPublished: e.target.checked })} className="h-4 w-4 rounded border-gray-300 text-gold" />
-              <label htmlFor="isPublished" className="text-sm">Published</label>
+              <input type="checkbox" id="isPublished" checked={form.isPublished} onChange={e => setForm({ ...form, isPublished: e.target.checked })} className="h-4 w-4 rounded border-gray-300 text-burgundy" />
+              <label htmlFor="isPublished" className="text-base">Published</label>
             </div>
             <div className="flex gap-2">
               <button type="submit" disabled={saving} className="btn-primary !py-2 flex items-center gap-2 disabled:opacity-50"><Save className="h-4 w-4" /> {saving ? 'Saving...' : editing ? 'Update' : 'Create'}</button>
-              <button type="button" onClick={resetForm} className="px-4 py-2 border rounded-lg text-sm hover:bg-gray-50">Cancel</button>
+              <button type="button" onClick={resetForm} className="px-4 py-2 border rounded-lg text-base hover:bg-gray-50">Cancel</button>
             </div>
           </form>
         </div>
@@ -119,10 +119,10 @@ export default function AdminPagesPage() {
 
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gold" /></div>
+          <div className="flex justify-center py-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" /></div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-base">
               <thead className="bg-gray-50 border-b">
                 <tr>
                   <th className="text-left px-4 py-3 font-medium text-gray-600">Title</th>
@@ -138,7 +138,7 @@ export default function AdminPagesPage() {
                     <td className="px-4 py-3 font-medium flex items-center gap-2"><FileText className="h-4 w-4 text-gray-400" /> {page.title}</td>
                     <td className="px-4 py-3 text-gray-500">/{page.slug}</td>
                     <td className="px-4 py-3">
-                      <span className={`text-xs px-2 py-1 rounded-full ${page.isPublished !== false ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>{page.isPublished !== false ? 'Published' : 'Draft'}</span>
+                      <span className={`text-sm px-2 py-1 rounded-full ${page.isPublished !== false ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>{page.isPublished !== false ? 'Published' : 'Draft'}</span>
                     </td>
                     <td className="px-4 py-3 text-gray-500">{formatDate(page.updatedAt)}</td>
                     <td className="px-4 py-3">

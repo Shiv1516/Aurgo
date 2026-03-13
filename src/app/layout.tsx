@@ -7,21 +7,32 @@ import Footer from "@/components/layout/Footer";
 import TermsPopup from "@/components/common/TermsPopup";
 
 export const metadata: Metadata = {
-  title: "Augeo - Premium Auction Platform",
+  title: {
+    default: "Augeo Vault - Premium Auction Platform",
+    template: "%s | Augeo Vault"
+  },
   description:
-    "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, jewelry, and more from world-class auction houses.",
-  keywords: "auction, bidding, fine art, collectibles, luxury, auction house",
+    "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, exclusive jewelry, and historic motors from world-class auction houses.",
+  keywords: ["auction", "bidding", "fine art", "collectibles", "luxury", "auction house", "watches", "real estate", "augeo"],
   metadataBase: new URL("https://augeo.auction"),
+  alternates: {
+    canonical: '/',
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
-    title: "Augeo - Premium Auction Platform",
-    description: "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, jewelry, and more.",
+    title: "Augeo Vault - Premium Auction Platform",
+    description: "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, exclusive jewelry, and historic motors.",
     url: "https://augeo.auction",
-    siteName: "Augeo",
+    siteName: "Augeo Vault",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
+        alt: "Augeo Vault Premium Auctions",
       },
     ],
     locale: "en_US",
@@ -29,10 +40,24 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Augeo - Premium Auction Platform",
-    description: "Discover extraordinary items at premium auctions.",
+    title: "Augeo Vault - Premium Auction Platform",
+    description: "Experience the pinnacle of live high-end asset auctions.",
     images: ["/og-image.jpg"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: "google-site-verification-id", // User should update this
+  }
 };
 
 export default function RootLayout({
