@@ -55,7 +55,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
         toast.success("Added to watchlist");
       }
     } catch (error) {
-      toast.error("Failed to update watchlist");
+      console.error("Watchlist toggle failed", error);
     } finally {
       setIsWatching(false);
     }
