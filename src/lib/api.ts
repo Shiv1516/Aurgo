@@ -29,37 +29,54 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Extract meaningful error message
-    const message = error.response?.data?.message || 
-                    error.response?.data?.error || 
-                    error.message || 
-                    "An unexpected error occurred";
-    
-    // Log error for production monitoring (standard approach)
-    if (process.env.NODE_ENV === 'production') {
+    // Determine the error message
+    let message = "An unexpected error occurred";
+    let isNetworkError = false;
+
+    if (error.response) {
+      // The request was made and the server responded with a status code outside of 2xx
+      message = error.response.data?.error || error.response.data?.message || `Server Error (${error.response.status})`;
+    } else if (error.request) {
+      // The request was made but no response was received (Network / CORS issues)
+      isNetworkError = true;
+      message = "Network error. Please check your internet connection and try again.";
+    } else {
+      // Something happened in setting up the request
+      message = error.message;
+    }
+
+    // Log internally but don't spam the console in production
+    if (process.env.NODE_ENV === 'production' && !isNetworkError) {
       console.error(`[API Error] ${error.config?.method?.toUpperCase()} ${error.config?.url}:`, message);
     }
 
+    // Gracefully handle known status codes
     if (error.response?.status === 401) {
       if (typeof window !== "undefined") {
         localStorage.removeItem("augeo_token");
         localStorage.removeItem("augeo_user");
-        // Only redirect if not already on an auth page
+        
+        // Don't show toast or redirect if already on auth page
         if (!window.location.pathname.startsWith("/auth/")) {
-          toast.error("Session expired. Please login again.");
+          toast.error("Session expired. Please log in again.", { id: 'auth-err' }); // id prevents duplicate toasts
           window.location.href = "/auth/login";
         }
       }
     } else if (error.response?.status === 403) {
-      toast.error("Access denied: " + message);
+      toast.error("Access denied: " + message, { id: 'forbidden-err' });
     } else if (error.response?.status === 404) {
-      // toast.error("Resource not found"); // Often handled by pages
-    } else if (error.response?.status === 422) {
-      toast.error("Validation error: " + message);
+      // 404s might be expected for some queries, so we don't always want a global toast. 
+      // Individual hooks or routes should handle their specific 404 UX.
+    } else if (error.response?.status === 400 || error.response?.status === 422) {
+      toast.error(message, { id: 'validation-err', duration: 4000 });
     } else if (error.response?.status >= 500) {
-      toast.error("Server synchronization error. Please try again later.");
+      toast.error("Server is experiencing issues. Please try again later.", { id: 'server-err' });
+    } else if (isNetworkError) {
+      toast.error(message, { id: 'network-err', duration: 5000 });
     } else if (error.code === 'ECONNABORTED') {
-      toast.error("Request timed out. Please check your connection.");
+      toast.error("Request timed out. Please check your connection.", { id: 'timeout-err' });
+    } else {
+      toast.error(message, { id: 'generic-err' });
     }
     
     return Promise.reject(error);

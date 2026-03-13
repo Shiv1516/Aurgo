@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -18,7 +18,32 @@ import {
   Award,
   Search,
   Calendar,
+  Car,
+  Palette,
+  Sofa,
+  Gem,
+  Watch,
+  Home,
+  Laptop,
+  Shirt,
+  Music,
+  Coins
 } from "lucide-react";
+
+const getCategoryIcon = (name: string) => {
+  const lower = name.toLowerCase();
+  if (lower.includes("car") || lower.includes("vehicle") || lower.includes("auto")) return <Car className="h-6 w-6" />;
+  if (lower.includes("art") || lower.includes("paint") || lower.includes("sculpture")) return <Palette className="h-6 w-6" />;
+  if (lower.includes("furniture") || lower.includes("home") || lower.includes("antiques")) return <Sofa className="h-6 w-6" />;
+  if (lower.includes("jewel") || lower.includes("ring") || lower.includes("diamond")) return <Gem className="h-6 w-6" />;
+  if (lower.includes("watch") || lower.includes("time") || lower.includes("clock")) return <Watch className="h-6 w-6" />;
+  if (lower.includes("estate") || lower.includes("property")) return <Home className="h-6 w-6" />;
+  if (lower.includes("tech") || lower.includes("electron") || lower.includes("computer")) return <Laptop className="h-6 w-6" />;
+  if (lower.includes("fashion") || lower.includes("cloth") || lower.includes("bag")) return <Shirt className="h-6 w-6" />;
+  if (lower.includes("music") || lower.includes("instrument")) return <Music className="h-6 w-6" />;
+  if (lower.includes("coin") || lower.includes("stamp") || lower.includes("collect")) return <Coins className="h-6 w-6" />;
+  return <Star className="h-6 w-6" />;
+};
 
 export default function HomePage() {
   const router = useRouter();
@@ -28,6 +53,7 @@ export default function HomePage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -61,6 +87,26 @@ export default function HomePage() {
     fetchData();
   }, []);
 
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (categories.length > 0 && sliderRef.current && !isHovered) {
+      interval = setInterval(() => {
+        if (sliderRef.current) {
+          const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
+          // scroll by one item width (160px width + 24px gap = 184px)
+          if (scrollLeft + clientWidth >= scrollWidth - 10) {
+            sliderRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            sliderRef.current.scrollBy({ left: 184, behavior: 'smooth' });
+          }
+        }
+      }, 3000);
+    }
+    return () => clearInterval(interval);
+  }, [categories]);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
@@ -70,63 +116,56 @@ export default function HomePage() {
 
   if (isLoading) return <PageLoader />;
 
-  // Background image resolution logic
-  const heroImageUrl = featuredAuctions.length > 0 && featuredAuctions[0].coverImage 
-    ? (featuredAuctions[0].coverImage.startsWith('http') ? featuredAuctions[0].coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}${featuredAuctions[0].coverImage}`)
-    : null;
+  // Use the local image as default hero background, fallback to featured auction
+  const heroImageUrl = "/auction_hero_bg.png";
 
   return (
     <main className="bg-[#f5f5f5] min-h-screen">
       
       {/* 1. Hero Section - Interencheres Style */}
       <section className="relative h-[65vh] min-h-[450px] flex items-center justify-center overflow-hidden bg-navy">
-        {heroImageUrl ? (
-          <>
-            <Image 
-              src={heroImageUrl} 
-              alt="Interencheres Auctions Background" 
-              fill 
-              priority
-              className="object-cover opacity-70"
-            />
-            <div className="absolute inset-0 bg-black/40" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-[#2d3748]" />
-        )}
+        <Image 
+          src={heroImageUrl} 
+          alt="Premium Auction Background" 
+          fill 
+          priority
+          className="object-cover opacity-60"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-black/30" />
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 drop-shadow-md">
-            Find your next acquisition among 100,000 lots
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 drop-shadow-xl tracking-tight leading-tight">
+            Discover Exceptional <br className="hidden md:block" />
+            <span className="text-burgundy">Art & Assets</span>
           </h1>
 
           {/* Central Search Form */}
           <form 
             onSubmit={handleSearch} 
-            className="bg-white rounded shadow-lg flex flex-col md:flex-row max-w-3xl mx-auto overflow-hidden focus-within:ring-2 focus-within:ring-burgundy transition-shadow"
+            className="bg-white rounded-lg shadow-2xl flex flex-col md:flex-row max-w-4xl mx-auto overflow-hidden focus-within:ring-4 focus-within:ring-burgundy/30 transition-shadow"
           >
-            <div className="flex-grow flex items-center pl-4 pr-2 py-3 bg-white">
-              <Search className="h-5 w-5 text-gray-400 shrink-0" />
+            <div className="flex-grow flex items-center pl-6 pr-2 py-4 bg-white">
+              <Search className="h-6 w-6 text-gray-400 shrink-0" />
               <input 
                 type="text" 
                 placeholder="Search for a lot, an artist, or a category..." 
-                className="w-full pl-3 pr-4 py-2 bg-transparent border-none text-gray-800 font-medium placeholder:text-gray-400 focus:ring-0 outline-none text-base md:text-lg"
+                className="w-full pl-4 pr-4 py-2 bg-transparent border-none text-gray-800 font-medium placeholder:text-gray-400 focus:ring-0 outline-none text-base md:text-lg"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <button 
               type="submit"
-              className="bg-burgundy hover:bg-[#a01523] text-white px-8 py-4 font-bold transition-colors text-center uppercase text-sm md:text-base tracking-wide flex-shrink-0"
+              className="bg-burgundy hover:bg-[#80101c] text-white px-10 py-4 font-bold transition-colors text-center uppercase text-sm md:text-base tracking-wider flex-shrink-0"
             >
               Search
             </button>
           </form>
 
           {/* Quick Links underneath */}
-          <div className="mt-8 flex flex-wrap justify-center gap-4 text-white font-medium text-sm md:text-base drop-shadow-md">
+          <div className="mt-8 flex flex-wrap justify-center gap-6 text-white font-medium text-sm md:text-base drop-shadow">
              {['Vehicles', 'Art', 'Furniture', 'Jewelry', 'Watches', 'Real Estate'].map((tag) => (
-               <Link key={tag} href={`/search?q=${tag}`} className="hover:underline hover:text-gray-200 transition-colors">
+               <Link key={tag} href={`/search?q=${tag}`} className="hover:text-burgundy-light transition-colors">
                   {tag}
                </Link>
              ))}
@@ -134,18 +173,40 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Top Categories Quick Grid */}
-      <section className="bg-white border-b border-gray-200 py-8 shadow-sm relative z-20">
+      {/* 2. Top Categories Slider */}
+      <section className="bg-white border-b border-gray-200 py-10 shadow-sm relative z-20">
          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-               {categories.slice(0, 8).map((cat) => (
-                 <Link key={cat._id} href={`/categories/${cat.slug}`} className="flex flex-col items-center gap-3 p-4 hover:bg-gray-50 transition-colors rounded">
-                    <div className="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 group-hover:bg-burgundy group-hover:text-white transition-colors">
-                       <Star className="h-6 w-6" />
+            <h2 className="text-xl font-bold text-gray-900 mb-6 uppercase tracking-wide">
+              Popular Categories
+            </h2>
+            <div 
+               ref={sliderRef}
+               onMouseEnter={() => setIsHovered(true)}
+               onMouseLeave={() => setIsHovered(false)}
+               className="flex overflow-x-auto gap-6 pb-4 snap-x snap-mandatory hide-scrollbar" 
+               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+               {/* Hide scrollbar injected style */}
+               <style dangerouslySetInnerHTML={{__html: `
+                 .hide-scrollbar::-webkit-scrollbar { display: none; }
+               `}} />
+               
+               {categories.length > 0 ? categories.map((cat) => (
+                 <Link key={cat._id} href={`/categories/${cat.slug}`} className="snap-start shrink-0 flex flex-col items-center gap-4 p-6 hover:bg-gray-50 transition-all rounded-xl w-[160px] border border-transparent hover:border-gray-200 group">
+                    <div className="w-20 h-20 bg-gray-50 shadow-inner rounded-full flex items-center justify-center text-gray-400 group-hover:bg-burgundy group-hover:text-white transition-all transform group-hover:scale-110">
+                       {getCategoryIcon(cat.name)}
                     </div>
-                    <span className="text-sm md:text-sm font-semibold text-gray-800 text-center">{cat.name}</span>
+                    <span className="text-sm font-bold text-gray-700 text-center uppercase tracking-wider group-hover:text-burgundy">{cat.name}</span>
                  </Link>
-               ))}
+               )) : (
+                 // Skeletons if loading
+                 Array.from({ length: 8 }).map((_, i) => (
+                   <div key={i} className="snap-start flex flex-col items-center gap-4 p-6 w-[160px]">
+                      <div className="w-20 h-20 bg-gray-200 rounded-full animate-pulse"></div>
+                      <div className="h-4 w-16 bg-gray-200 rounded animate-pulse"></div>
+                   </div>
+                 ))
+               )}
             </div>
          </div>
       </section>
