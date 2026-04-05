@@ -81,7 +81,6 @@ export default function DashboardLayout({
         </div>
 
         <div className="flex flex-1 w-full relative">
-          {/* Sidebar - Professional Style */}
           <aside
             className={`fixed inset-y-0 left-0 z-40 w-72 bg-white border-r border-gray-200 flex flex-col transform transition-transform duration-500 lg:sticky lg:top-0 lg:h-screen lg:transform-none ${sidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
           >
@@ -93,7 +92,6 @@ export default function DashboardLayout({
                 </button>
               </div>
 
-              {/* Sidebar Header - Mini Profile */}
               <div className="mb-10 px-2 flex items-center gap-4">
                 <div className="h-12 w-12 bg-navy rounded-2xl flex items-center justify-center shadow-xl shadow-burgundy/5">
                   <User className="h-6 w-6 text-burgundy" />
@@ -107,13 +105,13 @@ export default function DashboardLayout({
                   ) : (
                     <>
                       <span className="text-base font-black text-dark uppercase">{user?.firstName}</span>
-                      <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">{user?.role}</span>
+                      <span className="font-bold text-gray-400 uppercase tracking-widest">{user?.role}</span>
                     </>
                   )}
                 </div>
               </div>
 
-              <div className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] mb-4 px-4">Management</div>
+              <div className="font-black text-gray-400 uppercase tracking-[0.1em] mb-4 px-4">Management</div>
               <nav className="space-y-2">
                 {isLoading ? (
                   Array.from({ length: 6 }).map((_, i) => (
@@ -133,7 +131,7 @@ export default function DashboardLayout({
                         className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-colors group ${isActive ? "bg-burgundy text-white shadow-sm" : "text-gray-500 hover:bg-gray-50 hover:text-navy"}`}
                       >
                         <link.icon className={`h-5 w-5 ${isActive ? "" : "group-hover:text-burgundy"}`} />
-                        <span className="font-bold text-sm uppercase tracking-wide">{link.label}</span>
+                        <span className="font-bold uppercase tracking-wide">{link.label}</span>
                       </Link>
                     );
                   })
@@ -142,7 +140,7 @@ export default function DashboardLayout({
 
               {/* Sidebar Footer - Security */}
               <div className="mt-12 pt-8 border-t border-gray-200 px-4">
-                 <div className="flex items-center gap-2 text-sm font-black text-green-600 uppercase tracking-widest bg-green-50 px-3 py-1.5 rounded-lg w-fit">
+                 <div className="flex items-center gap-2 font-black text-green-600 uppercase tracking-widest bg-green-50 px-3 py-1.5 rounded-lg w-fit">
                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                     Secure Access
                  </div>

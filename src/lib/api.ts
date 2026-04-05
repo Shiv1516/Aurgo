@@ -234,6 +234,7 @@ export const adminAPI = {
   getUsers: (params?: any) => api.get("/admin/users", { params }),
   getUser: (id: string) => api.get(`/admin/users/${id}`),
   updateUser: (id: string, data: any) => api.put(`/admin/users/${id}`, data),
+  deleteUser: (id: string) => api.delete(`/admin/users/${id}`),
   suspendUser: (id: string, reason: string) =>
     api.put(`/admin/users/${id}/suspend`, { reason }),
   activateUser: (id: string) => api.put(`/admin/users/${id}/activate`),

@@ -40,7 +40,6 @@ export default function TermsPopup() {
             className="absolute inset-0 bg-[#0a0a0b]/90 backdrop-blur-xl"
           />
 
-          {/* Modal Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 40 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -48,17 +47,15 @@ export default function TermsPopup() {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="relative w-full max-w-xl bg-white rounded-xl overflow-hidden shadow-2xl border border-gray-200"
           >
-            {/* Top Branding Accent */}
             <div className="absolute top-0 inset-x-0 h-2 bg-burgundy" />
             
             <div className="p-6 sm:p-8">
-              {/* Header */}
               <div className="flex flex-col items-center text-center mb-8 sm:mb-10">
                 <div className="h-16 w-16 sm:h-20 sm:w-20 bg-burgundy/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 border border-burgundy/20 shadow-inner">
                   <Shield className="h-8 w-8 sm:h-10 sm:w-10 text-burgundy" />
                 </div>
                 <h2 className="text-3xl sm:text-5xl font-black text-navy leading-tight mb-4 sm:mb-6">
-                  Terms of <br /><span className="text-burgundy italic">Service</span>
+                  Terms of <span className="text-burgundy italic">Service</span>
                 </h2>
                 <div className="flex items-center gap-3">
                    <div className="h-px w-8 bg-gray-200" />
@@ -67,7 +64,6 @@ export default function TermsPopup() {
                 </div>
               </div>
 
-              {/* Content Area */}
               <div className="bg-white rounded-xl p-5 sm:p-8 mb-8 sm:mb-10 border border-gray-200 max-h-[40vh] sm:max-h-[30vh] overflow-y-auto custom-scrollbar">
                 <div className="space-y-6">
                   <div className="flex gap-5">
