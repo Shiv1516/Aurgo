@@ -46,15 +46,15 @@ export default function TermsPopup() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 40 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-4xl bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100"
+            className="relative w-full max-w-4xl bg-white rounded-xl overflow-hidden shadow-2xl border border-gray-200"
           >
             {/* Top Branding Accent */}
             <div className="absolute top-0 inset-x-0 h-2 bg-burgundy" />
             
-            <div className="p-10 sm:p-16">
+            <div className="p-10 sm:p-8">
               {/* Header */}
               <div className="flex flex-col items-center text-center mb-10">
-                <div className="h-20 w-20 bg-burgundy/10 rounded-3xl flex items-center justify-center mb-6 border border-burgundy/20 shadow-inner">
+                <div className="h-20 w-20 bg-burgundy/10 rounded-xl flex items-center justify-center mb-6 border border-burgundy/20 shadow-inner">
                   <Shield className="h-10 w-10 text-burgundy" />
                 </div>
                 <h2 className="text-5xl font-black text-navy leading-tight mb-6">
@@ -62,13 +62,13 @@ export default function TermsPopup() {
                 </h2>
                 <div className="flex items-center gap-3">
                    <div className="h-px w-8 bg-gray-200" />
-                   <p className="text-sm font-black text-gray-400 uppercase tracking-[0.4em]">Augeo Institutional Protocol</p>
+                   <p className="text-sm font-black text-gray-400 uppercase tracking-[0.1em]">Augeo Institutional Protocol</p>
                    <div className="h-px w-8 bg-gray-200" />
                 </div>
               </div>
 
               {/* Content Area */}
-              <div className="bg-white rounded-3xl p-8 mb-10 border border-gray-100 max-h-[30vh] overflow-y-auto custom-scrollbar">
+              <div className="bg-white rounded-xl p-8 mb-10 border border-gray-200 max-h-[30vh] overflow-y-auto custom-scrollbar">
                 <div className="space-y-6">
                   <div className="flex gap-5">
                     <div className="flex-shrink-0 h-6 w-6 rounded-xl bg-navy flex items-center justify-center mt-1">
@@ -112,7 +112,7 @@ export default function TermsPopup() {
               <div className="flex flex-col sm:flex-row gap-5">
                 <button
                   onClick={handleAccept}
-                  className="flex-[2] px-10 py-5 bg-burgundy hover:bg-burgundy-dark text-white font-black rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 group uppercase tracking-[0.2em] text-sm shadow-2xl shadow-burgundy/10"
+                  className="flex-[2] px-10 py-5 bg-burgundy hover:bg-burgundy-dark text-white font-black rounded-2xl transition-all duration-500 flex items-center justify-center gap-3 group uppercase tracking-[0.1em] text-sm shadow-2xl shadow-burgundy/10"
                 >
                   J'ACCEPTE LES CONDITIONS
                   <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

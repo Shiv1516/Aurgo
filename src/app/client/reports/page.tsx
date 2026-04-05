@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { clientAPI } from '@/lib/api';
 import { formatCurrency } from '@/lib/utils';
-import { PageLoader } from '@/components/common/LoadingSpinner';
+import { StatsSkeleton, DetailSkeleton } from '@/components/common/Skeletons';
 import { BarChart3, DollarSign, ShoppingBag, TrendingUp } from 'lucide-react';
 
 export default function ClientReportsPage() {
@@ -11,7 +11,7 @@ export default function ClientReportsPage() {
 
   useEffect(() => { clientAPI.getReports().then(res => setData(res.data.data)).catch(() => {}).finally(() => setIsLoading(false)); }, []);
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <StatsSkeleton />;
   const stats = data?.totalStats || {};
   return (
     <div>
@@ -27,7 +27,7 @@ export default function ClientReportsPage() {
           <h3 className="font-heading font-semibold mb-4">Revenue by Auction</h3>
           <table className="w-full"><thead><tr className="table-header"><th className="px-4 py-2">Auction</th><th className="px-4 py-2">Orders</th><th className="px-4 py-2">Revenue</th></tr></thead><tbody>
             {data.revenueByAuction.map((r: any, i: number) => (
-              <tr key={i} className="border-t border-gray-50"><td className="px-4 py-2.5 text-base">{r.auctionTitle}</td><td className="px-4 py-2.5 text-base">{r.orders}</td><td className="px-4 py-2.5 text-base font-bold">{formatCurrency(r.revenue)}</td></tr>
+              <tr key={i} className="border-t border-gray-200"><td className="px-4 py-2.5 text-base">{r.auctionTitle}</td><td className="px-4 py-2.5 text-base">{r.orders}</td><td className="px-4 py-2.5 text-base font-bold">{formatCurrency(r.revenue)}</td></tr>
             ))}
           </tbody></table>
         </div>
@@ -38,7 +38,7 @@ export default function ClientReportsPage() {
           <h3 className="font-heading font-semibold mb-4">Auction Performance</h3>
           <table className="w-full"><thead><tr className="table-header"><th className="px-4 py-2">Auction</th><th className="px-4 py-2">Lots</th><th className="px-4 py-2">Bids</th><th className="px-4 py-2">Revenue</th></tr></thead><tbody>
             {data.auctionPerformance.map((a: any) => (
-              <tr key={a._id} className="border-t border-gray-50"><td className="px-4 py-2.5 text-base">{a.title}</td><td className="px-4 py-2.5 text-base">{a.totalLots}</td><td className="px-4 py-2.5 text-base">{a.totalBids}</td><td className="px-4 py-2.5 text-base font-bold">{formatCurrency(a.totalRevenue)}</td></tr>
+              <tr key={a._id} className="border-t border-gray-200"><td className="px-4 py-2.5 text-base">{a.title}</td><td className="px-4 py-2.5 text-base">{a.totalLots}</td><td className="px-4 py-2.5 text-base">{a.totalBids}</td><td className="px-4 py-2.5 text-base font-bold">{formatCurrency(a.totalRevenue)}</td></tr>
             ))}
           </tbody></table>
         </div>

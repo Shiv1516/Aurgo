@@ -6,6 +6,7 @@ import { formatDate, getAuctionStatusColor } from '@/lib/utils';
 import { PageLoader } from '@/components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
 import { Plus, Edit, Eye, Globe, GlobeIcon } from 'lucide-react';
+import { TableSkeleton } from '@/components/common/Skeletons';
 
 export default function ClientAuctionsPage() {
   const [auctions, setAuctions] = useState<any[]>([]);
@@ -38,12 +39,12 @@ export default function ClientAuctionsPage() {
           <button key={s} onClick={() => setFilter(s)} className={`px-4 py-2 rounded-lg text-base font-medium capitalize ${filter === s ? 'bg-burgundy text-white' : 'bg-white border text-gray-600 hover:bg-gray-50'}`}>{s || 'All'}</button>
         ))}
       </div>
-      {isLoading ? <PageLoader /> : auctions.length === 0 ? (
+      {isLoading ? <TableSkeleton rows={8} cols={6} /> : auctions.length === 0 ? (
         <div className="text-center py-16 card"><p className="text-gray-500 mb-4">No auctions found</p><Link href="/client/auctions/new" className="btn-primary text-base">Create Your First Auction</Link></div>
       ) : (
         <div className="card overflow-hidden"><div className="overflow-x-auto"><table className="w-full"><thead><tr className="table-header"><th className="px-4 py-3">Auction</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Lots</th><th className="px-4 py-3">Bids</th><th className="px-4 py-3">Dates</th><th className="px-4 py-3">Actions</th></tr></thead><tbody>
           {auctions.map((a: any) => (
-            <tr key={a._id} className="border-t border-gray-50 hover:bg-gray-50">
+            <tr key={a._id} className="border-t border-gray-200 hover:bg-gray-50">
               <td className="px-4 py-3"><p className="text-base font-medium">{a.title}</p></td>
               <td className="px-4 py-3"><span className={`${getAuctionStatusColor(a.status)} text-white text-sm px-2.5 py-1 rounded-full`}>{a.status}</span></td>
               <td className="px-4 py-3 text-base">{a.totalLots}</td>

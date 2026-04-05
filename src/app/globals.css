@@ -48,7 +48,7 @@
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-navy/10 hover:-translate-y-1;
+    @apply bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-navy/10 hover:-translate-y-1;
   }
 
   .glass {
@@ -88,7 +88,7 @@
   }
 
   .input-field-premium {
-    @apply w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl outline-none transition-all duration-300 text-dark placeholder:text-gray-400 focus:bg-white focus:border-gold focus:ring-4 focus:ring-gold/5 shadow-inner;
+    @apply w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none transition-all duration-300 text-dark placeholder:text-gray-400 focus:bg-white focus:border-gold focus:ring-4 focus:ring-gold/5 shadow-inner;
   }
 }
 
@@ -113,6 +113,14 @@
 }
 
 @layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
   .animate-bell-shake {
     animation: bell-shake 2s ease-in-out infinite;
   }

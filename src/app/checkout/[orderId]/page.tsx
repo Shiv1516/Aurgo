@@ -2,10 +2,9 @@
 export const dynamic = "force-dynamic";
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { PageLoader } from "@/components/common/LoadingSpinner";
 import { orderAPI, paymentAPI } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
-import { formatCurrency } from "@/lib/utils";
+import PriceDisplay from "@/components/common/PriceDisplay";
 import toast from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -17,11 +16,11 @@ import {
   ShieldCheck, 
   ChevronRight, 
   ChevronLeft, 
-  Package, 
   Clock, 
   AlertCircle,
   LayoutGrid
 } from "lucide-react";
+import { DetailSkeleton } from "@/components/common/Skeletons";
 
 import CheckoutForm from "@/components/common/CheckoutForm";
 import { Elements } from "@stripe/react-stripe-js";
@@ -29,12 +28,6 @@ import { loadStripe } from "@stripe/stripe-js";
 import { getSocket } from "@/lib/socket";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "");
-
-const STEPS = [
-  { id: 'address', label: 'Shipping', icon: MapPin },
-  { id: 'shipping', label: 'Delivery', icon: Truck },
-  { id: 'payment', label: 'Payment', icon: CreditCard },
-];
 
 export default function CheckoutPage() {
   const params = useParams();
@@ -47,6 +40,12 @@ export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [shippingMethod, setShippingMethod] = useState('standard');
   const [insuranceEnabled, setInsuranceEnabled] = useState(true);
+
+  const STEPS = [
+    { id: 'address', label: 'Shipping', icon: MapPin },
+    { id: 'shipping', label: 'Delivery', icon: Truck },
+    { id: 'payment', label: 'Payment', icon: CreditCard },
+  ];
 
   useEffect(() => {
     if (!isAuthenticated && !isLoading) {
@@ -115,7 +114,7 @@ export default function CheckoutPage() {
     return total;
   };
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <DetailSkeleton />;
   if (!order) return <div className="min-h-[60vh] flex items-center justify-center"><p className="text-gray-500">Order not found</p></div>;
 
   return (
@@ -126,7 +125,7 @@ export default function CheckoutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
              <span className="h-px w-12 bg-gold/50" />
-             <span className="text-gold font-black uppercase tracking-[0.4em] text-sm">Secure Transaction</span>
+             <span className="text-gold font-black uppercase tracking-[0.1em] text-sm">Secure Transaction</span>
              <span className="h-px w-12 bg-gold/50" />
           </div>
           <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none mb-8">
@@ -153,7 +152,7 @@ export default function CheckoutPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 pb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           {/* Main Checkout Flow */}
           <div className="lg:col-span-8 space-y-8">
@@ -166,7 +165,7 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: 20 }}
                   className="space-y-6"
                 >
-                   <div className="card p-8 rounded-[2.5rem]">
+                   <div className="card p-8 rounded-xl">
                       <div className="flex items-center justify-between mb-8">
                          <h3 className="text-2xl font-black text-navy uppercase tracking-tight flex items-center gap-3">
                             <MapPin className="h-5 w-5 text-gold" /> Destination <span className="text-gray-300 font-serif normal-case italic">Details</span>
@@ -175,11 +174,11 @@ export default function CheckoutPage() {
                       </div>
                       
                       <div className="space-y-4">
-                         {user?.addresses?.map((addr, i) => (
+                         {user?.addresses?.map((addr: any, i: number) => (
                            <div 
                              key={i}
                              onClick={() => setSelectedAddress(i)}
-                             className={`group relative p-6 rounded-3xl border-2 transition-all cursor-pointer ${selectedAddress === i ? 'border-gold bg-gold/5' : 'border-gray-50 bg-gray-50/50 hover:border-gray-200'}`}
+                             className={`group relative p-6 rounded-xl border-2 transition-all cursor-pointer ${selectedAddress === i ? 'border-gold bg-gold/5' : 'border-gray-200 bg-gray-50/50 hover:border-gray-200'}`}
                            >
                               <div className="flex items-start gap-4">
                                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 ${selectedAddress === i ? 'border-gold' : 'border-gray-200'}`}>
@@ -188,7 +187,7 @@ export default function CheckoutPage() {
                                  <div className="flex-grow">
                                     <div className="flex items-center justify-between mb-1">
                                        <p className="font-black text-navy uppercase text-sm tracking-widest">{addr.label}</p>
-                                       {addr.isDefault && <span className="text-sm text-gold font-black uppercase tracking-[0.2em] bg-white py-1 px-3 rounded-full border border-gold/20">Default</span>}
+                                       {addr.isDefault && <span className="text-sm text-gold font-black uppercase tracking-[0.1em] bg-white py-1 px-3 rounded-full border border-gold/20">Default</span>}
                                     </div>
                                     <p className="text-base text-gray-500 leading-relaxed max-w-sm">
                                        {addr.street}<br />
@@ -202,7 +201,7 @@ export default function CheckoutPage() {
                       
                       <button 
                         onClick={() => setCurrentStep(1)}
-                        className="w-full mt-10 bg-navy text-white text-sm font-black uppercase tracking-[0.3em] py-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-gold hover:text-navy transition-all group"
+                        className="w-full mt-10 bg-navy text-white text-sm font-black uppercase tracking-[0.1em] py-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-gold hover:text-navy transition-all group"
                       >
                          Continue to Shipping <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                       </button>
@@ -218,7 +217,7 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: 20 }}
                   className="space-y-6"
                 >
-                   <div className="card p-8 rounded-[2.5rem]">
+                   <div className="card p-8 rounded-xl">
                       <h3 className="text-2xl font-black text-navy uppercase tracking-tight flex items-center gap-3 mb-8">
                          <Truck className="h-5 w-5 text-gold" /> Logistics <span className="text-gray-300 font-serif normal-case italic">Selection</span>
                       </h3>
@@ -232,13 +231,20 @@ export default function CheckoutPage() {
                            <div 
                              key={m.id}
                              onClick={() => setShippingMethod(m.id)}
-                             className={`p-6 rounded-3xl border-2 transition-all cursor-pointer ${shippingMethod === m.id ? 'border-gold bg-gold/5' : 'border-gray-50 bg-gray-50/50 hover:border-gray-200'}`}
+                             className={`p-6 rounded-xl border-2 transition-all cursor-pointer ${shippingMethod === m.id ? 'border-gold bg-gold/5' : 'border-gray-200 bg-gray-50/50 hover:border-gray-200'}`}
                            >
                               <div className="flex justify-between items-start mb-4">
                                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${shippingMethod === m.id ? 'border-gold' : 'border-gray-200'}`}>
                                     {shippingMethod === m.id && <div className="w-2 h-2 bg-gold rounded-full" />}
                                  </div>
-                                 <span className="font-black text-navy text-base">{m.price === 0 ? 'Free' : formatCurrency(m.price)}</span>
+                                  <PriceDisplay 
+                                    amount={m.price} 
+                                    size="base" 
+                                    variant="navy" 
+                                    align="right" 
+                                    className={m.price === 0 ? 'invisible' : ''}
+                                  />
+                                  {m.price === 0 && <span className="font-black text-navy text-base">Free</span>}
                               </div>
                               <p className="font-black text-navy uppercase text-sm tracking-widest mb-1">{m.label}</p>
                               <p className="text-sm text-gray-500 italic">{m.desc}</p>
@@ -247,13 +253,13 @@ export default function CheckoutPage() {
                       </div>
 
                       {/* Insurance Toggle */}
-                      <div className="mt-8 p-6 bg-white border border-gray-100 rounded-3xl flex items-center justify-between">
+                      <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl flex items-center justify-between">
                          <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-2xl bg-burgundy/5 flex items-center justify-center">
                                <ShieldCheck className="h-6 w-6 text-burgundy" />
                             </div>
                             <div>
-                               <p className="font-black text-navy uppercase text-sm tracking-widest">Asset Protection Insurance</p>
+                               <p className="font-black text-navy uppercase text-sm tracking-widest">Insurance Coverage</p>
                                <p className="text-sm text-gray-400">Total value coverage against any transit incident</p>
                             </div>
                          </div>
@@ -268,13 +274,13 @@ export default function CheckoutPage() {
                       <div className="flex gap-4 mt-10">
                         <button 
                           onClick={() => setCurrentStep(0)}
-                          className="flex-1 bg-gray-50 text-gray-400 text-sm font-black uppercase tracking-[0.3em] py-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-gray-100 transition-all"
+                          className="flex-1 bg-gray-50 text-gray-400 text-sm font-black uppercase tracking-[0.1em] py-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-gray-100 transition-all"
                         >
                            <ChevronLeft className="h-4 w-4" /> Go Back
                         </button>
                         <button 
                           onClick={() => setCurrentStep(2)}
-                          className="flex-[2] bg-navy text-white text-sm font-black uppercase tracking-[0.3em] py-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-gold hover:text-navy transition-all group"
+                          className="flex-[2] bg-navy text-white text-sm font-black uppercase tracking-[0.1em] py-5 rounded-2xl flex items-center justify-center gap-2 hover:bg-gold hover:text-navy transition-all group"
                         >
                            Final Review <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                         </button>
@@ -291,13 +297,13 @@ export default function CheckoutPage() {
                   exit={{ opacity: 0, x: 20 }}
                   className="space-y-6"
                 >
-                   <div className="card p-8 rounded-[2.5rem]">
+                   <div className="card p-8 rounded-xl">
                       <h3 className="text-2xl font-black text-navy uppercase tracking-tight flex items-center gap-3 mb-8">
                          <CreditCard className="h-5 w-5 text-gold" /> Settlement <span className="text-gray-300 font-serif normal-case italic">Finalisation</span>
                       </h3>
                       
                       {order.paymentStatus === "paid" ? (
-                        <div className="bg-green-50 border border-green-200 rounded-[2rem] p-8 flex flex-col items-center text-center">
+                        <div className="bg-green-50 border border-green-200 rounded-xl p-8 flex flex-col items-center text-center">
                             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                                <CheckCircle className="h-8 w-8 text-green-600" />
                             </div>
@@ -314,7 +320,7 @@ export default function CheckoutPage() {
                         </Elements>
                       ) : (
                         <div className="space-y-6">
-                           <div className="bg-gray-50/50 p-6 rounded-3xl border border-gray-100">
+                           <div className="bg-gray-50/50 p-6 rounded-xl border border-gray-200">
                               <div className="flex items-start gap-4 mb-4">
                                  <AlertCircle className="h-5 w-5 text-burgundy shrink-0 mt-0.5" />
                                  <p className="text-sm text-gray-500 leading-relaxed italic">
@@ -325,23 +331,23 @@ export default function CheckoutPage() {
                            {/* Visual Mock Card if Stripe is not configured */ }
                            {(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 
                              process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.includes("your_stripe")) && (
-                             <div className="bg-white p-6 rounded-3xl border-2 border-dashed border-gray-200 space-y-4">
+                             <div className="bg-white p-6 rounded-xl border-2 border-dashed border-gray-200 space-y-4">
                                <div className="flex items-center justify-between mb-2">
-                                 <span className="text-xs font-black text-gray-300 uppercase tracking-widest">Sandbox Mode</span>
+                                 <span className="text-sm font-black text-gray-300 uppercase tracking-widest">Sandbox Mode</span>
                                  <div className="flex gap-1">
                                     <div className="w-6 h-4 bg-gray-100 rounded" />
                                     <div className="w-6 h-4 bg-gray-100 rounded" />
                                     <div className="w-6 h-4 bg-gray-100 rounded" />
                                  </div>
                                </div>
-                               <div className="h-12 bg-gray-50 rounded-xl border border-gray-100 flex items-center px-4">
+                               <div className="h-12 bg-gray-50 rounded-xl border border-gray-200 flex items-center px-4">
                                   <span className="text-gray-400 font-mono">4242 4242 4242 4242</span>
                                </div>
                                <div className="grid grid-cols-2 gap-4">
-                                  <div className="h-12 bg-gray-50 rounded-xl border border-gray-100 flex items-center px-4">
+                                  <div className="h-12 bg-gray-50 rounded-xl border border-gray-200 flex items-center px-4">
                                      <span className="text-gray-400 font-mono">12 / 26</span>
                                   </div>
-                                  <div className="h-12 bg-gray-50 rounded-xl border border-gray-100 flex items-center px-4">
+                                  <div className="h-12 bg-gray-50 rounded-xl border border-gray-200 flex items-center px-4">
                                      <span className="text-gray-400 font-mono">***</span>
                                   </div>
                                </div>
@@ -350,16 +356,16 @@ export default function CheckoutPage() {
 
                            <button
                              onClick={initiatePayment}
-                             className="w-full bg-navy text-white text-sm font-black uppercase tracking-[0.4em] py-6 rounded-[2rem] hover:bg-gold hover:text-navy transition-all shadow-xl shadow-navy/20 flex items-center justify-center gap-2"
+                             className="w-full bg-navy text-white text-sm font-black uppercase tracking-[0.1em] py-6 rounded-xl hover:bg-gold hover:text-navy transition-all shadow-xl shadow-navy/20 flex items-center justify-center gap-2"
                            >
                              {(!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 
-                               process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.includes("your_stripe")) ? 'Simulate Secure Payment' : 'Release Final Payment'}
+                               process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.includes("your_stripe")) ? 'Simulate Secure Payment' : 'Complete Acquisition'}
                            </button>
                            <button 
-                              onClick={() => setCurrentStep(1)}
-                              className="w-full text-sm font-black uppercase tracking-widest text-gray-400 hover:text-navy transition-colors"
+                               onClick={() => setCurrentStep(1)}
+                               className="w-full text-sm font-black uppercase tracking-widest text-gray-400 hover:text-navy transition-colors"
                            >
-                              Modify Logistics
+                               Modify Logistics
                            </button>
                         </div>
                       )}
@@ -371,9 +377,9 @@ export default function CheckoutPage() {
 
           {/* Acquisition Summary Sidebar */}
           <div className="lg:col-span-4 h-fit sticky top-24">
-             <div className="card rounded-[2.5rem] overflow-hidden shadow-2xl shadow-navy/5 border-gray-100">
+             <div className="card rounded-xl overflow-hidden shadow-2xl shadow-navy/5 border-gray-200">
                 <div className="bg-navy p-8 text-white">
-                   <p className="text-sm font-black uppercase tracking-[0.3em] text-gold mb-1">Acquisition Meta</p>
+                   <p className="text-sm font-black uppercase tracking-[0.1em] text-gold mb-1">Acquisition Meta</p>
                    <h4 className="text-xl font-black uppercase tracking-tighter leading-tight">{order.lot?.title || 'Masterpiece'}</h4>
                    <p className="text-sm text-white/40 mt-2 font-mono">{order.orderNumber}</p>
                 </div>
@@ -382,43 +388,46 @@ export default function CheckoutPage() {
                    <div className="space-y-4">
                       <div className="flex justify-between text-sm">
                          <span className="text-gray-400 font-bold uppercase tracking-widest">Hammer Price</span>
-                         <span className="text-navy font-black">{formatCurrency(order.hammerPrice)}</span>
+                         <PriceDisplay amount={order.hammerPrice} size="base" variant="navy" align="right" />
                       </div>
                       <div className="flex justify-between text-sm">
                          <span className="text-gray-400 font-bold uppercase tracking-widest">Buyer&apos;s Premium</span>
-                         <span className="text-navy font-black">{formatCurrency(order.buyersPremium)}</span>
+                         <PriceDisplay amount={order.buyersPremium} size="base" variant="navy" align="right" />
                       </div>
                       <div className="flex justify-between text-sm">
                          <span className="text-gray-400 font-bold uppercase tracking-widest">VAT / Export Duty</span>
-                         <span className="text-navy font-black">{formatCurrency(order.tax)}</span>
+                         <PriceDisplay amount={order.tax} size="base" variant="navy" align="right" />
                       </div>
-                      <div className="flex justify-between text-sm pt-4 border-t border-gray-50">
+                      <div className="flex justify-between text-sm pt-4 border-t border-gray-200">
                          <span className="text-gray-400 font-bold uppercase tracking-widest">Selected Delivery</span>
-                         <span className="text-navy font-black">{formatCurrency(getShippingCost())}</span>
+                         <PriceDisplay amount={getShippingCost()} size="base" variant="navy" align="right" />
                       </div>
                       {insuranceEnabled && (
                         <div className="flex justify-between text-sm">
                            <span className="text-gray-400 font-bold uppercase tracking-widest">Protection (1%)</span>
-                           <span className="text-burgundy font-black">{formatCurrency(calculateInsurance())}</span>
+                           <PriceDisplay amount={calculateInsurance()} size="base" variant="burgundy" align="right" />
                         </div>
                       )}
                    </div>
 
-                   <div className="pt-6 border-t-2 border-dashed border-gray-100 mt-6">
-                      <div className="flex justify-between items-end mb-1">
-                         <p className="text-sm font-black uppercase tracking-[0.2em] text-gray-300">Total Commitment</p>
-                         <div className="text-right">
-                            <p className="text-4xl font-black text-navy uppercase tracking-tighter leading-none mb-1">
-                               {formatCurrency(totalCalculated())}
-                            </p>
-                            <p className="text-sm text-gold font-bold uppercase tracking-widest">All Duties Included</p>
+                   <div className="pt-6 border-t-2 border-dashed border-gray-200 mt-6">
+                      <div className="flex justify-between items-end mb-1 gap-4 min-w-0">
+                         <p className="text-sm font-black uppercase tracking-[0.1em] text-gray-300 shrink-0">Total Due</p>
+                         <div className="text-right min-w-0 flex-1 overflow-hidden">
+                             <PriceDisplay 
+                                amount={totalCalculated()} 
+                                size="4xl" 
+                                variant="navy" 
+                                align="right" 
+                             />
+                            <p className="text-sm text-gold font-bold uppercase tracking-widest truncate">All Duties Included</p>
                          </div>
                       </div>
                    </div>
                 </div>
                 
                 {/* Visual Trust Indicators */}
-                <div className="bg-gray-50/50 p-6 flex items-center justify-between border-t border-gray-100">
+                <div className="bg-gray-50/50 p-6 flex items-center justify-between border-t border-gray-200">
                    <div className="flex flex-col items-center gap-1">
                       <Shield className="h-4 w-4 text-gold" />
                       <span className="text-sm font-black text-gray-400 uppercase tracking-widest">Certified</span>

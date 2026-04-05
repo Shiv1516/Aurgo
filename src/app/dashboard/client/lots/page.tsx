@@ -8,6 +8,7 @@ import {
   Search, Filter, Plus, Box, ShieldCheck, 
   Database, Activity, ChevronRight, Image as ImageIcon
 } from "lucide-react";
+import { GenericGridSkeleton } from "@/components/common/Skeletons";
 import toast from "react-hot-toast";
 
 const containerVariants = {
@@ -65,7 +66,12 @@ export default function ClientLotsPage() {
     }
   };
 
-  if (isLoading && lots.length === 0) return <PageLoader />;
+  if (isLoading && lots.length === 0) return (
+    <div className="space-y-12 pb-24">
+      <div className="h-32 w-2/3 bg-gray-100 animate-pulse rounded-xl" />
+      <GenericGridSkeleton count={8} cols="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" />
+    </div>
+  );
 
   return (
     <motion.div 
@@ -83,7 +89,7 @@ export default function ClientLotsPage() {
                 <span className="w-1.5 h-1.5 bg-gold rounded-full" />
                 <span className="w-1.5 h-1.5 bg-navy rounded-full" />
              </div>
-             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.4em]">Asset Logistics Hub</span>
+             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.1em]">Asset Logistics Hub</span>
           </div>
           <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
             Inventory <span className="text-burgundy italic font-serif lowercase">Matrix</span>
@@ -95,7 +101,7 @@ export default function ClientLotsPage() {
              { label: 'Active Inventory', value: lots.length, icon: Box, color: 'text-navy' },
              { label: 'Asset Valuation', value: 'Verified', icon: ShieldCheck, color: 'text-green-500' }
            ].map((stat, i) => (
-             <div key={i} className="bg-white border border-gray-100 rounded-2xl px-6 py-3 shadow-xl shadow-black/[0.02] flex items-center gap-4">
+             <div key={i} className="bg-white border border-gray-200 rounded-2xl px-6 py-3 shadow-xl shadow-black/[0.02] flex items-center gap-4">
                 <div className={`p-2 rounded-lg bg-gray-50 ${stat.color}`}>
                    <stat.icon className="h-4 w-4" />
                 </div>
@@ -108,7 +114,7 @@ export default function ClientLotsPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-[3.5rem] p-10 shadow-2xl shadow-black/[0.03] border border-gray-50 relative overflow-hidden">
+      <div className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.03] border border-gray-200 relative overflow-hidden">
         {/* Subtle Data Waves */}
         <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-navy via-gold to-burgundy opacity-20" />
 
@@ -119,7 +125,7 @@ export default function ClientLotsPage() {
             <input
               type="text"
               placeholder="Query asset title or origin..."
-              className="w-full pl-14 pr-8 py-5 bg-gray-50 border-none rounded-[1.5rem] text-sm font-black uppercase tracking-widest focus:ring-2 focus:ring-navy/5 focus:bg-white transition-all shadow-inner"
+              className="w-full pl-14 pr-8 py-5 bg-gray-50 border-none rounded-xl text-sm font-black uppercase tracking-widest focus:ring-2 focus:ring-navy/5 focus:bg-white transition-all shadow-inner"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -127,7 +133,7 @@ export default function ClientLotsPage() {
           <div className="relative group">
             <Database className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-hover:text-gold transition-colors" />
             <select
-              className="pl-14 pr-10 py-5 bg-gray-50 border-none rounded-[1.5rem] text-sm font-black uppercase tracking-widest focus:ring-2 focus:ring-navy/5 appearance-none cursor-pointer shadow-inner min-w-[240px]"
+              className="pl-14 pr-10 py-5 bg-gray-50 border-none rounded-xl text-sm font-black uppercase tracking-widest focus:ring-2 focus:ring-navy/5 appearance-none cursor-pointer shadow-inner min-w-[240px]"
               value={selectedAuction}
               onChange={(e) => setSelectedAuction(e.target.value)}
             >
@@ -145,10 +151,10 @@ export default function ClientLotsPage() {
                 key={lot._id}
                 layout
                 variants={itemVariants}
-                className="bg-white rounded-[2.5rem] border border-gray-100 group hover:border-gold transition-all overflow-hidden shadow-xl shadow-black/[0.01]"
+                className="bg-white rounded-xl border border-gray-200 group hover:border-gold transition-all overflow-hidden shadow-xl shadow-black/[0.01]"
               >
-                <div className="relative aspect-square overflow-hidden bg-gray-50 border-b border-gray-50">
-                  <img src={lot.images?.[0] || 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5'} alt={lot.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                <div className="relative aspect-square overflow-hidden bg-gray-50 border-b border-gray-200">
+                  <img src={lot.images?.[0] || '/asset_placeholder.png'} alt={lot.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                   <div className="absolute top-4 right-4">
                     <span className="text-sm font-black text-white bg-navy/80 px-3 py-1.5 rounded-xl uppercase tracking-widest backdrop-blur-md border border-white/10">
                       LOT #{(lot.lotNumber || '000').toString().padStart(3, '0')}
@@ -164,7 +170,7 @@ export default function ClientLotsPage() {
                     </div>
                   </div>
                   
-                  <div className="space-y-4 mb-8 bg-gray-50/50 p-4 rounded-2xl border border-gray-100 shadow-inner group-hover:bg-white transition-colors">
+                  <div className="space-y-4 mb-8 bg-gray-50/50 p-4 rounded-2xl border border-gray-200 shadow-inner group-hover:bg-white transition-colors">
                     <div className="flex items-center justify-between text-sm font-black uppercase tracking-widest">
                       <span className="text-gray-400">Valuation</span>
                       <span className="text-navy">${lot.estimatedLow?.toLocaleString()} - ${lot.estimatedHigh?.toLocaleString()}</span>
@@ -198,25 +204,25 @@ export default function ClientLotsPage() {
           {/* Add New Asset Trigger */}
           <motion.button 
             variants={itemVariants}
-            className="bg-gray-50/50 rounded-[2.5rem] border-2 border-dashed border-gray-200 flex flex-col items-center justify-center p-12 hover:bg-white hover:border-gold hover:shadow-2xl hover:shadow-black/5 transition-all group min-h-[400px]"
+            className="bg-gray-50/50 rounded-xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center p-8 hover:bg-white hover:border-gold hover:shadow-2xl hover:shadow-black/5 transition-all group min-h-[400px]"
           >
-            <div className="h-20 w-20 bg-white rounded-3xl shadow-xl shadow-black/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-navy transition-all duration-500">
+            <div className="h-20 w-20 bg-white rounded-xl shadow-xl shadow-black/5 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-navy transition-all duration-500">
               <Plus className="h-10 w-10 text-gray-200 group-hover:text-gold" />
             </div>
-            <p className="text-sm font-black text-gray-400 uppercase tracking-[0.3em] group-hover:text-navy transition-colors">Add New Asset</p>
+            <p className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] group-hover:text-navy transition-colors">Add New Asset</p>
           </motion.button>
         </div>
       </div>
 
       {/* Inventory Intel Footer */}
-      <div className="bg-navy rounded-[3rem] p-12 text-white relative overflow-hidden">
+      <div className="bg-navy rounded-xl p-8 text-white relative overflow-hidden">
          <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border border-white rounded-full scale-150 rotate-[30deg]" />
          </div>
          <div className="relative z-10 flex flex-col items-center text-center">
             <Database className="h-10 w-10 text-gold mb-6" />
             <h4 className="text-3xl font-black text-white uppercase tracking-tighter mb-4">Unified Repository</h4>
-            <p className="text-sm font-bold text-white/40 uppercase tracking-[0.4em] max-w-2xl leading-relaxed">
+            <p className="text-sm font-bold text-white/40 uppercase tracking-[0.1em] max-w-2xl leading-relaxed">
                Inventory assets are cryptographically tracked from acquisition through final transmission. Our boutique partners maintain full oversight of provenance data and asset telemetry.
             </p>
          </div>

@@ -59,14 +59,14 @@ export default function SettingsPage() {
                 <span className="w-1.5 h-1.5 bg-gold rounded-full" />
                 <span className="w-1.5 h-1.5 bg-navy rounded-full" />
              </div>
-             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.4em]">System Protocol</span>
+             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.1em]">System Protocol</span>
           </div>
           <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
             Platform <span className="text-burgundy italic font-serif lowercase">Security</span>
           </h1>
         </div>
         
-        <div className="bg-white border border-gray-100 rounded-2xl px-6 py-3 shadow-xl shadow-black/[0.02] flex items-center gap-4">
+        <div className="bg-white border border-gray-200 rounded-2xl px-6 py-3 shadow-xl shadow-black/[0.02] flex items-center gap-4">
            <div className="p-2 rounded-lg bg-burgundy/10 text-burgundy">
               <ShieldCheck className="h-4 w-4" />
            </div>
@@ -77,17 +77,17 @@ export default function SettingsPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Security Matrix */}
         <div className="lg:col-span-12 space-y-12">
           
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             {/* Credential Rotation */}
-            <motion.div variants={itemVariants} className="bg-white rounded-[3.5rem] p-12 shadow-2xl shadow-black/[0.03] border border-gray-50 relative overflow-hidden group">
+            <motion.div variants={itemVariants} className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.03] border border-gray-200 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-burgundy/[0.02] rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-burgundy/[0.05] transition-all duration-1000" />
               
-              <div className="flex items-center gap-4 mb-12 border-b border-gray-100 pb-10">
-                <div className="h-14 w-14 bg-navy rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-navy/20">
+              <div className="flex items-center gap-4 mb-12 border-b border-gray-200 pb-10">
+                <div className="h-14 w-14 bg-navy rounded-xl flex items-center justify-center shadow-2xl shadow-navy/20">
                   <Key className="h-6 w-6 text-gold" />
                 </div>
                 <div>
@@ -98,7 +98,7 @@ export default function SettingsPage() {
 
               <form onSubmit={handleChangePassword} className="space-y-8">
                 <div className="space-y-4">
-                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">Current Authorization</label>
+                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">Current Authorization</label>
                   <div className="relative">
                     <input 
                       type={showCurrent ? "text" : "password"} 
@@ -115,7 +115,7 @@ export default function SettingsPage() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-4">
-                    <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">New Signature</label>
+                    <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">New Signature</label>
                     <div className="relative">
                       <input 
                         type={showNew ? "text" : "password"} 
@@ -131,7 +131,7 @@ export default function SettingsPage() {
                     </div>
                   </div>
                   <div className="space-y-4">
-                    <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">Confirm Signature</label>
+                    <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">Confirm Signature</label>
                     <input 
                       type="password" 
                       required 
@@ -146,7 +146,7 @@ export default function SettingsPage() {
                   <button 
                     type="submit" 
                     disabled={saving} 
-                    className="bg-navy text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy transition-all active:scale-95 disabled:opacity-50"
+                    className="bg-navy text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-[0.1em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy transition-all active:scale-95 disabled:opacity-50"
                   >
                     {saving ? 'Encrypting...' : 'Commit Protocol Update'}
                   </button>
@@ -155,11 +155,11 @@ export default function SettingsPage() {
             </motion.div>
 
             {/* Neural Dispatch (Notifications) */}
-            <motion.div variants={itemVariants} className="bg-white rounded-[3.5rem] p-12 shadow-2xl shadow-black/[0.03] border border-gray-50 relative overflow-hidden group">
+            <motion.div variants={itemVariants} className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.03] border border-gray-200 relative overflow-hidden group">
               <div className="absolute top-0 left-0 w-64 h-64 bg-gold/[0.02] rounded-full -ml-32 -mt-32 blur-3xl group-hover:bg-gold/[0.05] transition-all duration-1000" />
               
-              <div className="flex items-center gap-4 mb-12 border-b border-gray-100 pb-10">
-                <div className="h-14 w-14 bg-burgundy/10 rounded-[1.5rem] flex items-center justify-center shadow-lg shadow-burgundy/5">
+              <div className="flex items-center gap-4 mb-12 border-b border-gray-200 pb-10">
+                <div className="h-14 w-14 bg-burgundy/10 rounded-xl flex items-center justify-center shadow-lg shadow-burgundy/5">
                   <Bell className="h-6 w-6 text-burgundy" />
                 </div>
                 <div>
@@ -177,7 +177,7 @@ export default function SettingsPage() {
                   { id: 'payment', label: 'Fiscal Protocol Reminders', icon: CreditCard },
                   { id: 'shipping', label: 'Logistics Telemetry Updates', icon: Truck }
                 ].map((pref, i) => (
-                  <label key={pref.id} className="flex items-center justify-between p-6 bg-gray-50/30 rounded-[1.5rem] hover:bg-white border border-transparent hover:border-gray-100 transition-all cursor-pointer group/item">
+                  <label key={pref.id} className="flex items-center justify-between p-6 bg-gray-50/30 rounded-xl hover:bg-white border border-transparent hover:border-gray-200 transition-all cursor-pointer group/item">
                     <div className="flex items-center gap-4">
                        <div className="h-8 w-8 rounded-lg bg-gray-100 flex items-center justify-center text-navy/40 group-hover/item:bg-navy group-hover/item:text-gold transition-all">
                           <pref.icon className="h-3.5 w-3.5" />
@@ -195,32 +195,32 @@ export default function SettingsPage() {
           </div>
 
           {/* Tertiary Controls */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-             <motion.div variants={itemVariants} className="bg-navy rounded-[3rem] p-12 text-white shadow-2xl shadow-navy/30 group relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-12 opacity-5 scale-125 group-hover:scale-150 transition-transform duration-1000">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+             <motion.div variants={itemVariants} className="bg-navy rounded-xl p-8 text-white shadow-2xl shadow-navy/30 group relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-5 scale-125 group-hover:scale-150 transition-transform duration-1000">
                    <CreditCard className="h-48 w-48" />
                 </div>
                 <div className="relative z-10">
                    <h4 className="text-3xl font-black uppercase tracking-tight mb-4 text-gold">Fiscal Integration</h4>
-                   <p className="text-sm font-bold text-white/40 uppercase tracking-[0.4em] leading-relaxed mb-8">
+                   <p className="text-sm font-bold text-white/40 uppercase tracking-[0.1em] leading-relaxed mb-8">
                       Payment architectures are managed exclusively via Stripe\'s secure hardware modules. Augeo never stores full fiscal credentials on platform infrastructure.
                    </p>
-                   <button className="px-8 py-3 bg-white/5 border border-white/10 hover:bg-white hover:text-navy rounded-xl text-sm font-black uppercase tracking-[0.2em] transition-all active:scale-95">
+                   <button className="px-8 py-3 bg-white/5 border border-white/10 hover:bg-white hover:text-navy rounded-xl text-sm font-black uppercase tracking-[0.1em] transition-all active:scale-95">
                       Verify Wallet Status
                    </button>
                 </div>
              </motion.div>
 
-             <motion.div variants={itemVariants} className="bg-gray-50 rounded-[3rem] p-12 border border-gray-100 group relative overflow-hidden">
-                <div className="absolute bottom-0 right-0 p-12 opacity-[0.03] rotate-12 group-hover:rotate-0 transition-transform duration-1000">
+             <motion.div variants={itemVariants} className="bg-gray-50 rounded-xl p-8 border border-gray-200 group relative overflow-hidden">
+                <div className="absolute bottom-0 right-0 p-8 opacity-[0.03] rotate-12 group-hover:rotate-0 transition-transform duration-1000">
                    <Shield className="h-48 w-48" />
                 </div>
                 <div className="relative z-10">
                    <h4 className="text-3xl font-black uppercase tracking-tight mb-4 text-navy">Integrity Audit</h4>
-                   <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.4em] leading-relaxed mb-8">
+                   <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.1em] leading-relaxed mb-8">
                       Review all administrative actions, session history, and geofencing logs associated with your identity vault. Full audit trail available for export.
                    </p>
-                   <button className="px-8 py-3 bg-navy text-white hover:bg-gold hover:text-navy rounded-xl text-sm font-black uppercase tracking-[0.2em] transition-all active:scale-95">
+                   <button className="px-8 py-3 bg-navy text-white hover:bg-gold hover:text-navy rounded-xl text-sm font-black uppercase tracking-[0.1em] transition-all active:scale-95">
                       Export Audit Log
                    </button>
                 </div>

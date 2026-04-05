@@ -70,16 +70,16 @@ export default function LoginPage() {
           <h1 className="text-6xl font-black text-navy tracking-tighter uppercase leading-none mb-4">
             Security <span className="text-gold italic font-serif lowercase">Gateway</span>
           </h1>
-          <p className="text-sm font-black text-gray-400 uppercase tracking-[0.4em]">Authorized Access Only</p>
+          <p className="text-sm font-black text-gray-400 uppercase tracking-[0.1em]">Authorized Access Only</p>
         </div>
 
-        <div className="bg-white rounded-[3.5rem] p-12 shadow-2xl shadow-black/[0.04] border border-gray-50 relative group overflow-hidden">
+        <div className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.04] border border-gray-200 relative group overflow-hidden">
           {/* Subtle Glow */}
           <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-gray-50/50 -z-10" />
           
           <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
             <div className="space-y-3">
-              <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Strategic Identifier (Email)</label>
+              <label className="font-black text-gray-400 uppercase ml-1">Email</label>
               <div className="relative group/field">
                 <Mail className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-300 group-focus-within/field:text-gold transition-colors" />
                 <input
@@ -87,7 +87,7 @@ export default function LoginPage() {
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full pl-16 pr-8 py-6 bg-gray-50 border-none rounded-[1.8rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                  className="w-full pl-16 pr-8 py-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                   placeholder="name@maison.com"
                 />
               </div>
@@ -95,12 +95,12 @@ export default function LoginPage() {
 
             <div className="space-y-3">
               <div className="flex items-center justify-between px-1">
-                <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Access Protocol (Password)</label>
+                <label className="font-black text-gray-400 uppercase ml-1">Password</label>
                 <Link
                   href="/auth/forgot-password"
                   className="text-sm font-black text-burgundy uppercase tracking-widest hover:text-navy transition-colors"
                 >
-                  Reset Sequence
+                  Reset Password
                 </Link>
               </div>
               <div className="relative group/field">
@@ -110,7 +110,7 @@ export default function LoginPage() {
                   required
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="w-full pl-16 pr-16 py-6 bg-gray-50 border-none rounded-[1.8rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                  className="w-full pl-16 pr-16 py-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                   placeholder="••••••••"
                 />
                 <button
@@ -130,14 +130,14 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-6 bg-navy text-white rounded-[1.8rem] transition-all font-black text-sm uppercase tracking-[0.3em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy hover:-translate-y-1 disabled:opacity-50 flex items-center justify-center gap-3 group"
+              className="w-full py-6 bg-navy text-white rounded-xl transition-all font-black text-sm uppercase tracking-[0.1em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy hover:-translate-y-1 disabled:opacity-50 flex items-center justify-center gap-3 group"
             >
-              {isLoading ? "Synchronizing..." : "Initiate Session"}
+              {isLoading ? "submitting..." : "Submit"}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
 
-          <div className="mt-10 pt-10 border-t border-gray-50 text-center">
+          <div className="mt-10 pt-10 border-t border-gray-200 text-center">
             <p className="text-sm font-black text-gray-400 uppercase tracking-widest">
               New to the Protocol?{" "}
               <Link

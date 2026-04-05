@@ -9,6 +9,30 @@ export function formatCurrency(amount: number, currency: string = 'EUR'): string
   }).format(amount);
 }
 
+export function convertPrice(
+  amount: number, 
+  fromCurrency: string, 
+  toCurrency: string, 
+  rates?: Record<string, number>
+): number {
+  if (fromCurrency === toCurrency) return amount;
+  
+  const defaultRates: Record<string, number> = {
+    EUR: 1,
+    USD: 1.08,
+    GBP: 0.85,
+    INR: 90.50,
+    CNY: 7.85,
+    IRR: 45000,
+  };
+  
+  const activeRates = rates || defaultRates;
+  const fromRate = activeRates[fromCurrency] || 1;
+  const toRate = activeRates[toCurrency] || 1;
+  
+  return (amount / fromRate) * toRate;
+}
+
 export function formatDate(date: string | Date): string {
   return format(new Date(date), 'MMM dd, yyyy');
 }
@@ -56,7 +80,7 @@ export function getOrderStatusColor(status: string): string {
     case 'completed': return 'text-navy bg-navy/10 border-navy/20';
     case 'cancelled': return 'text-burgundy bg-burgundy/5 border-burgundy/10';
     case 'disputed': return 'text-rose-600 bg-rose-50 border-rose-100';
-    case 'refunded': return 'text-gray-600 bg-gray-50 border-gray-100';
+    case 'refunded': return 'text-gray-600 bg-gray-50 border-gray-200';
     default: return 'text-gray-600 bg-gray-100 border-gray-200';
   }
 }
@@ -73,4 +97,13 @@ export function getMinimumBid(currentBid: number, startingBid: number, bidIncrem
 
 export function cn(...classes: (string | undefined | false | null)[]): string {
   return classes.filter(Boolean).join(' ');
+}
+
+export function getAssetUrl(path: string | undefined | null): string {
+  if (!path) return '/asset_placeholder.png';
+  if (path.startsWith('http') || path.startsWith('/')) return path;
+  
+  const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+  // Ensure we don't have double slashes if baseUrl ends with / and path starts with it (though handled by startsWith('/') above)
+  return `${baseUrl}${path}`;
 }

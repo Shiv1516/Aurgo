@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { Auction } from "@/types";
-import { formatCurrency, formatDate, getAuctionStatusColor } from "@/lib/utils";
+import { formatCurrency, formatDate, getAuctionStatusColor, getAssetUrl } from "@/lib/utils";
 import { watchlistAPI } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
 import CountdownTimer from "@/components/common/CountdownTimer";
@@ -37,7 +37,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      toast.error("Please sign in to add to watchlist");
+      toast.error("Please sign in to manage your watchlist");
       return;
     }
 
@@ -72,7 +72,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
         <div className="relative aspect-[4/3] w-full bg-navy overflow-hidden shrink-0">
           {auction.coverImage ? (
             <Image
-              src={auction.coverImage.startsWith("http") ? auction.coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`}
+              src={getAssetUrl(auction.coverImage)}
               alt={auction.title || "Auction"}
               fill
               className="object-cover transition-transform duration-1000 group-hover:scale-110 opacity-90 group-hover:opacity-100"
@@ -86,7 +86,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
           {/* Status Badge overlay */}
           <div className="absolute top-4 left-4 flex flex-col gap-2 z-10">
             <span className={`badge ${isLive ? 'badge-live' : isScheduled ? 'badge-scheduled' : 'badge-ended'}`}>
-              {isLive ? 'Live Sale' : isScheduled ? 'Upcoming' : 'Closed'}
+              {isLive ? "Live Sale" : isScheduled ? "Upcoming" : "Closed"}
             </span>
           </div>
 
@@ -102,7 +102,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
           </button>
 
           <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-navy/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-             <span className="text-sm font-black text-white uppercase tracking-[0.3em] flex items-center gap-2">
+             <span className="text-sm font-black text-white uppercase tracking-[0.1em] flex items-center gap-2">
                 Explore Catalogue <ChevronRight className="h-3 w-3 text-gold" />
              </span>
           </div>
@@ -111,7 +111,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
         {/* Content Section */}
         <div className="p-6 flex flex-col flex-grow bg-white">
           <div className="flex items-center gap-2 mb-3">
-             <span className="text-sm font-black text-gold uppercase tracking-[0.2em]">Lot Selection</span>
+             <span className="text-sm font-black text-gold uppercase tracking-[0.1em]">Lot Selection</span>
              <span className="h-px flex-grow bg-gray-100" />
           </div>
           
@@ -119,7 +119,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
             {auction.title}
           </h3>
           
-          <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-50">
+          <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-200">
              <div>
                 <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-1">Location</p>
                 <div className="flex items-center gap-1.5 text-navy font-black text-sm uppercase tracking-tighter">

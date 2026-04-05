@@ -64,13 +64,7 @@ export default function DashboardLayout({
     if (!isLoading && !isAuthenticated) router.push("/auth/login");
   }, [isLoading, isAuthenticated, router]);
 
-  if (isLoading)
-    return (
-      <>
-        <PageLoader />
-      </>
-    );
-  if (!isAuthenticated) return null;
+  if (!isLoading && !isAuthenticated) return null;
 
   return (
     <>
@@ -93,7 +87,7 @@ export default function DashboardLayout({
           >
             <div className="p-6 overflow-y-auto flex-1">
               <div className="flex items-center justify-between lg:hidden mb-8">
-                <span className="text-2xl font-black tracking-tighter">NAVIGATOR</span>
+                <span className="text-2xl font-black tracking-tighter uppercase">Navigator</span>
                 <button onClick={() => setSidebarOpen(false)} className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
                   <X className="h-5 w-5" />
                 </button>
@@ -105,31 +99,49 @@ export default function DashboardLayout({
                   <User className="h-6 w-6 text-burgundy" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-base font-black text-dark uppercase">{user?.firstName}</span>
-                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">{user?.role}</span>
+                  {isLoading ? (
+                    <>
+                      <div className="h-4 w-24 bg-gray-100 animate-pulse rounded mb-1" />
+                      <div className="h-3 w-16 bg-gray-50 animate-pulse rounded" />
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-base font-black text-dark uppercase">{user?.firstName}</span>
+                      <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">{user?.role}</span>
+                    </>
+                  )}
                 </div>
               </div>
 
-              <div className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] mb-4 px-4">Management</div>
+              <div className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] mb-4 px-4">Management</div>
               <nav className="space-y-2">
-                {(roleLinks[user?.role || "user"] || roleLinks.user).map((link) => {
-                  const isActive = pathname === link.href;
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setSidebarOpen(false)}
-                      className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-colors group ${isActive ? "bg-burgundy text-white shadow-sm" : "text-gray-500 hover:bg-gray-50 hover:text-navy"}`}
-                    >
-                      <link.icon className={`h-5 w-5 ${isActive ? "" : "group-hover:text-burgundy"}`} />
-                      <span className="font-bold text-sm uppercase tracking-wide">{link.label}</span>
-                    </Link>
-                  );
-                })}
+                {isLoading ? (
+                  Array.from({ length: 6 }).map((_, i) => (
+                    <div key={i} className="flex items-center gap-4 px-4 py-3 rounded-lg bg-gray-50/50 animate-pulse">
+                      <div className="h-5 w-5 bg-gray-100 rounded" />
+                      <div className="h-4 w-32 bg-gray-100 rounded" />
+                    </div>
+                  ))
+                ) : (
+                  (roleLinks[user?.role || "user"] || roleLinks.user).map((link) => {
+                    const isActive = pathname === link.href;
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setSidebarOpen(false)}
+                        className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-colors group ${isActive ? "bg-burgundy text-white shadow-sm" : "text-gray-500 hover:bg-gray-50 hover:text-navy"}`}
+                      >
+                        <link.icon className={`h-5 w-5 ${isActive ? "" : "group-hover:text-burgundy"}`} />
+                        <span className="font-bold text-sm uppercase tracking-wide">{link.label}</span>
+                      </Link>
+                    );
+                  })
+                )}
               </nav>
 
               {/* Sidebar Footer - Security */}
-              <div className="mt-12 pt-8 border-t border-gray-100 px-4">
+              <div className="mt-12 pt-8 border-t border-gray-200 px-4">
                  <div className="flex items-center gap-2 text-sm font-black text-green-600 uppercase tracking-widest bg-green-50 px-3 py-1.5 rounded-lg w-fit">
                     <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                     Secure Access

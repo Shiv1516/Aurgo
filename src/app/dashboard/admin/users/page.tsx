@@ -7,6 +7,7 @@ import {
   Users, UserPlus, ShieldCheck, Mail, Globe, 
   ShieldAlert, Activity, ChevronRight
 } from "lucide-react";
+import { TableSkeleton } from "@/components/common/Skeletons";
 import toast from "react-hot-toast";
 
 export default function AdminUsersPage() {
@@ -51,7 +52,12 @@ export default function AdminUsersPage() {
     }
   };
 
-  if (isLoading && users.length === 0) return <PageLoader />;
+  if (isLoading && users.length === 0) return (
+    <div className="space-y-8 animate-in fade-in duration-500 pb-12">
+      <div className="h-24 w-1/2 bg-gray-100 animate-pulse rounded-2xl" />
+      <TableSkeleton rows={10} cols={5} />
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-12">
@@ -81,7 +87,7 @@ export default function AdminUsersPage() {
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Filters */}
-        <div className="p-6 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row gap-4">
+        <div className="p-6 border-b border-gray-200 bg-gray-50/50 flex flex-col md:flex-row gap-4">
           <form onSubmit={handleSearch} className="flex-1 relative group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-burgundy transition-colors" />
             <input
@@ -183,7 +189,7 @@ export default function AdminUsersPage() {
           
           {users.length === 0 && (
             <div className="py-24 text-center">
-              <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-100">
+              <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
                  <Search className="h-6 w-6 text-gray-300" />
               </div>
               <p className="text-sm font-semibold text-gray-400">No users found matching your criteria.</p>

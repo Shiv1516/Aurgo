@@ -67,7 +67,7 @@ export default function CreateAuctionPage() {
       <div className="flex flex-col items-center text-center space-y-4">
          <div className="flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-burgundy" />
-            <span className="text-sm font-black text-burgundy uppercase tracking-[0.4em]">Curation Protocol Phase {(step.toString().padStart(2, '0'))}</span>
+            <span className="text-sm font-black text-burgundy uppercase tracking-[0.1em]">Curation Protocol Phase {(step.toString().padStart(2, '0'))}</span>
          </div>
          <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">Initiate <span className="text-gold italic font-serif normal-case">Sale</span></h1>
       </div>
@@ -79,7 +79,7 @@ export default function CreateAuctionPage() {
           <div 
             key={s} 
             className={`w-14 h-14 rounded-[1.2rem] flex flex-col items-center justify-center font-black text-sm transition-all duration-700 relative z-10 ${
-              step >= s ? 'bg-navy text-gold shadow-2xl shadow-navy/20' : 'bg-white text-gray-300 border border-gray-100'
+              step >= s ? 'bg-navy text-gold shadow-2xl shadow-navy/20' : 'bg-white text-gray-300 border border-gray-200'
             }`}
           >
             {step > s ? <CheckCircle className="h-6 w-6 text-gold" /> : <span className={`text-xl ${step === s ? 'text-gold' : ''}`}>{s}</span>}
@@ -90,9 +90,9 @@ export default function CreateAuctionPage() {
         ))}
       </div>
 
-      <div className="bg-white rounded-[4rem] p-16 shadow-2xl shadow-black/[0.03] border border-gray-50 relative overflow-hidden min-h-[500px] flex flex-col">
+      <div className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.03] border border-gray-200 relative overflow-hidden min-h-[500px] flex flex-col">
         {/* Decorative Background */}
-        <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none">
+        <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
            <Sparkles className="h-64 w-64 text-navy rotate-12" />
         </div>
 
@@ -109,7 +109,7 @@ export default function CreateAuctionPage() {
               >
                 <div>
                   <h2 className="text-4xl font-black text-navy uppercase tracking-tight">Identity & Concept</h2>
-                  <p className="text-gray-400 text-sm font-black uppercase tracking-[0.3em] mt-2">Foundational Intelligence for your Strategic Showcase</p>
+                  <p className="text-gray-400 text-sm font-black uppercase tracking-[0.1em] mt-2">Foundational Intelligence for your Strategic Showcase</p>
                 </div>
                 
                 <div className="space-y-8">
@@ -117,7 +117,7 @@ export default function CreateAuctionPage() {
                     <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Collection Nomination (Title)</label>
                     <input 
                       type="text" 
-                      className="w-full p-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                      className="w-full p-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                       placeholder="e.g. THE ROYAL HERITAGE SUITE"
                       value={formData.title}
                       onChange={e => setFormData({...formData, title: e.target.value})}
@@ -128,7 +128,7 @@ export default function CreateAuctionPage() {
                     <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Genesis Narrative (Description)</label>
                     <textarea 
                       rows={4}
-                      className="w-full p-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                      className="w-full p-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                       placeholder="Describe the ethos and provenance of this collection..."
                       value={formData.description}
                       onChange={e => setFormData({...formData, description: e.target.value})}
@@ -139,7 +139,7 @@ export default function CreateAuctionPage() {
                     <div className="space-y-3">
                       <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Operational Sphere (Category)</label>
                       <select 
-                        className="w-full p-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy focus:ring-2 focus:ring-gold/20 appearance-none cursor-pointer outline-none"
+                        className="w-full p-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy focus:ring-2 focus:ring-gold/20 appearance-none cursor-pointer outline-none"
                         value={formData.category}
                         onChange={e => setFormData({...formData, category: e.target.value})}
                       >
@@ -151,7 +151,7 @@ export default function CreateAuctionPage() {
                       <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Physical Base</label>
                       <input 
                         type="text" 
-                        className="w-full p-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                        className="w-full p-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                         placeholder="e.g. London / Global Distribution"
                         value={formData.location}
                         onChange={e => setFormData({...formData, location: e.target.value})}
@@ -173,7 +173,7 @@ export default function CreateAuctionPage() {
               >
                 <div>
                   <h2 className="text-4xl font-black text-navy uppercase tracking-tight">Temporal Bounds</h2>
-                  <p className="text-gray-400 text-sm font-black uppercase tracking-[0.3em] mt-2">Define the window of High-Stakes Interaction</p>
+                  <p className="text-gray-400 text-sm font-black uppercase tracking-[0.1em] mt-2">Define the window of High-Stakes Interaction</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -184,7 +184,7 @@ export default function CreateAuctionPage() {
                     </div>
                     <input 
                       type="datetime-local" 
-                      className="w-full p-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                      className="w-full p-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                       value={formData.startTime}
                       onChange={e => setFormData({...formData, startTime: e.target.value})}
                     />
@@ -196,14 +196,14 @@ export default function CreateAuctionPage() {
                     </div>
                     <input 
                       type="datetime-local" 
-                      className="w-full p-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                      className="w-full p-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                       value={formData.endTime}
                       onChange={e => setFormData({...formData, endTime: e.target.value})}
                     />
                   </div>
                 </div>
 
-                <div className="p-10 bg-navy rounded-[2.5rem] border border-white/5 flex items-start gap-6 shadow-2xl shadow-navy/20 relative overflow-hidden group">
+                <div className="p-10 bg-navy rounded-xl border border-white/5 flex items-start gap-6 shadow-2xl shadow-navy/20 relative overflow-hidden group">
                   <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:scale-125 transition-all duration-1000">
                      <ShieldCheck className="h-24 w-24 text-gold" />
                   </div>
@@ -229,7 +229,7 @@ export default function CreateAuctionPage() {
               >
                 <div>
                   <h2 className="text-4xl font-black text-navy uppercase tracking-tight">Cinematic Finish</h2>
-                  <p className="text-gray-400 text-sm font-black uppercase tracking-[0.3em] mt-2">Visual Curation for your Vault Premier</p>
+                  <p className="text-gray-400 text-sm font-black uppercase tracking-[0.1em] mt-2">Visual Curation for your Vault Premier</p>
                 </div>
 
                 <div className="space-y-8">
@@ -239,7 +239,7 @@ export default function CreateAuctionPage() {
                       <ImageIcon className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-gold" />
                       <input 
                         type="text" 
-                        className="w-full pl-16 pr-8 py-6 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+                        className="w-full pl-16 pr-8 py-6 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
                         placeholder="https://vault.assets.com/image.jpg"
                         value={formData.coverImage}
                         onChange={e => setFormData({...formData, coverImage: e.target.value})}
@@ -251,7 +251,7 @@ export default function CreateAuctionPage() {
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="aspect-video rounded-[3rem] overflow-hidden shadow-2xl shadow-black/10 border-8 border-gray-50"
+                      className="aspect-video rounded-xl overflow-hidden shadow-2xl shadow-black/10 border-8 border-gray-200"
                     >
                       <img src={formData.coverImage} className="w-full h-full object-cover" alt="Vault Preview" />
                     </motion.div>
@@ -266,7 +266,7 @@ export default function CreateAuctionPage() {
           {step > 1 ? (
             <button 
               onClick={prevStep}
-              className="px-10 py-5 bg-gray-50 text-navy font-black text-sm uppercase tracking-[0.3em] rounded-[1.5rem] hover:bg-gray-100 transition-all flex items-center gap-3 border border-transparent shadow-sm"
+              className="px-10 py-5 bg-gray-50 text-navy font-black text-sm uppercase tracking-[0.1em] rounded-xl hover:bg-gray-100 transition-all flex items-center gap-3 border border-transparent shadow-sm"
             >
               <ArrowLeft className="h-4 w-4" /> Protocol Back
             </button>
@@ -277,7 +277,7 @@ export default function CreateAuctionPage() {
                <button 
                  onClick={nextStep}
                  disabled={!formData.title || !formData.category}
-                 className="px-12 py-5 bg-navy text-white font-black text-sm uppercase tracking-[0.3em] rounded-[1.5rem] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy hover:-translate-y-1 transition-all disabled:opacity-30 flex items-center gap-3 group"
+                 className="px-12 py-5 bg-navy text-white font-black text-sm uppercase tracking-[0.1em] rounded-xl shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy hover:-translate-y-1 transition-all disabled:opacity-30 flex items-center gap-3 group"
                >
                  Advance Sequence <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                </button>
@@ -285,7 +285,7 @@ export default function CreateAuctionPage() {
                <button 
                  onClick={handleSubmit}
                  disabled={isSubmitting || !formData.coverImage}
-                 className="px-12 py-5 bg-burgundy text-white font-black text-sm uppercase tracking-[0.3em] rounded-[1.5rem] shadow-2xl shadow-burgundy/20 hover:bg-navy hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-30 group"
+                 className="px-12 py-5 bg-burgundy text-white font-black text-sm uppercase tracking-[0.1em] rounded-xl shadow-2xl shadow-burgundy/20 hover:bg-navy hover:-translate-y-1 transition-all flex items-center gap-3 disabled:opacity-30 group"
                >
                  {isSubmitting ? "Initiating Protocol..." : "Launch Boutique"} <CheckCircle className="h-4 w-4 group-hover:scale-110 transition-transform" />
                </button>

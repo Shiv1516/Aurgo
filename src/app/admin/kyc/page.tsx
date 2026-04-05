@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 import { useEffect, useState } from "react";
 import { adminAPI } from "@/lib/api";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getAssetUrl } from "@/lib/utils";
 import toast from "react-hot-toast";
 import {
   ChevronLeft,
@@ -272,7 +272,7 @@ export default function AdminKYCPage() {
                         </div>
                         {doc.url && (
                           <a
-                            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}/${doc.url}`}
+                            href={getAssetUrl(doc.url)}
                             target="_blank"
                             className="p-2 hover:bg-gray-200 rounded"
                           >

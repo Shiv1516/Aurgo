@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { adminAPI } from "@/lib/api";
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import { ShieldCheck, ShieldAlert, Eye, FileText, User, ArrowRight, Activity, Zap, CheckCircle2, AlertTriangle, Clock, X } from "lucide-react";
+import { TableSkeleton } from "@/components/common/Skeletons";
 import toast from "react-hot-toast";
-import { timeAgo } from "@/lib/utils";
+import { timeAgo, getAssetUrl } from "@/lib/utils";
 
 export default function AdminKYCPage() {
   const [requests, setRequests] = useState<any[]>([]);
@@ -51,7 +52,12 @@ export default function AdminKYCPage() {
     }
   };
 
-  if (isLoading && requests.length === 0) return <PageLoader />;
+  if (isLoading && requests.length === 0) return (
+    <div className="space-y-8 pb-12">
+      <div className="h-20 w-1/3 bg-gray-100 animate-pulse rounded-2xl" />
+      <TableSkeleton rows={8} cols={6} />
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-12">
@@ -88,8 +94,8 @@ export default function AdminKYCPage() {
           </div>
 
           {requests.length === 0 ? (
-            <div className="bg-white rounded-xl p-16 text-center border border-gray-200 shadow-sm flex flex-col items-center">
-              <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 border border-gray-100">
+            <div className="bg-white rounded-xl p-8 text-center border border-gray-200 shadow-sm flex flex-col items-center">
+              <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mb-4 border border-gray-200">
                 <ShieldCheck className="h-8 w-8 text-green-500" />
               </div>
               <p className="text-sm font-semibold text-gray-600">All identity verification queues are currently empty.</p>
@@ -128,7 +134,7 @@ export default function AdminKYCPage() {
         <div className="lg:col-span-5 border-l border-gray-200 lg:pl-8">
           {selectedUser ? (
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden sticky top-8">
-              <div className="p-6 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
+              <div className="p-6 border-b border-gray-200 bg-gray-50/50 flex items-center justify-between">
                  <div>
                    <h3 className="text-lg font-bold text-navy uppercase tracking-tight">Identity Dossier</h3>
                    <p className="text-sm font-medium text-gray-500 uppercase tracking-widest mt-1">ID: {selectedUser._id.substring(0,8)}</p>
@@ -143,15 +149,15 @@ export default function AdminKYCPage() {
                 <div>
                    <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">Personal Information</p>
                    <div className="grid grid-cols-2 gap-4">
-                      <div className="p-3 bg-gray-50 rounded border border-gray-100">
+                      <div className="p-3 bg-gray-50 rounded border border-gray-200">
                          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-0.5">First Name</p>
                          <p className="text-sm font-bold text-navy">{selectedUser.firstName}</p>
                       </div>
-                      <div className="p-3 bg-gray-50 rounded border border-gray-100">
+                      <div className="p-3 bg-gray-50 rounded border border-gray-200">
                          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-0.5">Last Name</p>
                          <p className="text-sm font-bold text-navy">{selectedUser.lastName}</p>
                       </div>
-                      <div className="col-span-2 p-3 bg-gray-50 rounded border border-gray-100">
+                      <div className="col-span-2 p-3 bg-gray-50 rounded border border-gray-200">
                          <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-0.5">Email Address</p>
                          <p className="text-sm font-bold text-navy">{selectedUser.email}</p>
                       </div>
@@ -171,13 +177,13 @@ export default function AdminKYCPage() {
                       {selectedUser.kycDocuments?.length > 0 ? selectedUser.kycDocuments.map((doc: any, i: number) => (
                         <a 
                           key={i} 
-                          href={doc.url?.startsWith('http') ? doc.url : `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}${doc.url}`} 
+                          href={getAssetUrl(doc.url)} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="flex items-center justify-between p-3 bg-white border border-gray-200 hover:border-burgundy hover:shadow-sm rounded transition-all group/asset"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="h-8 w-8 bg-gray-50 rounded border border-gray-100 flex items-center justify-center text-gray-400 group-hover/asset:text-burgundy transition-colors">
+                            <div className="h-8 w-8 bg-gray-50 rounded border border-gray-200 flex items-center justify-center text-gray-400 group-hover/asset:text-burgundy transition-colors">
                                <FileText className="h-4 w-4" />
                             </div>
                             <div className="flex flex-col">
@@ -197,7 +203,7 @@ export default function AdminKYCPage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex justify-end gap-3 p-6 bg-gray-50/50 border-t border-gray-100">
+              <div className="flex justify-end gap-3 p-6 bg-gray-50/50 border-t border-gray-200">
                 <button 
                   onClick={() => handleReject(selectedUser._id)}
                   className="px-6 py-2 bg-white border border-gray-300 hover:border-red-300 hover:bg-red-50 text-red-600 rounded font-bold text-sm uppercase tracking-widest transition-colors flex items-center gap-1.5"
@@ -213,8 +219,8 @@ export default function AdminKYCPage() {
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl p-12 border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center h-[500px]">
-              <div className="h-20 w-20 bg-gray-50 rounded-full flex items-center justify-center mb-6 border border-gray-100">
+            <div className="bg-white rounded-xl p-8 border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center h-[500px]">
+              <div className="h-20 w-20 bg-gray-50 rounded-full flex items-center justify-center mb-6 border border-gray-200">
                  <ShieldAlert className="h-8 w-8 text-gray-300" />
               </div>
               <h3 className="text-lg font-bold text-navy uppercase tracking-tight mb-2">No Dossier Selected</h3>

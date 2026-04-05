@@ -5,13 +5,14 @@ import Link from 'next/link';
 import { watchlistAPI } from '@/lib/api';
 import { PageLoader } from '@/components/common/LoadingSpinner';
 import CountdownTimer from '@/components/common/CountdownTimer';
-import { formatDate } from '@/lib/utils';
+import { formatDate, getAssetUrl } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import { 
   Heart, Trash2, Eye, Calendar, Clock, 
   Sparkles, ShieldCheck, ArrowRight, Activity,
   Globe, LayoutGrid, Timer, ChevronRight
 } from 'lucide-react';
+import { GenericGridSkeleton } from '@/components/common/Skeletons';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -47,7 +48,12 @@ export default function WatchlistPage() {
     }
   };
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return (
+    <div className="space-y-12">
+      <div className="h-20 w-1/3 bg-gray-100 animate-pulse rounded-2xl" />
+      <GenericGridSkeleton count={4} cols="grid-cols-1 xl:grid-cols-2" />
+    </div>
+  );
   
   return (
     <motion.div 
@@ -65,7 +71,7 @@ export default function WatchlistPage() {
                 <span className="w-1.5 h-1.5 bg-gold rounded-full" />
                 <span className="w-1.5 h-1.5 bg-navy rounded-full" />
              </div>
-             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.4em]">Personal Acquisition Filter</span>
+             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.1em]">Personal Acquisition Filter</span>
           </div>
           <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
             Private <span className="text-burgundy italic font-serif lowercase">Curation</span>
@@ -80,24 +86,24 @@ export default function WatchlistPage() {
         </Link>
       </div>
 
-      <div className="bg-white rounded-[3.5rem] p-10 shadow-2xl shadow-black/[0.03] border border-gray-50 min-h-[500px] relative overflow-hidden">
+      <div className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.03] border border-gray-200 min-h-[500px] relative overflow-hidden">
         {/* Gallery Lighting */}
         <div className="absolute top-0 right-0 w-96 h-96 bg-burgundy/[0.02] rounded-full -mr-48 -mt-48 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold/[0.02] rounded-full -ml-48 -mb-48 blur-3xl pointer-events-none" />
 
         {items.length === 0 ? (
           <div className="py-32 text-center relative z-10 flex flex-col items-center justify-center">
-            <div className="h-24 w-24 bg-gray-50 rounded-[2.5rem] flex items-center justify-center mb-8 shadow-inner overflow-hidden relative group">
+            <div className="h-24 w-24 bg-gray-50 rounded-xl flex items-center justify-center mb-8 shadow-inner overflow-hidden relative group">
               <div className="absolute inset-0 bg-navy/5 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
               <Heart className="h-10 w-10 text-gray-200 relative z-10 group-hover:text-burgundy transition-colors" />
             </div>
             <h3 className="text-2xl font-black text-navy uppercase tracking-tight mb-2">Portfolio Empty</h3>
-            <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed">
+            <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.1em] max-w-sm mx-auto leading-relaxed">
               Initiate your private collection by curating assets from our global live auctions.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 md:grid-cols-1 gap-8 relative z-10">
             <AnimatePresence mode="popLayout">
               {items.map((item: any) => {
                 const auction = item.auction;
@@ -107,12 +113,12 @@ export default function WatchlistPage() {
                     key={item._id}
                     layout
                     variants={itemVariants}
-                    className="group relative bg-white rounded-[2.5rem] border border-gray-100 hover:border-gold hover:shadow-2xl hover:shadow-black/[0.08] transition-all p-6 flex flex-col md:flex-row gap-8"
+                    className="group relative bg-white rounded-xl border border-gray-200 hover:border-gold hover:shadow-2xl hover:shadow-black/[0.08] transition-all p-6 flex flex-col md:flex-row gap-8"
                   >
                     {/* Asset Preview */}
-                    <div className="w-full md:w-48 h-48 bg-gray-50 rounded-[2rem] overflow-hidden shrink-0 border border-gray-100/50 shadow-inner group-hover:shadow-xl group-hover:shadow-navy/5 transition-all">
+                    <div className="w-full md:w-48 h-48 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-200/50 shadow-inner group-hover:shadow-xl group-hover:shadow-navy/5 transition-all">
                       <img 
-                        src={auction.coverImage.startsWith('http') ? auction.coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`} 
+                        src={getAssetUrl(auction.coverImage)} 
                         alt="" 
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
                       />
@@ -148,12 +154,12 @@ export default function WatchlistPage() {
                           </div>
                         </div>
 
-                        <div className="bg-gray-50/50 p-4 rounded-2xl border border-gray-100 shadow-inner group-hover:bg-white transition-colors">
+                        <div className="bg-gray-50/50 p-4 rounded-2xl border border-gray-200 shadow-inner group-hover:bg-white transition-colors">
                           <CountdownTimer endTime={auction.status === 'live' ? auction.endTime : auction.startTime} variant="compact" />
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-50">
+                      <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-200">
                          <div className="flex items-center gap-3 text-sm font-black text-navy/30 uppercase tracking-widest">
                            <Calendar className="h-3 w-3" />
                            {formatDate(auction.endTime)}
@@ -187,7 +193,7 @@ export default function WatchlistPage() {
 
       {/* Curation Intelligence Footer */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-         <div className="bg-navy rounded-[3rem] p-12 text-white shadow-2xl shadow-navy/20 relative overflow-hidden group">
+         <div className="bg-navy rounded-xl p-8 text-white shadow-2xl shadow-navy/20 relative overflow-hidden group">
             <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-burgundy/10 rounded-full blur-3xl group-hover:bg-burgundy/20 transition-all duration-1000" />
             <div className="relative z-10 flex items-start gap-6">
                <div className="h-14 w-14 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-gold shadow-2xl">
@@ -195,20 +201,20 @@ export default function WatchlistPage() {
                </div>
                <div>
                   <h4 className="text-2xl font-black uppercase tracking-tight mb-3">Integrity Monitoring</h4>
-                  <p className="text-sm font-bold text-white/40 uppercase tracking-[0.4em] leading-relaxed">
+                  <p className="text-sm font-bold text-white/40 uppercase tracking-[0.1em] leading-relaxed">
                      Automated surveillance of curated assets to ensure you never miss critical bidding intervals or provenance updates.
                   </p>
                </div>
             </div>
          </div>
-         <div className="bg-gray-50 border border-gray-100 rounded-[3rem] p-12 group hover:bg-white hover:border-gold transition-all duration-500">
+         <div className="bg-gray-50 border border-gray-200 rounded-xl p-8 group hover:bg-white hover:border-gold transition-all duration-500">
             <div className="flex items-start gap-6">
                <div className="h-14 w-14 bg-navy rounded-2xl flex items-center justify-center text-burgundy shadow-xl shadow-navy/5 group-hover:bg-burgundy group-hover:text-white transition-all">
                   <Activity className="h-7 w-7" />
                </div>
                <div>
                   <h4 className="text-2xl font-black text-navy uppercase tracking-tight mb-3">Yield Telemetry</h4>
-                  <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.4em] leading-relaxed">
+                  <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.1em] leading-relaxed">
                      Real-time calculation of market velocity and anticipated hammer prices for all items within your private curation.
                   </p>
                </div>

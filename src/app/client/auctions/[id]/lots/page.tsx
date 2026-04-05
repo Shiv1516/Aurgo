@@ -6,6 +6,7 @@ import { formatCurrency } from '@/lib/utils';
 import { PageLoader } from '@/components/common/LoadingSpinner';
 import toast from 'react-hot-toast';
 import { Plus, Trash2, Edit, X, Save } from 'lucide-react';
+import { GenericGridSkeleton } from '@/components/common/Skeletons';
 
 export default function LotsManagementPage() {
   const params = useParams();
@@ -77,12 +78,12 @@ export default function LotsManagementPage() {
         </form>
       )}
 
-      {isLoading ? <PageLoader /> : lots.length === 0 ? (
+      {isLoading ? <GenericGridSkeleton count={8} /> : lots.length === 0 ? (
         <div className="text-center py-16 card"><p className="text-gray-500">No lots yet. Add your first lot.</p></div>
       ) : (
         <div className="card overflow-hidden"><div className="overflow-x-auto"><table className="w-full"><thead><tr className="table-header"><th className="px-4 py-3">#</th><th className="px-4 py-3">Title</th><th className="px-4 py-3">Starting</th><th className="px-4 py-3">Current</th><th className="px-4 py-3">Bids</th><th className="px-4 py-3">Status</th><th className="px-4 py-3">Actions</th></tr></thead><tbody>
           {lots.map(lot => (
-            <tr key={lot._id} className="border-t border-gray-50 hover:bg-gray-50">
+            <tr key={lot._id} className="border-t border-gray-200 hover:bg-gray-50">
               <td className="px-4 py-3 text-base font-medium">{lot.lotNumber}</td>
               <td className="px-4 py-3 text-base">{lot.title}</td>
               <td className="px-4 py-3 text-base">{formatCurrency(lot.startingBid)}</td>

@@ -4,7 +4,8 @@ import { clientAPI } from "@/lib/api";
 import { formatCurrency, formatDate, getOrderStatusColor } from "@/lib/utils";
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import toast from "react-hot-toast";
-import { Package, Truck } from "lucide-react";
+import { Package, Eye, Truck, CheckCircle, Clock } from 'lucide-react';
+import { TableSkeleton } from '@/components/common/Skeletons';
 
 export default function ClientOrdersPage() {
   const [orders, setOrders] = useState<any[]>([]);
@@ -41,7 +42,7 @@ export default function ClientOrdersPage() {
     }
   };
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <TableSkeleton rows={10} cols={6} />;
   return (
     <div>
       <h1 className="text-3xl font-heading font-bold text-dark mb-6">
@@ -71,7 +72,7 @@ export default function ClientOrdersPage() {
                 {orders.map((o) => (
                   <tr
                     key={o._id}
-                    className="border-t border-gray-50 hover:bg-gray-50"
+                    className="border-t border-gray-200 hover:bg-gray-50"
                   >
                     <td className="px-4 py-3 text-base font-medium">
                       {o.orderNumber}

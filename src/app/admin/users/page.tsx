@@ -11,6 +11,7 @@ import {
   UserX,
   Eye,
 } from "lucide-react";
+import { TableSkeleton } from "@/components/common/Skeletons";
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<any[]>([]);
@@ -112,9 +113,7 @@ export default function AdminUsersPage() {
 
       <div className="card overflow-hidden">
         {loading ? (
-          <div className="flex justify-center py-10">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-burgundy" />
-          </div>
+          <TableSkeleton rows={10} cols={7} />
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-base">

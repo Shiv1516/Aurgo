@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { adminAPI } from "@/lib/api";
+import { formatDate, getAuctionStatusColor, getAssetUrl } from '@/lib/utils';
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import { 
   Gavel, Pause, Play, AlertTriangle, Eye, Search, Filter, 
@@ -8,6 +9,7 @@ import {
   ChevronRight, Calendar, BarChart3, Clock
 } from "lucide-react";
 import Link from "next/link";
+import { TableSkeleton } from "@/components/common/Skeletons";
 import toast from "react-hot-toast";
 
 export default function AdminAuctionsPage() {
@@ -52,7 +54,12 @@ export default function AdminAuctionsPage() {
     }
   };
 
-  if (isLoading && auctions.length === 0) return <PageLoader />;
+  if (isLoading && auctions.length === 0) return (
+    <div className="space-y-8 animate-in fade-in duration-500 pb-12">
+      <div className="h-24 w-1/2 bg-gray-100 animate-pulse rounded-2xl" />
+      <TableSkeleton rows={10} cols={5} />
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-12">
@@ -83,7 +90,7 @@ export default function AdminAuctionsPage() {
 
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         {/* Filters */}
-        <div className="p-6 border-b border-gray-100 bg-gray-50/50 flex flex-col md:flex-row gap-4">
+        <div className="p-6 border-b border-gray-200 bg-gray-50/50 flex flex-col md:flex-row gap-4">
           <form onSubmit={(e) => { e.preventDefault(); fetchAuctions(); }} className="flex-1 relative group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-burgundy transition-colors" />
             <input
@@ -142,7 +149,7 @@ export default function AdminAuctionsPage() {
                     <div className="flex items-center gap-4">
                       <div className="h-12 w-16 overflow-hidden rounded bg-gray-100 border border-gray-200 shrink-0">
                         <img 
-                          src={auction.coverImage.startsWith('http') ? auction.coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`} 
+                          src={getAssetUrl(auction.coverImage)} 
                           alt="" 
                           className="w-full h-full object-cover" 
                         />
@@ -223,7 +230,7 @@ export default function AdminAuctionsPage() {
           
           {auctions.length === 0 && (
             <div className="py-24 text-center">
-              <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-100">
+              <div className="h-16 w-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-gray-200">
                  <BarChart3 className="h-6 w-6 text-gray-300" />
               </div>
               <p className="text-sm font-semibold text-gray-400">No auctions match the current filters.</p>

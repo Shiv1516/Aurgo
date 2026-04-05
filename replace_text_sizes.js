@@ -15,11 +15,11 @@ walkDir('/home/shivnilay/Downloads/Augeo/src', function(filePath) {
     let content = fs.readFileSync(filePath, 'utf8');
     let original = content;
     
-    // Replace any text-[XXpx] where XX is < 12 with text-xs
-    content = content.replace(/text-\[(1[0-1]|[0-9])(\.[0-9]+)?px\]/g, 'text-xs');
+    // Replace any text-[XXpx] where XX is < 12 with text-sm
+    content = content.replace(/text-\[(1[0-1]|[0-9])(\.[0-9]+)?px\]/g, 'text-sm');
     
     // Convert microscopic text classes (if they exist)
-    content = content.replace(/text-\[\s*0\.[0-6][0-9]*\s*rem\s*\]/g, 'text-xs');
+    content = content.replace(/text-\[\s*0\.[0-6][0-9]*\s*rem\s*\]/g, 'text-sm');
 
     if (content !== original) {
       fs.writeFileSync(filePath, content, 'utf8');

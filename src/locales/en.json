@@ -1,0 +1,364 @@
+{
+  "common": {
+    "loading": "Loading Vault...",
+    "error": "Transmission Error",
+    "back": "Back",
+    "save": "Save Changes",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "success": "Success",
+    "signInToWatchlist": "Please sign in to add to watchlist",
+    "removedFromWatchlist": "Removed from watchlist",
+    "addedToWatchlist": "Added to watchlist",
+    "location": "Location",
+    "timeLeft": "Time Left"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "auctions": "Live Auctions",
+    "identity": "Identity Hub",
+    "logout": "Exit Vault",
+    "howItWorks": "How it works",
+    "aboutUs": "About us",
+    "categories": "Categories",
+    "contact": "Help & Contact",
+    "watchlist": "My Watchlist",
+    "login": "Login",
+    "register": "Register",
+    "systemLive": "SYSTEM LIVE",
+    "reconnecting": "RECONNECTING...",
+    "searchPlaceholder": "Search for an auction, a lot, an auction house...",
+    "description": "Description",
+    "condition": "Condition",
+    "shipping": "Shipping"
+  },
+  "bidding": {
+    "currentBid": "Current Highest Bid",
+    "startingBid": "Starting Reserve",
+    "estimate": "Market Estimate",
+    "placeBid": "Commit Bid",
+    "bidAmount": "Bid Magnitude",
+    "history": "Provenance History",
+    "status": {
+      "active": "Live Action",
+      "ended": "Archive Closed",
+      "upcoming": "Awaiting Preview"
+    },
+    "terminal": "Execution Terminal",
+    "commitmentZone": "Commitment Zone",
+    "secureProtocol": "Secure Protocol",
+    "magnitude": "Magnitude",
+    "confirmed": "Confirmed",
+    "noProvenance": "No provenance recorded yet",
+    "legalHold": "Legal Hold",
+    "bindingBid": "Binding Bid",
+    "vaultGuard": "Vault Guard",
+    "escrowEnabled": "Escrow Enabled",
+    "activities": "Activities"
+  },
+  "auctions": {
+    "expertiseTrust": "Expertise and Trust",
+    "authenticatedAssets": "Authenticated Assets",
+    "buyerProtection": "Buyer Protection",
+    "globalEscrow": "Global Escrow",
+    "expertVerified": "Expert Verified",
+    "buyerProtected": "Buyer Protected",
+    "leading": "Leading",
+    "lotsCount": "Auction Lots",
+    "noLots": "No lots available yet",
+    "shield": "Augeo Shield",
+    "incrementStrategy": "Bid Increment Strategy",
+    "incrementDesc": "All bids are subject to a {{premium}}% buyer's premium. Our system follows standard international bid increments to ensure transparency and fairness.",
+    "about": "About This Auction",
+    "terms": "Terms & Conditions",
+    "details": "Auction Details",
+    "type": "Auction Type",
+    "currency": "Currency",
+    "totalLots": "Total Lots",
+    "totalBids": "Total Bids",
+    "house": "Auction House",
+    "logistics": "Global Logistics",
+    "logisticsDesc": "Worldwide white-glove shipping available via ART-LOG Partners.",
+    "shippingDesc": "Curated delivery within 7-14 business days. Fully insured.",
+    "dutiesDesc": "Buyer is responsible for all import duties and taxes.",
+    "lot": "Lot",
+    "sold": "SOLD",
+    "est": "Est.",
+    "bids": "bids",
+    "expertiseTrustDesc": "A full expertise and trust report is available upon request for this lot. Items are sold 'as is' and should be reviewed in person during public exhibition.",
+    "liveSale": "Live Sale",
+    "upcoming": "Upcoming",
+    "closed": "Closed",
+    "exploreCatalogue": "Explore Catalogue",
+    "lotSelection": "Lot Selection"
+  },
+  "checkout": {
+    "title": "Acquisition Settlement",
+    "shipping": "Logistics Destination",
+    "payment": "Financial Settlement",
+    "total": "Total Commitment",
+    "insurance": "Asset Protection",
+    "complete": "Finalize Acquisition"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "manage": "Manage your bids, purchases, and alerts.",
+    "verified": "Identity Verified",
+    "unverified": "Unverified",
+    "stats": {
+      "activeBids": "Active Bids",
+      "won": "Lots Won",
+      "spent": "Total Spent",
+      "watchlist": "Watchlist"
+    },
+    "recentBids": "Recent Bids",
+    "notifications": "Notifications",
+    "viewAll": "View All",
+    "admin": {
+       "title": "Admin Dashboard",
+       "subtitle": "Global operations and platform monitoring",
+       "payout": "Global Payout",
+       "systemLoad": "System Load",
+       "performance": "Optimal",
+       "activity": "Recent Activity Log",
+       "noActivity": "No recent activity recorded.",
+       "tasks": "Pending Tasks",
+       "systemStatus": "System Status",
+       "operational": "All core services are operational."
+    },
+    "client": {
+       "title": "Maison Dashboard",
+       "subtitle": "Manage your catalog, sales, and clientele.",
+       "createAuction": "Create Auction",
+       "recentAuctions": "Recent Auctions"
+    }
+  },
+  "footer": {
+    "tagline": "Public auctions: art, furniture, vehicles, professional equipment. Augeo supports you in your bids with complete confidence.",
+    "quickLinks": "Auctions & Lots",
+    "allAuctions": "All auctions",
+    "information": "Information",
+    "sellWithUs": "Sell with us",
+    "sellTagline": "Are you an auction house or an expert? Join the leading platform.",
+    "contactUs": "Contact us",
+    "copyright": "Augeo Auction Platform. All rights reserved.",
+    "buyersPremium": "Buyer's Premium",
+    "expertise": "Expertise & Authenticity",
+    "shippingTaxes": "Shipping & Taxes",
+    "terms": "Terms",
+    "privacy": "Privacy"
+  },
+  "pages": {
+    "about": {
+      "title": "The Soul of Augeo",
+      "subtitle": "Redefining the horizon of global acquisition through certified integrity and institutional-grade excellence.",
+      "established": "Established 2026",
+      "originsTitle": "Our Origins",
+      "originsText1": "Augeo was born from a singular vision: to bridge the gap between world-class auction houses and the next generation of global connoisseurs. We recognized that the traditional auction model, while prestigious, often lacked the transparency and technological agility required in the digital age.",
+      "originsText2": "By integrating military-grade encryption, institutional-grade financial processing, and a rigorous multi-stage authentication protocol, we've created a 'Gated Marketplace' where integrity is the only currency that matters.",
+      "stats": {
+        "settled": "Protocol Asset Value Settled",
+        "authenticated": "Authenticated Listings",
+        "jurisdictions": "Global Jurisdictions"
+      },
+      "principlesTitle": "The Guild Principles",
+      "principles": {
+        "integrity": "Radical Integrity",
+        "integrityDesc": "Every asset passes through a triple-blind verification process before entering the vault.",
+        "access": "Borderless Access",
+        "accessDesc": "Connecting the world's most exclusive liquid assets with collectors regardless of geography.",
+        "fluidity": "Asset Fluidity",
+        "fluidityDesc": "Creating a highly-liquid secondary market for ultra-rare items through secure settlement."
+      },
+      "cta": {
+        "title": "Join the Executive Council",
+        "desc": "Augeo is more than a platform—it's a community of discerning buyers and sellers committed to excellence. Start your journey with us today.",
+        "membership": "Create Membership",
+        "concierge": "Contact Concierge"
+      }
+    },
+    "howItWorks": {
+      "title": "The Augeo Method",
+      "subtitle": "Authenticating liquid assets and empowering global collectors through a frictionless 3-stage protocol.",
+      "step1": {
+        "title": "Identity Clearance",
+        "desc": "To maintain the integrity of our gated marketplace, all participants must undergo initial Trust Clearance. This protects the ecosystem from fraudulent activity and ensures a zero-risk environment for high-value transactions.",
+        "point1": "Submit government-issued identification.",
+        "point2": "Pass AI-driven biometric liveness checks.",
+        "point3": "Receive instant guild tier assignment.",
+        "detail": "Detail the Process"
+      },
+      "step2": {
+        "title": "Strategic Acquisition",
+        "desc": "Once cleared, gain access to live auctions and upcoming drops. Our real-time bidding infrastructure uses low-latency sockets to ensure your bids are captured instantly, even in the final seconds.",
+        "point1": "Real-time Pulse: Millisecond-grade bidding latency.",
+        "point2": "Auto-Bidding: Set limits and let the system defend your position."
+      },
+      "step3": {
+        "title": "Secure Settlement",
+        "desc": "Winning bidders enter the settlement phase immediately. Our integration with Stripe Capital ensures institutional-grade fund transfer, followed by insured global logistics for physical assets.",
+        "point1": "Certificate of Provenance: Every winning bid is closed with a certified, cryptographically signed record of authenticity."
+      },
+      "inquiries": {
+        "title": "Still Have Inquiries?",
+        "desc": "Our concierge team is available 24/7 for tailored inquiries regarding high-value acquisitions.",
+        "resourceCenter": "Resource Center",
+        "feeStructure": "Fee Structure"
+      }
+    },
+    "buyersPremium": {
+      "title": "Buyers Premium",
+      "subtitle": "A comprehensive guide to our standardized fee structures, designed to maintain the Augeo platform's world-class operational integrity.",
+      "whatIsTitle": "What is a Buyers Premium?",
+      "whatIsDesc": "The Buyer's Premium is a standardized industry fee added to the 'Hammer Price' of an asset. This premium directly funds our multi-stage authentication, global logistics infrastructure, and cryptographically secure settlement protocols.",
+      "formula": "Total Payable = Hammer Price + (Hammer Price × Premium Rate) + Applicable Taxes & Logistics",
+      "schedulesTitle": "Premium Schedules",
+      "table": {
+        "class": "Asset Class",
+        "threshold": "Price Threshold",
+        "rate": "Premium Rate"
+      },
+      "provisions": {
+        "title": "Key Provisions",
+        "p1": "All premiums are settled in the final invoice.",
+        "p2": "Rates are subject to specific lot notations.",
+        "p3": "The premium is legally part of the final contract.",
+        "p4": "Institutional tax forms provided automatically."
+      },
+      "logisticsNote": "Note: Premiums do not include shipping, insurance, or import duties.",
+      "viewLogistics": "View Logistics Guide"
+    },
+    "shippingTaxes": {
+      "title": "Logistics & Settlement",
+      "subtitle": "From the vault to your doorstep—insured, authenticated, and cryptographically tracked across 120+ jurisdictions.",
+      "protocolTitle": "The Augeo Transit Protocol",
+      "protocolDesc": "Winning bids for physical assets trigger our standardized logistics protocol. We partner with specialized white-glove couriers to ensure the provenance and condition of your acquisition remain pristine during transit.",
+      "methods": {
+        "air": "Air Priority: 48-72 hour global transit for watch and jewelry lots.",
+        "marine": "Marine Fragile: Temperature-controlled sea freight for bulk spirits.",
+        "whiteGlove": "White Glove: Last-mile home installation for fine art collections.",
+        "vault": "Vault Pickup: Direct collection from our secure facilities globally."
+      },
+      "insuranceTitle": "100% Insured Valuations",
+      "insurancePartner": "Powered by Lloyd's of London",
+      "complianceTitle": "Jurisdictional Compliance",
+      "complianceDesc": "Taxes and duties are calculated based on the destination of the asset and its classification.",
+      "customsNote": "Customs documentation prepared automatically per lot.",
+      "regions": {
+        "eu": "European Union: Standardized VAT applies per member state.",
+        "na": "North America: Certain art classes exempted from US import duties.",
+        "ap": "Asia Pacific: Complex duties apply for spirits and luxury tech.",
+        "me": "Middle East: Exemptions available for Free Trade Zone delivery."
+      }
+    },
+    "legal": {
+      "terms": {
+        "title": "Terms of Engagement",
+        "subtitle": "The contractual architecture governing participation within the Augeo global auction ecosystem.",
+        "updated": "Last Updated: February 2026",
+        "indices": {
+          "title": "Agreement Indices",
+          "i1": "Guild Membership",
+          "i2": "Bidding Sovereignty",
+          "i3": "Financial Settlement",
+          "i4": "Intellectual Property",
+          "i5": "Dispute Resolution"
+        },
+        "secure": "By using this platform, you agree to these protocols.",
+        "sections": {
+          "s1": {
+            "title": "1. Guild Membership & Eligibility",
+            "p1": "Membership to the Augeo platform is a privilege, not a right. All users must maintain 'Active' status through our Trust Clearance protocol. We reserve the right to revoke access to any participant who fails to meet our professional conduct standards or financial commitments.",
+            "p2": "Participants must be at least 18 years of age and possess the legal capacity to enter into binding financial contracts within their primary jurisdiction."
+          },
+          "s2": {
+            "title": "2. Bidding Sovereignty",
+            "p1": "A bid constitutes a legally binding contract to purchase the asset at the specified 'Hammer Price' plus all applicable premiums and logistics surcharges. Once a bid is registered in our real-time socket infrastructure, it cannot be withdrawn except under specific conditions verified by our Council.",
+            "warning": "Warning: Failed commitments resulting from 'bid negligence' will result in a permanent ban from the guild and potential legal action to recover lost premiums."
+          },
+          "s3": {
+            "title": "3. Financial Settlement",
+            "p1": "All winning bids must be settled within 72 hours of the auction close. Payments are processed through our secure gateway (Stripe Capital). Assets will only enter the Logistics Nexus once funds have reached full 'Settled' status in our accounts."
+          },
+          "s4": {
+            "title": "4. Intellectual Property",
+            "p1": "All imagery, visual classification data, and technical protocols present on Augeo are the exclusive property of the Guild. Unauthorized reproduction or algorithmic scraping of our catalog data is strictly prohibited."
+          }
+        },
+        "questions": {
+          "title": "Questions of Law?",
+          "desc": "Our legal council is available for clarification on complex jurisdictional issues."
+        }
+      },
+      "privacy": {
+        "title": "Privacy Policy",
+        "subtitle": "Our commitment to the cryptographic protection and absolute privacy of your identity and asset data.",
+        "effective": "Effective: February 2026",
+        "sections": {
+          "collection": {
+            "title": "Data Collection",
+            "p1": "In order to facilitate high-value acquisitions, Augeo collects essential identity packets during the Trust Clearance phase. This includes government-issued identification, biometric liveness data, and certified proof of residency.",
+            "guaranteeTitle": "The 'Zero-Leach' Guarantee",
+            "guaranteeDesc": "We do not sell, rent, or trade your personal data to third-party marketing entities. Your data exists only to ensure the security of the auction ecosystem."
+          },
+          "storage": {
+            "title": "Storage & Retention",
+            "p1": "Identity data is stored in air-gapped, encrypted environments using AES-256 Bit standards. We retain your data only as long as required for jurisdictional compliance and to maintain your Guild Membership status."
+          },
+          "cookies": {
+            "title": "Cookie Protocol",
+            "p1": "Augeo uses essential session cookies to maintain your login status and ensure the stability of real-time bidding sockets. We do not use intrusive tracking or behavioral profiling scripts."
+          }
+        },
+        "faq": {
+          "title": "Privacy FAQ",
+          "q1": "Is my data encrypted?",
+          "a1": "Yes, 100% of identity packets are pre-encrypted before storage.",
+          "q2": "Who can see my bids?",
+          "a2": "Only your Guild Rank is visible. Your real identity remains hidden.",
+          "q3": "Can I delete my data?",
+          "a3": "Yes, per GDPR/CCPA protocols, barring active financial commitments."
+        },
+        "trust": {
+          "title": "Trust Verified",
+          "desc": "Our privacy framework is audited quarterly by leading cybersecurity agencies.",
+          "viewJourney": "View Verification Journey"
+        },
+        "footer": {
+          "title": "Security Matters",
+          "desc": "For specific data access requests or privacy inquiries, please contact our Compliance Officer.",
+          "contact": "Contact Compliance"
+        }
+      }
+    },
+    "search": {
+      "title": "Search Results",
+      "results": "Results",
+      "subtitle": "Exploring {{total}} authenticated acquisitions matching \"{{query}}\"",
+      "refine": "Refine Results",
+      "status": "Auction Status",
+      "all": "All Opportunities",
+      "live": "Live Sales",
+      "scheduled": "Coming Soon",
+      "ended": "Closed",
+      "sortBy": "Sort By",
+      "relevance": "Relevance",
+      "newest": "Newest First",
+      "endingSoon": "Ending Soonest",
+      "priceLow": "Price: Low to High",
+      "noResults": "No results for \"{{query}}\"",
+      "noResultsDesc": "Our curators are constantly sourcing world-class masterpieces. Try adjusting your refinement or search term.",
+      "reset": "Reset Refinements",
+      "shield": {
+        "title": "The Augeo Shield",
+        "desc": "Every lot in our search results is certified by our internal department of heritage experts."
+      }
+    },
+    "seo": {
+      "defaultTitle": "Augeo Vault - Premium Auction Platform",
+      "template": "%s | Augeo Vault",
+      "description": "Discover extraordinary items at premium auctions. Bid on rare collectibles, fine art, exclusive jewelry, and historic motors from world-class auction houses.",
+      "keywords": "auction, bidding, fine art, collectibles, luxury, auction house, watches, real estate, augeo"
+    }
+  }
+}

@@ -5,10 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { Lot, Auction } from "@/types";
-import { formatCurrency } from "@/lib/utils";
 import { watchlistAPI } from "@/lib/api";
 import { useAuthStore } from "@/store/authStore";
 import { Gavel, Eye, Heart } from "lucide-react";
+import PriceDisplay from "@/components/common/PriceDisplay";
+import { getAssetUrl } from "@/lib/utils";
 
 interface LotCardProps {
   lot: Lot;
@@ -37,7 +38,7 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
     e.stopPropagation();
 
     if (!isAuthenticated) {
-      toast.error("Please sign in to add to watchlist");
+      toast.error("Please sign in to manage your watchlist");
       return;
     }
 
@@ -70,11 +71,7 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
         <div className="relative aspect-square overflow-hidden bg-gray-100">
           {mainImage ? (
             <Image
-              src={
-                mainImage.startsWith("http")
-                  ? mainImage
-                  : `${process.env.NEXT_PUBLIC_BACKEND_URL}${mainImage}`
-              }
+              src={getAssetUrl(mainImage)}
               alt={lot.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -119,22 +116,24 @@ export default function LotCard({ lot, auctionSlug }: LotCardProps) {
           )}
 
           {lot.estimateLow && lot.estimateHigh && (
-            <p className="text-sm text-gray-500 mb-1">
-              Est. {formatCurrency(lot.estimateLow)} -{" "}
-              {formatCurrency(lot.estimateHigh)}
-            </p>
+            <div className="flex items-center gap-1 text-sm text-gray-500 mb-1">
+              <span className="shrink-0">Est:</span>
+              <PriceDisplay amount={lot.estimateLow} size="sm" variant="navy" className="inline-flex" />
+              <span className="mx-0.5">-</span>
+              <PriceDisplay amount={lot.estimateHigh} size="sm" variant="navy" className="inline-flex" />
+            </div>
           )}
 
-          <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-100">
+          <div className="flex items-center justify-between mt-2 pt-2 border-t border-gray-200">
             <div>
               <p className="text-sm text-gray-500 uppercase">
                 {lot.currentBid > 0 ? "Current Bid" : "Starting Bid"}
               </p>
-              <p className="text-base font-bold text-dark">
-                {formatCurrency(
-                  lot.currentBid > 0 ? lot.currentBid : lot.startingBid,
-                )}
-              </p>
+              <PriceDisplay 
+                amount={lot.currentBid > 0 ? lot.currentBid : lot.startingBid} 
+                size="base" 
+                variant="navy" 
+              />
             </div>
             <div className="flex items-center gap-1 text-sm text-gray-500">
               <Gavel className="h-3 w-3" />

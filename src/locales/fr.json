@@ -1,0 +1,364 @@
+{
+  "common": {
+    "loading": "Chargement du Coffre...",
+    "error": "Erreur de Transmission",
+    "back": "Retour",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "success": "Succès",
+    "signInToWatchlist": "Veuillez vous connecter pour ajouter à la liste",
+    "removedFromWatchlist": "Retiré de la liste",
+    "addedToWatchlist": "Ajouté à la liste",
+    "location": "Localisation",
+    "timeLeft": "Temps Restant"
+  },
+  "nav": {
+    "dashboard": "Tableau de Bord",
+    "auctions": "Enchères en Direct",
+    "identity": "Hub d'Identité",
+    "logout": "Quitter le Coffre",
+    "howItWorks": "Comment ça marche",
+    "aboutUs": "À propos de nous",
+    "categories": "Catégories",
+    "contact": "Aide & Contact",
+    "watchlist": "Ma Liste",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "systemLive": "SYSTÈME EN DIRECT",
+    "reconnecting": "RECONNEXION...",
+    "searchPlaceholder": "Rechercher une enchère, un lot, une maison...",
+    "description": "Description",
+    "condition": "État",
+    "shipping": "Livraison"
+  },
+  "bidding": {
+    "currentBid": "Meilleure Enchère Actuelle",
+    "startingBid": "Prix de Réserve",
+    "estimate": "Estimation du Marché",
+    "placeBid": "Soumettre une Enchère",
+    "bidAmount": "Montant de l'Enchère",
+    "history": "Historique de Provenance",
+    "status": {
+      "active": "En Direct",
+      "ended": "Enchère Terminée",
+      "upcoming": "Aperçu en Attente"
+    },
+    "terminal": "Terminal d'Exécution",
+    "commitmentZone": "Zone d'Engagement",
+    "secureProtocol": "Protocole Sécurisé",
+    "magnitude": "Magnitude",
+    "confirmed": "Confirmé",
+    "noProvenance": "Aucune provenance enregistrée",
+    "legalHold": "Rétention Légale",
+    "bindingBid": "Offre Contraignante",
+    "vaultGuard": "Garde du Coffre",
+    "escrowEnabled": "Escrow Activé",
+    "activities": "Activités"
+  },
+  "auctions": {
+    "expertiseTrust": "Expertise et Confiance",
+    "authenticatedAssets": "Actifs Authentifiés",
+    "buyerProtection": "Protection de l'Acheteur",
+    "globalEscrow": "Escrow Mondial",
+    "expertVerified": "Vérifié par Expert",
+    "buyerProtected": "Acheteur Protégé",
+    "leading": "En tête",
+    "lotsCount": "Lots de l'Enchère",
+    "noLots": "Aucun lot disponible",
+    "shield": "Bouclier Augeo",
+    "incrementStrategy": "Stratégie d'Incrément",
+    "incrementDesc": "Toutes les offres sont soumises à une prime d'acheteur de {{premium}}%. Notre système suit les incréments standard internationaux.",
+    "about": "À Propos de cette Enchère",
+    "terms": "Conditions Générales",
+    "details": "Détails de l'Enchère",
+    "type": "Type d'Enchère",
+    "currency": "Devise",
+    "totalLots": "Total des Lots",
+    "totalBids": "Total des Offres",
+    "house": "Maison d'Enchères",
+    "logistics": "Logistique Mondiale",
+    "logisticsDesc": "Expédition gant blanc disponible via ART-LOG Partners.",
+    "shippingDesc": "Livraison en 7-14 jours ouvrables. Entièrement assuré.",
+    "dutiesDesc": "L'acheteur est responsable des droits d'importation.",
+    "lot": "Lot",
+    "sold": "VENDU",
+    "est": "Est.",
+    "bids": "offres",
+    "expertiseTrustDesc": "Un rapport complet d'expertise et de confiance est disponible sur demande. Les articles sont vendus 'en l'état'.",
+    "liveSale": "Vente en Direct",
+    "upcoming": "À venir",
+    "closed": "Fermé",
+    "exploreCatalogue": "Explorer le Catalogue",
+    "lotSelection": "Sélection de Lots"
+  },
+  "checkout": {
+    "title": "Règlement de l'Acquisition",
+    "shipping": "Logistique",
+    "payment": "Règlement Financier",
+    "total": "Engagement Total",
+    "insurance": "Protection",
+    "complete": "Finaliser"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue",
+    "manage": "Gérez vos enchères.",
+    "verified": "Identité Vérifiée",
+    "unverified": "Non Vérifié",
+    "stats": {
+      "activeBids": "Enchères Actives",
+      "won": "Lots Gagnés",
+      "spent": "Total Dépensé",
+      "watchlist": "Liste"
+    },
+    "recentBids": "Enchères Récentes",
+    "notifications": "Notifications",
+    "viewAll": "Voir Tout",
+    "admin": {
+       "title": "Tableau de Bord Admin",
+       "subtitle": "Opérations globales et surveillance",
+       "payout": "Paiement Global",
+       "systemLoad": "Charge Système",
+       "performance": "Optimal",
+       "activity": "Log d'Activité Récente",
+       "noActivity": "Aucune activité récente.",
+       "tasks": "Tâches en Attente",
+       "systemStatus": "État du Système",
+       "operational": "Tous les services sont opérationnels."
+    },
+    "client": {
+       "title": "Tableau de Bord Maison",
+       "subtitle": "Gérez votre catalogue et clients.",
+       "createAuction": "Créer une Enchère",
+       "recentAuctions": "Enchères Récentes"
+    }
+  },
+  "footer": {
+    "tagline": "Enchères publiques : art, mobilier. Augeo vous accompagne.",
+    "quickLinks": "Enchères & Lots",
+    "allAuctions": "Toutes les enchères",
+    "information": "Informations",
+    "sellWithUs": "Vendez avec nous",
+    "sellTagline": "Rejoignez la plateforme leader.",
+    "contactUs": "Contactez-nous",
+    "copyright": "Plateforme d'Enchères Augeo. Tous droits réservés.",
+    "buyersPremium": "Frais acheteur",
+    "expertise": "Expertise & Authenticité",
+    "shippingTaxes": "Livraison & Taxes",
+    "terms": "Conditions",
+    "privacy": "Confidentialité"
+  },
+  "pages": {
+    "about": {
+      "title": "L'âme d'Augeo",
+      "subtitle": "Redéfinir l'horizon de l'acquisition mondiale grâce à une intégrité certifiée et une excellence institutionnelle.",
+      "established": "Établi en 2026",
+      "originsTitle": "Nos Origines",
+      "originsText1": "Augeo est né d'une vision singulière : combler le fossé entre les maisons de vente de classe mondiale et la prochaine génération de connaisseurs mondiaux.",
+      "originsText2": "En intégrant un cryptage de qualité militaire et un protocole d'authentification rigoureux, nous avons créé un marché sécurisé.",
+      "stats": {
+        "settled": "Valeur des Actifs Réglée",
+        "authenticated": "Annonces Authentifiées",
+        "jurisdictions": "Juridictions Mondiales"
+      },
+      "principlesTitle": "Les Principes de la Guilde",
+      "principles": {
+        "integrity": "Intégrité Radicale",
+        "integrityDesc": "Chaque actif passe par un processus de vérification triple avant d'entrer dans le coffre.",
+        "access": "Accès sans Frontières",
+        "accessDesc": "Connecter les actifs les plus exclusifs du monde avec les collectionneurs.",
+        "fluidity": "Fluidité des Actifs",
+        "fluidityDesc": "Créer un marché secondaire liquide pour les articles ultra-rares."
+      },
+      "cta": {
+        "title": "Rejoignez le Conseil Exécutif",
+        "desc": "Augeo est plus qu'une plateforme — c'est une communauté d'excellence.",
+        "membership": "Créer une Adhésion",
+        "concierge": "Contacter le Concierge"
+      }
+    },
+    "howItWorks": {
+      "title": "La Méthode Augeo",
+      "subtitle": "Authentification des actifs liquides et autonomisation des collectionneurs mondiaux.",
+      "step1": {
+        "title": "Autorisation d'Identité",
+        "desc": "Pour maintenir l'intégrité de notre marché, tous les participants doivent passer une vérification de confiance.",
+        "point1": "Soumettre une pièce d'identité officielle.",
+        "point2": "Passer des vérifications biométriques.",
+        "point3": "Recevoir une affectation de niveau de guilde.",
+        "detail": "Détailler le processus"
+      },
+      "step2": {
+        "title": "Acquisition Stratégique",
+        "desc": "Une fois autorisé, accédez aux enchères en direct.",
+        "point1": "Pouls en temps réel : latence d'enchère de classe milliseconde.",
+        "point2": "Auto-enchère : définissez des limites et laissez le système vous défendre."
+      },
+      "step3": {
+        "title": "Règlement Sécurisé",
+        "desc": "Les enchérisseurs gagnants entrent immédiatement dans la phase de règlement.",
+        "point1": "Certificat de Provenance : chaque enchère gagnante est clôturée par un document certifié."
+      },
+      "inquiries": {
+        "title": "Encore des Questions ?",
+        "desc": "Notre équipe de conciergerie est disponible 24h/24.",
+        "resourceCenter": "Centre de Ressources",
+        "feeStructure": "Structure des Frais"
+      }
+    },
+    "buyersPremium": {
+      "title": "Frais Acheteur",
+      "subtitle": "Un guide complet de nos structures de frais standardisées, conçues pour maintenir l'intégrité opérationnelle.",
+      "whatIsTitle": "Qu'est-ce qu'un Frais Acheteur ?",
+      "whatIsDesc": "La prime de l'acheteur est un frais industriel standard ajouté au 'Prix du Marteau'.",
+      "formula": "Total à payer = Prix du marteau + (Prix du marteau × Taux de prime) + Taxes et Logistique",
+      "schedulesTitle": "Barèmes de Primes",
+      "table": {
+        "class": "Classe d'Actif",
+        "threshold": "Seuil de Prix",
+        "rate": "Taux de Prime"
+      },
+      "provisions": {
+        "title": "Dispositions Clés",
+        "p1": "Toutes les primes sont réglées dans la facture finale.",
+        "p2": "Les taux sont soumis à des notations spécifiques aux lots.",
+        "p3": "La prime fait légalement partie du contrat final.",
+        "p4": "Formulaires fiscaux fournis automatiquement."
+      },
+      "logisticsNote": "Note : Les primes n'incluent pas l'expédition ni l'assurance.",
+      "viewLogistics": "Voir le Guide Logistique"
+    },
+    "shippingTaxes": {
+      "title": "Logistique & Règlement",
+      "subtitle": "Du coffre à votre porte — assuré, authentifié et suivi de manière cryptographique.",
+      "protocolTitle": "Le Protocole de Transit Augeo",
+      "protocolDesc": "Les offres gagnantes déclenchent notre protocole logistique standardisé.",
+      "methods": {
+        "air": "Priorité Air : transit mondial de 48-72h pour les lots de bijoux.",
+        "marine": "Marine Fragile : fret maritime à température contrôlée.",
+        "whiteGlove": "Gant Blanc : installation à domicile pour l'art.",
+        "vault": "Retrait au Coffre : collecte directe depuis nos installations."
+      },
+      "insuranceTitle": "Évaluations Assurées à 100%",
+      "insurancePartner": "Propulsé par Lloyd's of London",
+      "complianceTitle": "Conformité Juridictionnelle",
+      "complianceDesc": "Les taxes sont calculées en fonction de la destination de l'actif.",
+      "customsNote": "Documents de douane préparés automatiquement.",
+      "regions": {
+        "eu": "Union Européenne : la TVA standardisée s'applique.",
+        "na": "Amérique du Nord : art exempté de droits d'importation aux US.",
+        "ap": "Asie-Pacifique : droits complexes pour l'alcool et le luxe.",
+        "me": "Moyen-Orient : exemptions disponibles pour les zones de libre-échange."
+      },
+      "legal": {
+        "terms": {
+          "title": "Conditions Engagement",
+          "subtitle": "L'architecture contractuelle régissant la participation au sein de l'écosystème Augeo.",
+          "updated": "Dernière mise à jour : Février 2026",
+          "indices": {
+            "title": "Indices de l'Accord",
+            "i1": "Adhésion à la Guilde",
+            "i2": "Souveraineté des Enchères",
+            "i3": "Règlement Financier",
+            "i4": "Propriété Intellectuelle",
+            "i5": "Résolution des Litiges"
+          },
+          "secure": "En utilisant cette plateforme, vous acceptez ces protocoles.",
+          "sections": {
+            "s1": {
+              "title": "1. Adhésion & Éligibilité",
+              "p1": "L'adhésion à la plateforme Augeo est un privilège. Tous les utilisateurs doivent maintenir un statut 'Actif'.",
+              "p2": "Les participants doivent être âgés d'au moins 18 ans."
+            },
+            "s2": {
+              "title": "2. Souveraineté des Enchères",
+              "p1": "Une enchère constitue un contrat juridiquement contraignant pour l'achat de l'actif au 'Prix du Marteau'.",
+              "warning": "Attention : Tout manquement entraînera une interdiction permanente de la guilde."
+            },
+            "s3": {
+              "title": "3. Règlement Financier",
+              "p1": "Toutes les enchères gagnantes doivent être réglées dans les 72 heures."
+            },
+            "s4": {
+              "title": "4. Propriété Intellectuelle",
+              "p1": "Toutes les images et protocoles techniques présents sur Augeo sont la propriété exclusive de la Guilde."
+            }
+          },
+          "questions": {
+            "title": "Questions de Droit ?",
+            "desc": "Notre conseil juridique est disponible pour clarifier les questions complexes."
+          }
+        },
+        "privacy": {
+          "title": "Politique de Confidentialité",
+          "subtitle": "Notre engagement envers la protection cryptographique de votre identité.",
+          "effective": "Effectif : Février 2026",
+          "sections": {
+            "collection": {
+              "title": "Collecte de Données",
+              "p1": "Augeo collecte des paquets d'identité essentiels lors de la phase de validation de la confiance.",
+              "guaranteeTitle": "La Garantie 'Zéro-Fuite'",
+              "guaranteeDesc": "Nous ne vendons ni ne louons vos données personnelles à des entités marketing tierces."
+            },
+            "storage": {
+              "title": "Stockage & Rétention",
+              "p1": "Les données sont stockées dans des environnements cryptés utilisant les standards AES-256 Bit."
+            },
+            "cookies": {
+              "title": "Protocole de Cookies",
+              "p1": "Augeo utilise des cookies de session essentiels pour maintenir votre état de connexion."
+            }
+          },
+          "faq": {
+            "title": "FAQ Confidentialité",
+            "q1": "Mes données sont-elles cryptées ?",
+            "a1": "Oui, 100% des paquets d'identité sont pré-cryptés.",
+            "q2": "Who can see my bids ?",
+            "a2": "Seul votre rang de guilde est visible. Votre identité reste cachée.",
+            "q3": "Puis-je supprimer mes données ?",
+            "a3": "Oui, selon les protocoles RGPD."
+          },
+          "trust": {
+            "title": "Confiance Vérifiée",
+            "desc": "Notre cadre de confidentialité est audité trimestriellement.",
+            "viewJourney": "Voir le Parcours de Vérification"
+          },
+          "footer": {
+            "title": "La Sécurité Compte",
+            "desc": "Contactez notre responsable de la conformité pour toute demande.",
+            "contact": "Contacter la Conformité"
+          }
+        }
+      }
+    },
+    "search": {
+      "title": "Résultats de Recherche",
+      "results": "Résultats",
+      "subtitle": "Exploration de {{total}} acquisitions authentifiées correspondant à \"{{query}}\"",
+      "refine": "Affiner les Résultats",
+      "status": "Statut de l'Enchère",
+      "all": "Toutes les Opportunités",
+      "live": "Ventes en Direct",
+      "scheduled": "Bientôt Disponible",
+      "ended": "Fermé",
+      "sortBy": "Trier Par",
+      "relevance": "Pertinence",
+      "newest": "Plus Récents First",
+      "endingSoon": "Se Termine Bientôt",
+      "priceLow": "Prix : Du moins cher au plus cher",
+      "noResults": "Aucun résultat pour \"{{query}}\"",
+      "noResultsDesc": "Nos conservateurs recherchent constamment des chefs-d'œuvre de classe mondiale. Essayez d'ajuster votre affinement ou votre terme de recherche.",
+      "reset": "Réinitialiser les Aﬃnements",
+      "shield": {
+        "title": "Le Bouclier Augeo",
+        "desc": "Chaque lot dans nos résultats de recherche est certifié par notre département interne d'experts en patrimoine."
+      }
+    },
+    "seo": {
+      "defaultTitle": "Augeo Vault - Plateforme d'Enchères de Prestige",
+      "template": "%s | Augeo Vault",
+      "description": "Découvrez des objets extraordinaires lors d'enchères de prestige. Enchérissez sur des objets de collection rares, de l'art, des bijoux exclusifs et des moteurs historiques.",
+      "keywords": "enchères, mise, art, collection, luxe, maison de vente, montres, immobilier, augeo"
+    }
+  }
+}

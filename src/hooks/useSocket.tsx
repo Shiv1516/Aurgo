@@ -39,7 +39,7 @@ export function useSocket() {
         (t) => (
           <div className="flex flex-col gap-1">
             <p className="font-black uppercase tracking-tight text-sm text-white">{notification.title}</p>
-            <p className="text-xs text-white/70 line-clamp-2">{notification.message}</p>
+            <p className="text-sm text-white/70 line-clamp-2">{notification.message}</p>
           </div>
         ) as any,
         { ...toastOptions, style: { background: '#1a1a2e', color: '#fff', border: '1px solid rgba(201, 168, 76, 0.2)' } }

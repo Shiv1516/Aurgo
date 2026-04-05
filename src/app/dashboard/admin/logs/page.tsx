@@ -4,6 +4,7 @@ import { adminAPI } from "@/lib/api";
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import { motion } from "framer-motion";
 import { Activity, Search, Filter, Shield, User, Clock, Terminal, ShieldCheck, Zap, Globe, ArrowRight } from "lucide-react";
+import { ListSkeleton, TableSkeleton } from "@/components/common/Skeletons";
 import toast from "react-hot-toast";
 
 const containerVariants = {
@@ -48,10 +49,15 @@ export default function AdminLogsPage() {
     if (action.includes('delete') || action.includes('reject') || action.includes('cancel')) return 'text-burgundy bg-burgundy/5 border-burgundy/10';
     if (action.includes('create') || action.includes('approve') || action.includes('activate')) return 'text-green-500 bg-green-50 border-green-100';
     if (action.includes('update')) return 'text-gold bg-gold/5 border-gold/10';
-    return 'text-navy opacity-40 bg-gray-50 border-gray-100';
+    return 'text-navy opacity-40 bg-gray-50 border-gray-200';
   };
 
-  if (isLoading && logs.length === 0) return <PageLoader />;
+  if (isLoading && logs.length === 0) return (
+    <div className="space-y-8 pb-12">
+      <div className="h-20 w-1/3 bg-gray-100 animate-pulse rounded-2xl" />
+      <ListSkeleton count={10} />
+    </div>
+  );
 
   return (
     <motion.div 
@@ -60,11 +66,11 @@ export default function AdminLogsPage() {
       animate="visible"
       className="space-y-12 pb-24"
     >
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-gray-100">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-gray-200">
         <div>
            <div className="flex items-center gap-2 mb-2">
               <span className="w-1.5 h-1.5 bg-navy rounded-full" />
-              <span className="text-sm font-black text-navy uppercase tracking-[0.4em]">Operational Telemetry</span>
+              <span className="text-sm font-black text-navy uppercase tracking-[0.1em]">Operational Telemetry</span>
            </div>
            <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">System <span className="text-burgundy italic font-serif normal-case text-5xl">Audit</span></h1>
         </div>
@@ -81,7 +87,7 @@ export default function AdminLogsPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/[0.03] border border-gray-50 relative overflow-hidden">
+      <div className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.03] border border-gray-200 relative overflow-hidden">
         {/* Search & Intelligence */}
         <div className="flex flex-col md:flex-row gap-6 mb-12">
           <form onSubmit={(e) => { e.preventDefault(); setPage(1); fetchLogs(); }} className="relative flex-grow">
@@ -89,17 +95,17 @@ export default function AdminLogsPage() {
             <input
               type="text"
               placeholder="Query sequence protocol (action, user, or resource)..."
-              className="w-full pl-16 pr-8 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
+              className="w-full pl-16 pr-8 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </form>
           <div className="flex gap-2">
-             <div className="bg-gray-50 px-6 py-5 rounded-[1.5rem] flex items-center gap-3 border border-transparent hover:border-gray-100 transition-all cursor-pointer group">
+             <div className="bg-gray-50 px-6 py-5 rounded-xl flex items-center gap-3 border border-transparent hover:border-gray-200 transition-all cursor-pointer group">
                 <Filter className="h-4 w-4 text-navy opacity-40 group-hover:text-gold transition-colors" />
                 <span className="text-sm font-black uppercase tracking-widest text-navy">Filters</span>
              </div>
-             <div onClick={() => fetchLogs()} className="bg-navy px-6 py-5 rounded-[1.5rem] flex items-center gap-3 border border-white/5 shadow-xl shadow-navy/20 hover:bg-gold hover:text-navy transition-all cursor-pointer group">
+             <div onClick={() => fetchLogs()} className="bg-navy px-6 py-5 rounded-xl flex items-center gap-3 border border-white/5 shadow-xl shadow-navy/20 hover:bg-gold hover:text-navy transition-all cursor-pointer group">
                 <Activity className="h-4 w-4 text-gold group-hover:text-navy transition-colors animate-pulse" />
                 <span className="text-sm font-black uppercase tracking-widest text-white group-hover:text-navy">Synchronize</span>
              </div>
@@ -109,12 +115,12 @@ export default function AdminLogsPage() {
         <div className="overflow-x-auto -mx-2">
           <table className="w-full text-left">
             <thead>
-              <tr className="border-b border-gray-100 text-[#A0AEC0]">
-                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.3em]">Temporal Marker</th>
-                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.3em]">Operator</th>
-                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.3em]">Action Protocol</th>
-                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.3em]">Strategic Resource</th>
-                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.3em]">Surveillance Data</th>
+              <tr className="border-b border-gray-200 text-[#A0AEC0]">
+                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.1em]">Temporal Marker</th>
+                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.1em]">Operator</th>
+                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.1em]">Action Protocol</th>
+                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.1em]">Strategic Resource</th>
+                <th className="pb-6 px-4 text-sm font-black uppercase tracking-[0.1em]">Surveillance Data</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
@@ -173,7 +179,7 @@ export default function AdminLogsPage() {
               <div className="h-20 w-20 bg-gray-50 rounded-full flex items-center justify-center mb-8">
                  <Activity className="h-10 w-10 text-gray-200" />
               </div>
-              <p className="text-sm font-black text-gray-300 uppercase tracking-[0.2em]">Silence in the system sequence</p>
+              <p className="text-sm font-black text-gray-300 uppercase tracking-[0.1em]">Silence in the system sequence</p>
             </div>
           )}
         </div>
@@ -223,17 +229,17 @@ export default function AdminLogsPage() {
 
       {/* Persistence Intelligence */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-         <div className="p-8 rounded-[2.5rem] bg-navy/5 border border-navy/5 flex flex-col items-center text-center">
+         <div className="p-8 rounded-xl bg-navy/5 border border-navy/5 flex flex-col items-center text-center">
             <Shield className="h-8 w-8 text-navy opacity-20 mb-6" />
             <h4 className="text-sm font-black text-navy uppercase tracking-widest mb-2">Protocol Integrity</h4>
             <p className="text-sm text-gray-400 italic">Audit trails are cryptographically sealed. All administrative actions are persistent.</p>
          </div>
-         <div className="p-8 rounded-[2.5rem] bg-gold/5 border border-gold/10 flex flex-col items-center text-center">
+         <div className="p-8 rounded-xl bg-gold/5 border border-gold/10 flex flex-col items-center text-center">
             <Zap className="h-8 w-8 text-gold opacity-50 mb-6" />
             <h4 className="text-sm font-black text-navy uppercase tracking-widest mb-2">Real-time Stream</h4>
             <p className="text-sm text-gray-400 italic">Global activity feed is synchronizing with central operational telemetry.</p>
          </div>
-         <div className="p-8 rounded-[2.5rem] bg-burgundy/5 border border-burgundy/10 flex flex-col items-center text-center">
+         <div className="p-8 rounded-xl bg-burgundy/5 border border-burgundy/10 flex flex-col items-center text-center">
             <Activity className="h-8 w-8 text-burgundy opacity-40 mb-6" />
             <h4 className="text-sm font-black text-navy uppercase tracking-widest mb-2">Risk Mitigation</h4>
             <p className="text-sm text-gray-400 italic">System anomalies are flagged automatically by governance logic.</p>

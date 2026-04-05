@@ -25,7 +25,7 @@ walkDir('/home/shivnilay/Downloads/Augeo/src', function(filePath) {
     // 3xl -> 4xl
     // 4xl -> 5xl
 
-    content = content.replace(/text-xs/g, '@@TEXT_SM@@');
+    content = content.replace(/text-sm/g, '@@TEXT_SM@@');
     content = content.replace(/text-sm/g, '@@TEXT_BASE@@');
     content = content.replace(/text-base/g, '@@TEXT_LG@@');
     content = content.replace(/text-lg/g, '@@TEXT_XL@@');

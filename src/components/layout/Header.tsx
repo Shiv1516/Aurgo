@@ -10,6 +10,8 @@ import {
   LayoutDashboard, Heart, Package, LogOut, Settings, TrendingUp
 } from 'lucide-react';
 import { getSocket } from '@/lib/socket';
+import GoogleTranslate from '@/components/common/GoogleTranslate';
+import PriceDisplay from '@/components/common/PriceDisplay';
 
 export default function Header() {
   const router = useRouter();
@@ -36,6 +38,7 @@ export default function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
   useEffect(() => {
     const s = getSocket();
     
@@ -98,30 +101,28 @@ export default function Header() {
   };
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 bg-white border-b ${isScrolled ? 'shadow-md' : 'border-gray-100'}`}>
-      {/* Top Utility Bar */}
+    <header className={`sticky top-0 z-50 transition-all duration-300 bg-white border-b ${isScrolled ? 'shadow-md' : 'border-gray-200'}`}>
       <div className="bg-navy text-sm font-medium text-white/80 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-8">
             <div className="flex items-center gap-4">
-              <Link href="/pages/how-it-works" className="hover:text-white transition-colors">How it works</Link>
-              <Link href="/pages/about" className="hover:text-white transition-colors">About us</Link>
+              <Link href="/info/how-it-works" className="hover:text-white transition-colors">How it works</Link>
+              <Link href="/info/about" className="hover:text-white transition-colors">About us</Link>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 mr-4 text-sm font-bold uppercase tracking-widest bg-black/20 px-3 py-1 rounded-full">
                 <div className={`w-2 h-2 rounded-full ${socketConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
                 {socketConnected ? 'SYSTEM LIVE' : 'RECONNECTING...'}
               </div>
-              <Link href="/pages/contact" className="hover:text-white transition-colors">Help & Contact</Link>
+              <GoogleTranslate />
+              <Link href="/info/contact" className="hover:text-white transition-colors ml-2">Help & Contact</Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="text-burgundy">
                <Gavel className="h-8 w-8" />
@@ -154,7 +155,7 @@ export default function Header() {
               href="/auctions" 
               className="flex items-center gap-2 px-4 py-2 bg-burgundy text-white rounded font-bold text-base uppercase tracking-wider hover:bg-burgundy-dark transition-colors"
             >
-              Auctions
+              Live Auctions
               <span className="bg-white text-burgundy text-sm px-1.5 py-0.5 rounded-full">
                 {activities.length}
               </span>
@@ -171,7 +172,7 @@ export default function Header() {
                 <Link href="/dashboard/notifications" className="p-2 text-navy hover:text-burgundy relative group">
                   <Bell className={`h-6 w-6 ${unreadCount > 0 ? 'animate-bell-shake' : ''}`} />
                   {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 bg-burgundy text-white text-[10px] rounded-full h-4 w-4 flex items-center justify-center font-bold animate-pulse shadow-[0_0_8px_rgba(160,21,35,0.4)]">
+                    <span className="absolute top-1.5 right-1.5 bg-burgundy text-white text-sm rounded-full h-4 w-4 flex items-center justify-center font-bold animate-pulse shadow-[0_0_8px_rgba(160,21,35,0.4)]">
                       {unreadCount}
                     </span>
                   )}
@@ -189,7 +190,7 @@ export default function Header() {
                   </button>
 
                   {isUserMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
+                    <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
                       <Link href={getDashboardLink()} className="flex items-center gap-3 px-4 py-2.5 text-base font-medium text-navy hover:bg-gray-50" onClick={() => setIsUserMenuOpen(false)}>
                         <LayoutDashboard className="h-4 w-4" /> Dashboard
                       </Link>
@@ -197,7 +198,7 @@ export default function Header() {
                         <Heart className="h-4 w-4" /> My Watchlist
                       </Link>
                       <button onClick={handleLogout} className="flex items-center gap-3 px-4 py-2.5 text-base font-medium text-red-600 hover:bg-red-50 w-full text-left">
-                        <LogOut className="h-4 w-4" /> Logout
+                        <LogOut className="h-4 w-4" /> Exit Vault
                       </button>
                     </div>
                   )}
@@ -226,19 +227,19 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 py-4 px-4 space-y-4">
+        <div className="lg:hidden bg-white border-t border-gray-200 py-4 px-4 space-y-4">
           <form onSubmit={handleSearch}>
              <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search..."
+              placeholder="Search for an auction, a lot, an auction house..."
               className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-base"
             />
           </form>
           <nav className="flex flex-col gap-2">
-            <Link href="/auctions" className="py-2 text-navy font-bold uppercase border-b border-gray-50" onClick={() => setIsMobileMenuOpen(false)}>Auctions</Link>
-            <Link href="/categories" className="py-2 text-navy font-bold uppercase border-b border-gray-50" onClick={() => setIsMobileMenuOpen(false)}>Categories</Link>
+            <Link href="/auctions" className="py-2 text-navy font-bold uppercase border-b border-gray-200" onClick={() => setIsMobileMenuOpen(false)}>Live Auctions</Link>
+            <Link href="/categories" className="py-2 text-navy font-bold uppercase border-b border-gray-200" onClick={() => setIsMobileMenuOpen(false)}>Categories</Link>
             {!isAuthenticated && (
               <Link href="/auth/register" className="py-2 text-burgundy font-bold uppercase" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
             )}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import AuctionCard from "@/components/auction/AuctionCard";
-import { PageLoader } from "@/components/common/LoadingSpinner";
+import AuctionCardSkeleton from "@/components/auction/AuctionCardSkeleton";
 import { auctionAPI, categoryAPI } from "@/lib/api";
 import { Auction, Category } from "@/types";
 import {
@@ -63,7 +63,7 @@ export default function AuctionsPage() {
 
   return (
     <>
-      <div className="bg-white border-b border-gray-100 py-16">
+      <div className="bg-white border-b border-gray-200 py-16">
         <div className="max-w-7xl mx-auto px-4">
           <h1 className="text-4xl md:text-6xl font-black text-navy tracking-tighter mb-4">
             ALL <span className="text-burgundy uppercase">AUCTIONS</span>
@@ -76,7 +76,7 @@ export default function AuctionsPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-4 mb-8 bg-white p-4 rounded-xl border border-gray-100">
+        <div className="flex flex-wrap items-center gap-4 mb-8 bg-white p-4 rounded-xl border border-gray-200">
           <Filter className="h-5 w-5 text-gray-400" />
           <select
             value={filters.status}
@@ -119,7 +119,11 @@ export default function AuctionsPage() {
         </div>
 
         {isLoading ? (
-          <PageLoader />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 9 }).map((_, i) => (
+              <AuctionCardSkeleton key={i} />
+            ))}
+          </div>
         ) : auctions.length === 0 ? (
           <div className="text-center py-20">
             <SlidersHorizontal className="h-12 w-12 text-gray-300 mx-auto mb-4" />
@@ -150,7 +154,7 @@ export default function AuctionsPage() {
                   <button
                     key={p}
                     onClick={() => setFilters({ ...filters, page: p })}
-                    className={`h-10 w-10 rounded-lg text-base font-bold ${p === filters.page ? "bg-burgundy text-white shadow-lg shadow-burgundy/10" : "border border-gray-100 bg-white hover:bg-gray-50 text-navy"}`}
+                    className={`h-10 w-10 rounded-lg text-base font-bold ${p === filters.page ? "bg-burgundy text-white shadow-lg shadow-burgundy/10" : "border border-gray-200 bg-white hover:bg-gray-50 text-navy"}`}
                   >
                     {p}
                   </button>

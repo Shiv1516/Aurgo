@@ -15,10 +15,10 @@ walkDir('/home/shivnilay/Downloads/Augeo/src', function(filePath) {
     let content = fs.readFileSync(filePath, 'utf8');
     let original = content;
     
-    // Convert text-xs to text-sm
-    content = content.replace(/text-xs/g, 'text-sm');
+    // Convert text-sm to text-sm
+    content = content.replace(/text-sm/g, 'text-sm');
     
-    // Convert microscopic pixel text classes: text-[10px] through text-[13px] to text-sm
+    // Convert microscopic pixel text classes: text-sm through text-base to text-sm
     content = content.replace(/text-\[(1[0-3]|0?[0-9])(\.[0-9]+)?px\]/g, 'text-sm');
     
     // Convert microscopic rem text classes: text-[0.1rem] through text-[0.85rem] to text-sm

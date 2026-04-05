@@ -4,9 +4,10 @@ import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { orderAPI, paymentAPI } from '@/lib/api';
-import { formatCurrency, formatDate, getOrderStatusColor } from '@/lib/utils';
+import { formatCurrency, formatDate, getOrderStatusColor, getAssetUrl } from '@/lib/utils';
+import PriceDisplay from '@/components/common/PriceDisplay';
+import { DetailSkeleton } from "@/components/common/Skeletons";
 import toast from 'react-hot-toast';
-import { PageLoader } from '@/components/common/LoadingSpinner';
 import { 
   Package, Truck, CreditCard, FileText, MapPin, CheckCircle, 
   ShieldCheck, Clock, Download, ChevronLeft, ExternalLink, 
@@ -68,7 +69,7 @@ export default function OrderDetailPage() {
     fetchAndVerifyData();
   }, [params.id, searchParams]);
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return <DetailSkeleton />;
   if (!order) return (
     <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
       <AlertCircle className="h-16 w-16 text-burgundy/20 mb-6" />
@@ -87,7 +88,7 @@ export default function OrderDetailPage() {
       className="space-y-12 pb-24"
     >
       {/* Dossier Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-gray-100">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 pb-8 border-b border-gray-200">
         <div className="space-y-4">
           <button 
             onClick={() => router.back()}
@@ -97,7 +98,7 @@ export default function OrderDetailPage() {
           </button>
           <div className="flex items-center gap-3">
              <div className="h-2 w-2 bg-gold rounded-full" />
-             <span className="text-sm font-black text-gold uppercase tracking-[0.4em]">Official Acquisition Dossier</span>
+             <span className="text-sm font-black text-gold uppercase tracking-[0.1em]">Official Acquisition Dossier</span>
           </div>
           <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
             Asset <span className="text-burgundy font-serif italic lowercase">{order.orderNumber}</span>
@@ -105,7 +106,7 @@ export default function OrderDetailPage() {
         </div>
         
         <div className="flex flex-wrap gap-4">
-           <button className="flex items-center gap-2 bg-white border border-gray-100 px-6 py-3 rounded-2xl text-sm font-black text-navy uppercase tracking-widest hover:bg-navy hover:text-white transition-all shadow-xl shadow-black/[0.02]">
+           <button className="flex items-center gap-2 bg-white border border-gray-200 px-6 py-3 rounded-2xl text-sm font-black text-navy uppercase tracking-widest hover:bg-navy hover:text-white transition-all shadow-xl shadow-black/[0.02]">
               <Download className="h-4 w-4" /> Export Invoice
            </button>
            <button className="flex items-center gap-2 bg-navy text-white px-6 py-3 rounded-2xl text-sm font-black text-navy uppercase tracking-widest hover:bg-gold hover:text-navy transition-all shadow-xl shadow-navy/20">
@@ -119,12 +120,12 @@ export default function OrderDetailPage() {
         <div className="lg:col-span-8 space-y-10">
           
           {/* Asset Spotlight */}
-          <motion.div variants={itemVariants} className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/[0.02] border border-gray-50 overflow-hidden relative group">
+          <motion.div variants={itemVariants} className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.02] border border-gray-200 overflow-hidden relative group">
              <div className="absolute top-0 right-0 w-80 h-80 bg-navy/5 rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
              <div className="flex flex-col md:flex-row gap-10 items-center relative z-10">
-                <div className="w-48 h-48 bg-gray-50 rounded-[2.5rem] overflow-hidden shrink-0 border border-gray-100 shadow-inner group-hover:scale-105 transition-transform duration-1000">
+                <div className="w-48 h-48 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-200 shadow-inner group-hover:scale-105 transition-transform duration-1000">
                    {order.lot?.images?.[0]?.url ? (
-                      <img src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${order.lot.images[0].url}`} className="w-full h-full object-cover" alt={order.lot.title} />
+                      <img src={getAssetUrl(order.lot.images[0].url)} className="w-full h-full object-cover" alt={order.lot.title} />
                    ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-200"><Box className="h-12 w-12" /></div>
                    )}
@@ -149,7 +150,7 @@ export default function OrderDetailPage() {
           </motion.div>
 
           {/* Invoicing Strategic Breakdown */}
-          <motion.div variants={itemVariants} className="bg-navy rounded-[3rem] p-10 text-white shadow-2xl shadow-navy/20 relative overflow-hidden">
+          <motion.div variants={itemVariants} className="bg-navy rounded-xl p-10 text-white shadow-2xl shadow-navy/20 relative overflow-hidden">
              <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-burgundy/10 rounded-full blur-3xl" />
              <h3 className="text-2xl font-black uppercase tracking-tight flex items-center gap-3 mb-10">
                 <FileText className="h-6 w-6 text-gold" /> Settlement <span className="text-white/30 italic font-serif lowercase">Structure</span>
@@ -157,43 +158,44 @@ export default function OrderDetailPage() {
              <div className="space-y-6 relative z-10">
                 <div className="flex justify-between items-center py-4 border-b border-white/10 group">
                    <span className="text-sm font-bold text-white/60 uppercase tracking-widest group-hover:text-white transition-colors">Hammer Price</span>
-                   <span className="text-lg font-black text-white">{formatCurrency(order.hammerPrice)}</span>
+                   <PriceDisplay amount={order.hammerPrice} size="lg" variant="white" align="right" />
                 </div>
                 <div className="flex justify-between items-center py-4 border-b border-white/10 group">
                    <div>
                       <span className="text-sm font-bold text-white/60 uppercase tracking-widest group-hover:text-white transition-colors">Buyer&apos;s Premium</span>
                       <span className="ml-3 text-sm bg-white/10 px-2 py-0.5 rounded-md font-black">RATE: {order.buyersPremiumRate}%</span>
                    </div>
-                   <span className="text-lg font-black text-white">{formatCurrency(order.buyersPremium)}</span>
+                   <PriceDisplay amount={order.buyersPremium} size="lg" variant="white" align="right" />
                 </div>
                 {order.insuranceEnabled && (
                   <div className="flex justify-between items-center py-4 border-b border-white/10 group">
                      <span className="text-sm font-bold text-white/60 uppercase tracking-widest group-hover:text-white transition-colors">Asset Protection Insurance</span>
-                     <span className="text-lg font-black text-white">{formatCurrency(order.hammerPrice * 0.01)}</span>
+                     <PriceDisplay amount={order.hammerPrice * 0.01} size="lg" variant="white" align="right" />
                   </div>
                 )}
                 <div className="flex justify-between items-center py-4 border-b border-white/10 group">
                    <span className="text-sm font-bold text-white/60 uppercase tracking-widest group-hover:text-white transition-colors">Strategic Logistics</span>
-                   <span className="text-lg font-black text-white">{formatCurrency(order.shippingCost || 0)}</span>
+                   <PriceDisplay amount={order.shippingCost || 0} size="lg" variant="white" align="right" />
                 </div>
-                <div className="flex justify-between items-center pt-8">
-                   <div>
-                      <p className="text-sm font-black text-gold uppercase tracking-[0.3em] mb-1">Aggregated Settlement</p>
-                      <p className="text-4xl font-black text-white tracking-tighter uppercase">Total Paid</p>
-                   </div>
-                   <div className="text-right">
-                      <p className="text-5xl font-black text-gold tracking-tighter leading-none">{formatCurrency(order.totalAmount)}</p>
-                      <div className="inline-flex items-center gap-2 mt-3 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
-                         <ShieldCheck className="h-3 w-3 text-green-500" />
-                         <span className="text-sm font-black uppercase tracking-widest text-white/70">Verified Transaction</span>
-                      </div>
-                   </div>
-                </div>
+                
+                <div className="flex justify-between items-center pt-8 min-w-0">
+                    <div className="shrink-0 mr-4">
+                       <p className="text-sm font-black text-gold uppercase tracking-[0.1em] mb-1">Aggregated Settlement</p>
+                       <p className="text-4xl font-black text-white tracking-tighter uppercase">Total Paid</p>
+                    </div>
+                    <div className="text-right min-w-0 flex-1 overflow-hidden">
+                       <PriceDisplay amount={order.totalAmount} size="5xl" variant="gold" align="right" />
+                       <div className="inline-flex items-center gap-2 mt-3 bg-white/5 border border-white/10 px-4 py-1.5 rounded-full whitespace-nowrap">
+                          <ShieldCheck className="h-3 w-3 text-green-500" />
+                          <span className="text-sm font-black uppercase tracking-widest text-white/70">Verified Transaction</span>
+                       </div>
+                    </div>
+                 </div>
              </div>
           </motion.div>
 
           {/* Logistics Pathway */}
-          <motion.div variants={itemVariants} className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/[0.02] border border-gray-50">
+          <motion.div variants={itemVariants} className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.02] border border-gray-200">
              <h3 className="text-2xl font-black text-navy uppercase tracking-tight flex items-center gap-3 mb-10">
                 <Truck className="h-6 w-6 text-gold" /> Logistics <span className="text-gray-300 italic font-serif lowercase">Pathway</span>
              </h3>
@@ -221,7 +223,7 @@ export default function OrderDetailPage() {
         {/* Sidebar Intelligence */}
         <div className="lg:col-span-4 space-y-8">
            {/* Status Capsule */}
-           <motion.div variants={itemVariants} className="bg-white rounded-[2.5rem] p-8 shadow-2xl shadow-black/[0.02] border border-gray-50">
+           <motion.div variants={itemVariants} className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.02] border border-gray-200">
               <h4 className="text-sm font-black text-gray-400 uppercase tracking-widest mb-6">Execution Status</h4>
               <div className="space-y-4">
                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
@@ -238,17 +240,17 @@ export default function OrderDetailPage() {
                  </div>
               </div>
               {order.paymentStatus === 'pending' && (
-                 <Link href={`/checkout/${order._id}`} className="mt-8 btn-primary w-full py-4 text-sm tracking-[0.2em]">Finalize Settlement</Link>
+                 <Link href={`/checkout/${order._id}`} className="mt-8 btn-primary w-full py-4 text-sm tracking-[0.1em]">Finalize Settlement</Link>
               )}
            </motion.div>
 
            {/* Shipping Intelligence */}
-           <motion.div variants={itemVariants} className="bg-white rounded-[2.5rem] p-8 shadow-2xl shadow-black/[0.02] border border-gray-50">
+           <motion.div variants={itemVariants} className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.02] border border-gray-200">
               <h4 className="text-base font-black text-navy uppercase tracking-tight flex items-center gap-2 mb-6">
                  <MapPin className="h-4 w-4 text-burgundy" /> Delivery Destination
               </h4>
               <div className="space-y-4">
-                 <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-100">
+                 <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-200">
                     <p className="text-sm font-black text-gray-400 uppercase tracking-widest mb-3">Residential Vault</p>
                     <div className="space-y-1">
                        <p className="text-sm font-bold text-navy uppercase">{order.shippingAddress?.street}</p>
@@ -269,7 +271,7 @@ export default function OrderDetailPage() {
            </motion.div>
 
            {/* Verification Capsule */}
-           <motion.div variants={itemVariants} className="bg-burgundy rounded-[2.5rem] p-8 text-white relative overflow-hidden group">
+           <motion.div variants={itemVariants} className="bg-burgundy rounded-xl p-8 text-white relative overflow-hidden group">
               <div className="absolute top-0 right-0 p-6 opacity-10 group-hover:scale-125 transition-transform duration-1000">
                  <ShieldCheck className="h-20 w-20" />
               </div>

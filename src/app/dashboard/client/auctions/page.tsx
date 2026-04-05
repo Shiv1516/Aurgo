@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { clientAPI } from "@/lib/api";
+import { formatDate, getAssetUrl } from '@/lib/utils';
 import { PageLoader } from "@/components/common/LoadingSpinner";
 import {
   Gavel, Edit2, Eye, Trash2, Plus, Monitor, Activity,
@@ -8,6 +9,7 @@ import {
   BarChart3, Clock, Globe, Award
 } from "lucide-react";
 import Link from "next/link";
+import { GenericGridSkeleton } from "@/components/common/Skeletons";
 import toast from "react-hot-toast";
 
 export default function ClientAuctionsPage() {
@@ -30,7 +32,12 @@ export default function ClientAuctionsPage() {
     fetchAuctions();
   }, []);
 
-  if (isLoading && auctions.length === 0) return <PageLoader />;
+  if (isLoading && auctions.length === 0) return (
+    <div className="space-y-8 animate-in fade-in duration-500 pb-12">
+      <div className="h-24 w-1/2 bg-gray-100 animate-pulse rounded-2xl" />
+      <GenericGridSkeleton count={6} cols="grid-cols-1 md:grid-cols-2 lg:grid-cols-3" />
+    </div>
+  );
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 pb-12">
@@ -78,7 +85,7 @@ export default function ClientAuctionsPage() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
                 <img
-                  src={auction.coverImage.startsWith('http') ? auction.coverImage : `${process.env.NEXT_PUBLIC_BACKEND_URL}${auction.coverImage}`}
+                  src={getAssetUrl(auction.coverImage)}
                   alt={auction.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
@@ -100,7 +107,7 @@ export default function ClientAuctionsPage() {
                    <h3 className="text-lg font-bold text-navy leading-tight line-clamp-2 uppercase">{auction.title}</h3>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-gray-100">
+                <div className="grid grid-cols-2 gap-4 mb-6 py-4 border-y border-gray-200">
                   <div>
                     <p className="text-sm text-gray-400 font-bold uppercase tracking-widest mb-1">Asset Count</p>
                     <div className="flex items-center gap-1.5">
@@ -137,7 +144,7 @@ export default function ClientAuctionsPage() {
 
         {auctions.length === 0 && (
           <div className="lg:col-span-3 py-24 bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center">
-            <div className="h-16 w-16 bg-gray-50 rounded-full border border-gray-100 flex items-center justify-center mb-6">
+            <div className="h-16 w-16 bg-gray-50 rounded-full border border-gray-200 flex items-center justify-center mb-6">
               <Award className="h-8 w-8 text-gray-300" />
             </div>
             <h3 className="text-lg font-bold text-navy uppercase tracking-tight mb-1">Portfolio Empty</h3>

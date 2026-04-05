@@ -5,6 +5,7 @@ import { clientAPI } from '@/lib/api';
 import { formatCurrency } from '@/lib/utils';
 import { PageLoader } from '@/components/common/LoadingSpinner';
 import { Gavel, Layers, DollarSign, Package, Plus, ArrowRight } from 'lucide-react';
+import { StatsSkeleton, ListSkeleton } from '@/components/common/Skeletons';
 
 export default function ClientDashboard() {
   const [data, setData] = useState<any>(null);
@@ -12,7 +13,16 @@ export default function ClientDashboard() {
 
   useEffect(() => { clientAPI.getDashboard().then(res => setData(res.data.data)).catch(() => {}).finally(() => setIsLoading(false)); }, []);
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return (
+    <div className="space-y-12">
+      <div className="h-12 w-1/4 bg-gray-100 animate-pulse rounded-xl" />
+      <StatsSkeleton />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ListSkeleton count={4} />
+        <ListSkeleton count={4} />
+      </div>
+    </div>
+  );
   const stats = data?.stats || {};
   return (
     <div>
@@ -35,7 +45,7 @@ export default function ClientDashboard() {
         <div className="card p-6">
           <div className="flex items-center justify-between mb-4"><h3 className="font-heading font-semibold">Recent Auctions</h3><Link href="/client/auctions" className="text-burgundy text-base flex items-center gap-1">View all <ArrowRight className="h-3 w-3" /></Link></div>
           {data?.recentAuctions?.length > 0 ? data.recentAuctions.map((a: any) => (
-            <div key={a._id} className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0">
+            <div key={a._id} className="flex items-center justify-between py-2.5 border-b border-gray-200 last:border-0">
               <div><p className="text-base font-medium">{a.title}</p><span className={`text-sm px-2 py-0.5 rounded-full ${a.status === 'live' ? 'bg-green-100 text-green-700' : a.status === 'ended' ? 'bg-gray-100 text-gray-700' : 'bg-blue-100 text-blue-700'}`}>{a.status}</span></div>
               <span className="text-base font-medium">{a.totalLots} lots</span>
             </div>
@@ -44,7 +54,7 @@ export default function ClientDashboard() {
         <div className="card p-6">
           <div className="flex items-center justify-between mb-4"><h3 className="font-heading font-semibold">Recent Orders</h3><Link href="/client/orders" className="text-burgundy text-base flex items-center gap-1">View all <ArrowRight className="h-3 w-3" /></Link></div>
           {data?.recentOrders?.length > 0 ? data.recentOrders.map((o: any) => (
-            <div key={o._id} className="flex items-center justify-between py-2.5 border-b border-gray-50 last:border-0">
+            <div key={o._id} className="flex items-center justify-between py-2.5 border-b border-gray-200 last:border-0">
               <div><p className="text-base font-medium">{o.lot?.title || o.orderNumber}</p><p className="text-sm text-gray-500">{o.buyer?.firstName} {o.buyer?.lastName}</p></div>
               <span className="text-base font-bold">{formatCurrency(o.totalAmount)}</span>
             </div>

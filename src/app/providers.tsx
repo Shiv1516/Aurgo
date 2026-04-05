@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAuthStore } from '@/store/authStore';
-import { useSocket } from '@/hooks/useSocket'; // Refreshing for .tsx extension resolution
+import { useSocket } from '@/hooks/useSocket';
 
 function SocketProvider({ children }: { children: React.ReactNode }) {
   useSocket();

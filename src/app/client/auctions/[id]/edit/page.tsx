@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { clientAPI, categoryAPI } from '@/lib/api';
 import toast from 'react-hot-toast';
-import { PageLoader } from '@/components/common/LoadingSpinner';
+import { DetailSkeleton, GenericGridSkeleton } from '@/components/common/Skeletons';
 import { Save } from 'lucide-react';
 
 export default function EditAuctionPage() {
@@ -36,7 +36,7 @@ export default function EditAuctionPage() {
     try { await clientAPI.updateAuction(params.id as string, form); toast.success('Updated!'); router.push('/client/auctions'); } catch (error: any) { toast.error(error.response?.data?.error || 'Failed'); } finally { setSaving(false); }
   };
 
-  if (isLoading || !form) return <PageLoader />;
+  if (isLoading || !form) return <DetailSkeleton />;
   return (
     <div>
       <h1 className="text-3xl font-heading font-bold text-dark mb-6">Edit Auction</h1>

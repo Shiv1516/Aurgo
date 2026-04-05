@@ -38,12 +38,7 @@ export default function ClientLayout({
       router.push("/");
   }, [isLoading, isAuthenticated, user, router]);
 
-  if (isLoading)
-    return (
-      <>
-        <PageLoader />
-      </>
-    );
+  if (isLoading && !user) return null;
   if (!isAuthenticated || !user?.role.startsWith("client")) return null;
 
   return (

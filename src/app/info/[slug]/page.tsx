@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { PageLoader } from "@/components/common/LoadingSpinner";
+import { DetailSkeleton } from "@/components/common/Skeletons";
 import { pageAPI } from "@/lib/api";
 
 export default function StaticPage() {
@@ -19,9 +19,9 @@ export default function StaticPage() {
 
   if (isLoading)
     return (
-      <>
-        <PageLoader />
-      </>
+      <div className="bg-background min-h-screen">
+        <DetailSkeleton />
+      </div>
     );
   if (!page)
     return (

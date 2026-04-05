@@ -2,42 +2,86 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, MessageSquare, Clock, Globe, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+
+import { userAPI } from "@/lib/api";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", inquiry: "Technical Acquisition Issue", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    toast.success("Message dispatched successfully");
+    try {
+      await userAPI.submitSupportTicket(form);
+      setIsSubmitted(true);
+      toast.success("Message dispatched successfully");
+    } catch (error) {
+      console.error("Support ticket error:", error);
+      toast.error("Critical transmission failure. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
     return (
-      <div className="bg-white min-h-screen flex items-center justify-center p-4">
-        <div className="max-w-md w-full text-center space-y-8 animate-in fade-in zoom-in duration-500">
-           <div className="h-24 w-24 bg-burgundy/10 rounded-full flex items-center justify-center mx-auto mb-8">
-              <CheckCircle2 className="h-12 w-12 text-burgundy" />
+      <div className="bg-white min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-burgundy/5 blur-[120px] rounded-full translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-navy/5 blur-[100px] rounded-full -translate-x-1/2" />
+        
+        <div className="max-w-md w-full text-center space-y-10 relative z-10">
+           <motion.div 
+             initial={{ scale: 0.5, opacity: 0 }}
+             animate={{ scale: 1, opacity: 1 }}
+             transition={{ type: "spring", damping: 15 }}
+             className="h-32 w-32 bg-dark rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 shadow-2xl relative group"
+           >
+              <div className="absolute inset-0 bg-burgundy rounded-[2.5rem] scale-0 group-hover:scale-100 transition-transform duration-500" />
+              <CheckCircle2 className="h-16 w-16 text-gold relative z-10" />
+              
+              {/* Particle effects */}
+              {[...Array(4)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  animate={{ 
+                    scale: [0, 1, 0],
+                    x: [0, (i % 2 ? 40 : -40), 0],
+                    y: [0, (i < 2 ? -40 : 40), 0]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
+                  className="absolute h-2 w-2 bg-burgundy/30 rounded-full"
+                />
+              ))}
+           </motion.div>
+           
+           <div className="space-y-4">
+             <h2 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
+               Transmission <br /> <span className="text-burgundy italic">Received</span>
+             </h2>
+             <div className="h-1 w-20 bg-gold mx-auto rounded-full" />
            </div>
-           <h2 className="text-5xl font-black text-dark tracking-tighter uppercase">Transmission <span className="text-burgundy">Received</span></h2>
-           <p className="text-gray-500 font-medium italic leading-relaxed">
+
+           <p className="text-gray-500 font-medium italic text-lg leading-relaxed">
              Your communiqué has been securely logged within our executive nexus. A concierge specialist will initiate contact within the hour.
            </p>
-           <button 
-             onClick={() => setIsSubmitted(false)}
-             className="btn-primary !px-12 uppercase tracking-widest text-sm font-black"
-           >
-             Return to Terminal
-           </button>
+           
+           <div className="pt-8">
+              <button 
+                onClick={() => setIsSubmitted(false)}
+                className="group relative px-12 py-5 bg-dark text-white rounded-2xl font-black text-sm uppercase tracking-widest overflow-hidden transition-all hover:shadow-[0_20px_50px_rgba(26,26,46,0.3)]"
+              >
+                <div className="absolute inset-0 bg-burgundy translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                <span className="relative z-10">Return to Terminal</span>
+              </button>
+           </div>
+           
+           <p className="text-xs font-black text-gray-300 uppercase tracking-[0.2em]">Transaction ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
         </div>
       </div>
     );
@@ -45,11 +89,10 @@ export default function Contact() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Header Section */}
-      <section className="py-24 bg-gray-50 border-b border-gray-100 relative overflow-hidden">
+      <section className="py-24 bg-gray-50 border-b border-gray-200 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-burgundy/5 blur-[120px] rounded-full translate-x-1/2" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 text-burgundy text-sm font-black uppercase tracking-[0.4em] mb-4">
+          <div className="inline-flex items-center gap-2 text-burgundy text-sm font-semibold uppercase tracking-[0.1em] mb-4">
             <MessageSquare className="h-3 w-3" /> Communication Nexus
           </div>
           <h1 className="text-5xl md:text-7xl font-black text-dark tracking-tighter uppercase leading-none mb-6">
@@ -77,7 +120,7 @@ export default function Contact() {
                       { icon: MapPin, label: "Vault Nexus", value: "New York • London • Dubai", color: "bg-gray-100" },
                       { icon: Clock, label: "Operational Hours", value: "24/7 Global Vigilance", color: "bg-burgundy/5" }
                     ].map((item, i) => (
-                      <div key={i} className="p-6 rounded-3xl border border-gray-50 bg-white shadow-lg shadow-black/5 hover:border-burgundy/30 transition-all group">
+                      <div key={i} className="p-6 rounded-xl border border-gray-200 bg-white shadow-lg shadow-black/5 hover:border-burgundy/30 transition-all group">
                          <div className={`h-12 w-12 rounded-2xl flex items-center justify-center mb-6 ${item.color} group-hover:scale-110 transition-transform`}>
                             <item.icon className="h-6 w-6" />
                          </div>
@@ -88,7 +131,7 @@ export default function Contact() {
                   </div>
                </div>
 
-               <div className="p-10 bg-dark rounded-[3rem] text-white relative overflow-hidden">
+               <div className="p-10 bg-dark rounded-xl text-white relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-8 opacity-20">
                      <Globe className="h-40 w-40 text-burgundy" />
                   </div>
@@ -99,7 +142,7 @@ export default function Contact() {
                      </p>
                      <div className="flex flex-wrap gap-4">
                         {["New York", "London", "Tokyo", "Dubai", "Singapore"].map((city, i) => (
-                          <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-black uppercase tracking-[0.2em]">{city}</span>
+                          <span key={i} className="px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm font-black uppercase tracking-[0.1em]">{city}</span>
                         ))}
                      </div>
                   </div>
@@ -108,39 +151,39 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="relative">
-               <div className="bg-white p-10 lg:p-12 rounded-[3.5rem] border border-gray-100 shadow-2xl shadow-black/5 relative z-10">
+               <div className="bg-white p-10 lg:p-8 rounded-xl border border-gray-200 shadow-2xl shadow-black/5 relative z-10">
                   <h3 className="text-3xl font-black text-dark uppercase tracking-tight mb-8">Dispatch a <span className="text-burgundy italic">Message</span></h3>
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid sm:grid-cols-2 gap-6">
                        <div className="space-y-2">
-                          <label className="text-sm font-black text-gray-400 uppercase tracking-widest ml-1">Full Identity</label>
+                          <label className="text-sm font-black text-gray-500 uppercase ml-1">Full Name</label>
                           <input 
                             type="text" 
                             required 
                             value={form.name} 
                             onChange={e => setForm({...form, name: e.target.value})} 
                             placeholder="Member Name" 
-                            className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark placeholder:text-gray-300" 
+                            className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark placeholder:text-gray-300" 
                           />
                        </div>
                        <div className="space-y-2">
-                          <label className="text-sm font-black text-gray-400 uppercase tracking-widest ml-1">Secure Email</label>
+                          <label className="text-sm font-black text-gray-500 uppercase ml-1">Secure Email</label>
                           <input 
                             type="email" 
                             required 
                             value={form.email} 
                             onChange={e => setForm({...form, email: e.target.value})} 
                             placeholder="Communication Node" 
-                            className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark placeholder:text-gray-300" 
+                            className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark placeholder:text-gray-300" 
                           />
                        </div>
                     </div>
                     <div className="space-y-2">
-                       <label className="text-sm font-black text-gray-400 uppercase tracking-widest ml-1">Inquiry Vector</label>
+                       <label className="text-sm font-black text-gray-500 uppercase ml-1">Inquiry Vector</label>
                        <select 
                          value={form.inquiry} 
                          onChange={e => setForm({...form, inquiry: e.target.value})} 
-                         className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark appearance-none"
+                         className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark appearance-none"
                         >
                           <option>Technical Acquisition Issue</option>
                           <option>Logistics & Customs Audit</option>
@@ -150,20 +193,20 @@ export default function Contact() {
                        </select>
                     </div>
                     <div className="space-y-2">
-                       <label className="text-sm font-black text-gray-400 uppercase tracking-widest ml-1">Detailed Brief</label>
+                       <label className="text-sm font-black text-gray-500 uppercase ml-1">Detailed Brief</label>
                        <textarea 
-                         rows="5" 
+                         rows={5} 
                          required 
                          value={form.message} 
                          onChange={e => setForm({...form, message: e.target.value})} 
                          placeholder="Specify your requirements or inquiry details..." 
-                         className="w-full px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark placeholder:text-gray-300 resize-none"
+                         className="w-full px-6 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:border-burgundy focus:outline-none transition-all font-bold text-dark placeholder:text-gray-300 resize-none"
                         ></textarea>
                     </div>
                     <button 
                       type="submit" 
                       disabled={isSubmitting} 
-                      className="w-full py-5 bg-dark hover:bg-burgundy text-white hover:text-dark font-black rounded-2xl transition-all shadow-xl shadow-black/10 uppercase tracking-[0.3em] flex items-center justify-center gap-3 group disabled:opacity-50"
+                      className="w-full py-5 bg-dark hover:bg-burgundy text-white hover:text-dark font-black rounded-2xl transition-all shadow-xl shadow-black/10 uppercase tracking-[0.1em] flex items-center justify-center gap-3 group disabled:opacity-50"
                     >
                        {isSubmitting ? "Transmitting..." : <>Transmit Message <Send className="h-4 w-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /></>}
                     </button>
@@ -171,7 +214,6 @@ export default function Contact() {
                   </form>
                </div>
                
-               {/* Background Accent */}
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[110%] bg-burgundy/5 blur-[120px] rounded-full -z-10" />
             </div>
 

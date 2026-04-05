@@ -10,6 +10,7 @@ import {
   AlertTriangle, Trophy, Zap, ShieldCheck, ArrowRight,
   Info, Mail, Box, Activity
 } from 'lucide-react';
+import { ListSkeleton } from '@/components/common/Skeletons';
 
 const typeIcons: Record<string, any> = { 
   outbid: AlertTriangle, 
@@ -39,7 +40,12 @@ export default function NotificationsPage() {
 
   useEffect(() => { fetchNotifications(); }, [fetchNotifications]);
 
-  if (isLoading) return <PageLoader />;
+  if (isLoading) return (
+    <div className="space-y-12">
+      <div className="h-20 w-1/3 bg-gray-100 animate-pulse rounded-2xl" />
+      <ListSkeleton count={8} />
+    </div>
+  );
 
   return (
     <motion.div 
@@ -53,7 +59,7 @@ export default function NotificationsPage() {
         <div>
           <div className="flex items-center gap-2 mb-3">
              <span className="w-1.5 h-1.5 bg-burgundy rounded-full animate-ping" />
-             <span className="text-sm font-black text-burgundy uppercase tracking-[0.4em]">Strategic Pulse</span>
+             <span className="text-sm font-black text-burgundy uppercase tracking-[0.1em]">Strategic Pulse</span>
           </div>
           <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
             Intelligence <span className="text-gold italic font-serif lowercase">Briefing</span>
@@ -63,7 +69,7 @@ export default function NotificationsPage() {
         {notifications.some(n => !n.isRead) && (
           <button 
             onClick={markAllAsRead} 
-            className="group flex items-center gap-3 text-sm font-black text-navy/40 uppercase tracking-[0.2em] hover:text-burgundy transition-colors active:scale-95"
+            className="group flex items-center gap-3 text-sm font-black text-navy/40 uppercase tracking-[0.1em] hover:text-burgundy transition-colors active:scale-95"
           >
             <CheckCheck className="h-4 w-4 transition-transform group-hover:scale-110" /> Mark All as Read
           </button>
@@ -71,13 +77,13 @@ export default function NotificationsPage() {
       </div>
 
       {notifications.length === 0 ? (
-        <motion.div variants={itemVariants} className="bg-white rounded-[3rem] p-24 text-center border border-dashed border-gray-200">
-          <div className="h-24 w-24 bg-gray-50 rounded-[2.5rem] flex items-center justify-center mx-auto mb-8 shadow-inner relative">
+        <motion.div variants={itemVariants} className="bg-white rounded-xl p-24 text-center border border-dashed border-gray-200">
+          <div className="h-24 w-24 bg-gray-50 rounded-xl flex items-center justify-center mx-auto mb-8 shadow-inner relative">
              <Bell className="h-10 w-10 text-gray-200" />
              <div className="absolute inset-0 bg-gold/5 rounded-full blur-xl scale-150" />
           </div>
           <h3 className="text-2xl font-black text-navy uppercase tracking-tight mb-2">Clear Signal</h3>
-          <p className="text-sm text-gray-400 font-bold uppercase tracking-[0.2em]">No strategic updates detected at this moment</p>
+          <p className="text-sm text-gray-400 font-bold uppercase tracking-[0.1em]">No strategic updates detected at this moment</p>
         </motion.div>
       ) : (
         <div className="grid grid-cols-1 gap-4">
@@ -92,8 +98,8 @@ export default function NotificationsPage() {
                   layout
                   variants={itemVariants}
                   exit={{ opacity: 0, x: 20 }}
-                  className={`group relative bg-white rounded-[2rem] p-8 shadow-2xl shadow-black/[0.02] border transition-all duration-500 overflow-hidden ${
-                    !n.isRead ? 'border-burgundy/20 hover:border-burgundy shadow-burgundy/[0.01]' : 'border-gray-50 hover:border-navy/20'
+                  className={`group relative bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.02] border transition-all duration-500 overflow-hidden ${
+                    !n.isRead ? 'border-burgundy/20 hover:border-burgundy shadow-burgundy/[0.01]' : 'border-gray-200 hover:border-navy/20'
                   }`}
                 >
                   {/* Decorative Gradient Background */}
@@ -126,7 +132,7 @@ export default function NotificationsPage() {
                            {!n.isRead && (
                              <button 
                                onClick={() => markAsRead(n._id)} 
-                               className="h-8 w-8 rounded-full border border-gray-100 flex items-center justify-center text-gray-300 hover:text-burgundy hover:border-burgundy hover:bg-burgundy/5 transition-all active:scale-90"
+                               className="h-8 w-8 rounded-full border border-gray-200 flex items-center justify-center text-gray-300 hover:text-burgundy hover:border-burgundy hover:bg-burgundy/5 transition-all active:scale-90"
                                title="Archive"
                              >
                                <Check className="h-4 w-4" />
@@ -155,13 +161,13 @@ export default function NotificationsPage() {
       )}
 
       {/* Strategic Footer */}
-      <div className="bg-navy rounded-[3rem] p-12 text-white relative overflow-hidden group">
+      <div className="bg-navy rounded-xl p-8 text-white relative overflow-hidden group">
          <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-125 transition-transform duration-1000">
             <Activity className="h-48 w-48" />
          </div>
          <div className="relative z-10">
             <h4 className="text-3xl font-black uppercase tracking-tight mb-4">Transmission Protocol</h4>
-            <p className="max-w-2xl text-sm font-bold text-white/40 uppercase tracking-[0.4em] leading-relaxed">
+            <p className="max-w-2xl text-sm font-bold text-white/40 uppercase tracking-[0.1em] leading-relaxed">
                All intelligence transmissions are encrypted end-to-end and stored in your private vault for 90 days. For critical intervention, ensure your email dispatch is enabled in security settings.
             </p>
          </div>

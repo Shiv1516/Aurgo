@@ -118,7 +118,7 @@ export default function ProfilePage() {
                 <span className="w-1 h-3 bg-burgundy rounded-full" />
                 <span className="w-1 h-3 bg-gold rounded-full" />
              </div>
-             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.4em]">Personal Vault</span>
+             <span className="text-sm font-black text-navy/40 uppercase tracking-[0.1em]">Personal Vault</span>
           </div>
           <h1 className="text-5xl font-black text-navy tracking-tighter uppercase leading-none">
             Identity <span className="text-burgundy italic font-serif lowercase">Hub</span>
@@ -126,7 +126,7 @@ export default function ProfilePage() {
         </div>
         
         <div className="flex gap-4">
-           <div className="bg-white border border-gray-100 rounded-2xl px-6 py-3 shadow-xl shadow-black/[0.02] flex items-center gap-4">
+           <div className="bg-white border border-gray-200 rounded-2xl px-6 py-3 shadow-xl shadow-black/[0.02] flex items-center gap-4">
               <div className="p-2 rounded-lg bg-green-50 text-green-600">
                  <ShieldCheck className="h-4 w-4" />
               </div>
@@ -138,15 +138,15 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-12">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
         {/* Main Configuration */}
         <div className="xl:col-span-8 space-y-12">
           
           {/* Personal Information */}
-          <motion.div variants={itemVariants} className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/[0.03] border border-gray-50 relative overflow-hidden group">
+          <motion.div variants={itemVariants} className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.03] border border-gray-200 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-64 h-64 bg-navy/[0.02] rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-navy/[0.05] transition-all duration-1000" />
             
-            <div className="flex items-center gap-4 mb-12 border-b border-gray-100 pb-8">
+            <div className="flex items-center gap-4 mb-12 border-b border-gray-200 pb-8">
               <div className="h-14 w-14 bg-navy rounded-[1.25rem] flex items-center justify-center shadow-2xl shadow-navy/20">
                 <User className="h-6 w-6 text-gold" />
               </div>
@@ -159,7 +159,7 @@ export default function ProfilePage() {
             <form onSubmit={handleSaveProfile} className="space-y-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-3">
-                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">Given Name</label>
+                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">Given Name</label>
                   <input
                     type="text"
                     required
@@ -169,7 +169,7 @@ export default function ProfilePage() {
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">Family name</label>
+                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">Family name</label>
                   <input
                     type="text"
                     required
@@ -182,7 +182,7 @@ export default function ProfilePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-3">
-                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">Verified Gateway</label>
+                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">Verified Gateway</label>
                   <div className="relative group/mail">
                     <input
                       type="email"
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.2em] pl-1">Tele-Verification</label>
+                  <label className="text-sm font-black text-gray-400 uppercase tracking-[0.1em] pl-1">Tele-Verification</label>
                   <div className="relative group/phone">
                     <input
                       type="tel"
@@ -213,7 +213,7 @@ export default function ProfilePage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-navy text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy transition-all active:scale-95 disabled:opacity-50"
+                  className="bg-navy text-white px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-[0.1em] shadow-2xl shadow-navy/20 hover:bg-gold hover:text-navy transition-all active:scale-95 disabled:opacity-50"
                 >
                   {saving ? "Encrypting..." : "Update Vault Profile"}
                 </button>
@@ -222,8 +222,8 @@ export default function ProfilePage() {
           </motion.div>
 
           {/* Logistics Nexus (Addresses) */}
-          <motion.div variants={itemVariants} className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/[0.03] border border-gray-50">
-            <div className="flex items-center justify-between mb-12 border-b border-gray-100 pb-8">
+          <motion.div variants={itemVariants} className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.03] border border-gray-200">
+            <div className="flex items-center justify-between mb-12 border-b border-gray-200 pb-8">
               <div className="flex items-center gap-4">
                 <div className="h-14 w-14 bg-burgundy/10 rounded-[1.25rem] flex items-center justify-center shadow-lg shadow-burgundy/5">
                   <MapPin className="h-6 w-6 text-burgundy" />
@@ -249,7 +249,7 @@ export default function ProfilePage() {
                    animate={{ opacity: 1, height: "auto" }}
                    exit={{ opacity: 0, height: 0 }}
                    onSubmit={handleAddAddress}
-                   className="bg-gray-50/50 p-10 rounded-[2.5rem] border border-gray-100 mb-12 space-y-8 overflow-hidden"
+                   className="bg-gray-50/50 p-10 rounded-xl border border-gray-200 mb-12 space-y-8 overflow-hidden"
                  >
                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                      <div className="space-y-3">
@@ -318,7 +318,7 @@ export default function ProfilePage() {
                   key={addr._id || i}
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="relative group p-8 bg-gray-50/50 rounded-[2rem] border border-gray-100 hover:bg-white hover:border-gold/30 hover:shadow-2xl hover:shadow-gold/5 transition-all duration-700"
+                  className="relative group p-8 bg-gray-50/50 rounded-xl border border-gray-200 hover:bg-white hover:border-gold/30 hover:shadow-2xl hover:shadow-gold/5 transition-all duration-700"
                 >
                   <div className="pr-12">
                     <div className="flex items-center gap-3 mb-4">
@@ -344,12 +344,12 @@ export default function ProfilePage() {
                 </motion.div>
               ))}
               {(!user?.addresses || user.addresses.length === 0) && (
-                <div className="col-span-full py-24 flex flex-col items-center justify-center border-2 border-dashed border-gray-100 rounded-[3rem] text-center bg-gray-50/30">
+                <div className="col-span-full py-24 flex flex-col items-center justify-center border-2 border-dashed border-gray-200 rounded-xl text-center bg-gray-50/30">
                    <div className="h-16 w-16 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm">
                       <MapPin className="h-6 w-6 text-gray-200" />
                    </div>
                    <h4 className="text-sm font-black text-navy uppercase tracking-widest mb-1">No Logistics Telemetry</h4>
-                   <p className="text-sm text-gray-400 font-bold uppercase tracking-[0.2em]">Add a location to facilitate acquisition delivery</p>
+                   <p className="text-sm text-gray-400 font-bold uppercase tracking-[0.1em]">Add a location to facilitate acquisition delivery</p>
                 </div>
               )}
             </div>
@@ -360,7 +360,7 @@ export default function ProfilePage() {
         <div className="xl:col-span-4 space-y-12">
           
           {/* KYC Status */}
-          <motion.div variants={itemVariants} className="bg-navy rounded-[3rem] p-10 text-white relative overflow-hidden shadow-2xl shadow-navy/30">
+          <motion.div variants={itemVariants} className="bg-navy rounded-xl p-10 text-white relative overflow-hidden shadow-2xl shadow-navy/30">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
             
             <div className="flex items-center gap-4 mb-10">
@@ -370,9 +370,9 @@ export default function ProfilePage() {
               <h3 className="text-xl font-black uppercase tracking-tight">Trust Clearance</h3>
             </div>
 
-            <div className="bg-white/5 rounded-[2rem] p-8 border border-white/5 mb-10 group/kyc">
+            <div className="bg-white/5 rounded-xl p-8 border border-white/5 mb-10 group/kyc">
                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-black text-white/40 uppercase tracking-[0.2em]">Platform Rank</span>
+                  <span className="text-sm font-black text-white/40 uppercase tracking-[0.1em]">Platform Rank</span>
                   <div className={`flex items-center gap-2 text-sm font-black uppercase tracking-widest px-4 py-1.5 rounded-full ${
                     user?.kyc?.status === "verified" ? "bg-green-500/10 text-green-400 border border-green-500/20" : 
                     user?.kyc?.status === "pending" ? "bg-gold/10 text-gold border border-gold/20" : 
@@ -388,14 +388,14 @@ export default function ProfilePage() {
                    : "Enhanced identity verification is required for acquisitions exceeding €100,000."}
                </p>
                {user?.kyc?.status !== "verified" && (
-                 <label className="flex items-center justify-center gap-3 w-full py-4 bg-gold text-navy font-black text-sm uppercase tracking-[0.3em] rounded-2xl cursor-pointer hover:bg-white transition-all active:scale-95 shadow-xl shadow-gold/20">
+                 <label className="flex items-center justify-center gap-3 w-full py-4 bg-gold text-navy font-black text-sm uppercase tracking-[0.1em] rounded-2xl cursor-pointer hover:bg-white transition-all active:scale-95 shadow-xl shadow-gold/20">
                     <Upload className="h-4 w-4" /> Upload Credentials
                     <input type="file" multiple accept="image/*,.pdf" onChange={handleKYC} className="hidden" />
                  </label>
                )}
             </div>
 
-            <div className="flex items-start gap-4 p-6 bg-white/5 rounded-[1.5rem] border border-white/5 opacity-50">
+            <div className="flex items-start gap-4 p-6 bg-white/5 rounded-xl border border-white/5 opacity-50">
                <ShieldCheck className="h-5 w-5 text-gold shrink-0 mt-1" />
                <p className="text-sm font-bold text-white/40 leading-relaxed uppercase tracking-widest">
                  Augeo utilizes AES-256 military-grade encryption for all credential management. Zero-knowledge proof protocols ensure your sensitive data is never exposed.
@@ -404,8 +404,8 @@ export default function ProfilePage() {
           </motion.div>
 
           {/* Quick Metrics */}
-          <motion.div variants={itemVariants} className="bg-white rounded-[3rem] p-10 shadow-2xl shadow-black/[0.03] border border-gray-50">
-             <h4 className="text-sm font-black text-burgundy uppercase tracking-[0.4em] mb-10">Vault Statistics</h4>
+          <motion.div variants={itemVariants} className="bg-white rounded-xl p-10 shadow-2xl shadow-black/[0.03] border border-gray-200">
+             <h4 className="text-sm font-black text-burgundy uppercase tracking-[0.1em] mb-10">Vault Statistics</h4>
              <div className="space-y-8">
                 {[
                   { label: 'Auctions Secured', value: user?.stats?.won || 0, icon: Award, color: 'text-gold' },
@@ -424,7 +424,7 @@ export default function ProfilePage() {
                 ))}
              </div>
              
-             <div className="mt-12 pt-8 border-t border-gray-50">
+             <div className="mt-12 pt-8 border-t border-gray-200">
                 <Link href="/dashboard/settings" className="flex items-center justify-between group">
                    <div className="flex items-center gap-4">
                       <div className="h-10 w-10 rounded-xl bg-navy text-white flex items-center justify-center group-hover:rotate-180 transition-transform duration-700">

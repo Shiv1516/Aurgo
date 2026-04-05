@@ -75,43 +75,43 @@ export default function RegisterPage() {
           <h1 className="text-6xl font-black text-navy tracking-tighter uppercase leading-none mb-4">
             Enrollment <span className="text-burgundy italic font-serif lowercase">Protocol</span>
           </h1>
-          <p className="text-sm font-black text-gray-400 uppercase tracking-[0.4em]">Initialize Your Strategic Persona</p>
+          <p className="text-sm font-black text-gray-500 uppercase tracking-[0.1em]">Initialize Your Strategic Persona</p>
         </div>
 
-        <div className="bg-white rounded-[4rem] p-16 shadow-2xl shadow-black/[0.04] border border-gray-50 relative group overflow-hidden">
+        <div className="bg-white rounded-xl p-8 shadow-2xl shadow-black/[0.04] border border-gray-200 relative group overflow-hidden">
           <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">First Nomination</label>
+                <label className="font-black text-gray-500 uppercase ml-1">First Name</label>
                 <div className="relative group/field">
                   <User className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300 group-focus-within/field:text-navy transition-colors" />
-                  <input type="text" required value={form.firstName} onChange={e => update('firstName', e.target.value)} className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="John" />
+                  <input type="text" required value={form.firstName} onChange={e => update('firstName', e.target.value)} className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="John" />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Family Nomination</label>
-                <input type="text" required value={form.lastName} onChange={e => update('lastName', e.target.value)} className="w-full px-6 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="Doe" />
+                <label className="font-black text-gray-500 uppercase ml-1">Second Name</label>
+                <input type="text" required value={form.lastName} onChange={e => update('lastName', e.target.value)} className="w-full px-6 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="Doe" />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Strategic Dispatch (Email)</label>
+              <label className="font-black text-gray-500 uppercase ml-1">Email</label>
               <div className="relative group/field">
                 <Mail className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300 group-focus-within/field:text-gold transition-colors" />
-                <input type="email" required value={form.email} onChange={e => update('email', e.target.value)} className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="name@domain.com" />
+                <input type="email" required value={form.email} onChange={e => update('email', e.target.value)} className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="name@domain.com" />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Secure Line (Optional)</label>
+              <label className="font-black text-gray-500 uppercase ml-1">Number</label>
               <div className="relative group/field">
                 <Phone className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300 group-focus-within/field:text-navy transition-colors" />
-                <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="+1 (555) 000-0000" />
+                <input type="tel" value={form.phone} onChange={e => update('phone', e.target.value)} className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" placeholder="+1 (555) 000-0000" />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Security Key (Password)</label>
+              <label className="font-black text-gray-500 uppercase ml-1">Password</label>
               <div className="relative group/field">
                 <Lock className="absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-300 group-focus-within/field:text-burgundy transition-colors" />
                 <input 
@@ -122,7 +122,7 @@ export default function RegisterPage() {
                       update('password', e.target.value);
                       setPasswordStrength(calculateStrength(e.target.value));
                   }} 
-                  className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" 
+                  className="w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none" 
                   placeholder="Min 8 Complex Characters" 
                 />
               </div>
@@ -139,28 +139,28 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-black text-navy/40 uppercase tracking-widest ml-1">Key Confirmation</label>
+              <label className="font-black text-gray-500 uppercase ml-1">Re-enter Password</label>
               <div className="relative group/field">
                 <CheckCircle2 className={`absolute left-6 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${form.confirmPassword && form.password === form.confirmPassword ? 'text-green-500' : 'text-gray-300'}`} />
-                <input type="password" required value={form.confirmPassword} onChange={e => update('confirmPassword', e.target.value)} className={`w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-[1.5rem] text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none ${form.confirmPassword && form.password !== form.confirmPassword ? 'bg-burgundy/5' : ''}`} placeholder="Re-enter security key" />
+                <input type="password" required value={form.confirmPassword} onChange={e => update('confirmPassword', e.target.value)} className={`w-full pl-14 pr-6 py-5 bg-gray-50 border-none rounded-xl text-base font-black text-navy placeholder:text-gray-300 focus:ring-2 focus:ring-gold/20 transition-all outline-none ${form.confirmPassword && form.password !== form.confirmPassword ? 'bg-burgundy/5' : ''}`} placeholder="Re-enter security key" />
               </div>
             </div>
 
             <button 
               type="submit" 
               disabled={isLoading} 
-              className="w-full py-6 bg-navy text-white rounded-[1.8rem] transition-all font-black text-sm uppercase tracking-[0.3em] shadow-2xl shadow-navy/20 hover:bg-burgundy hover:-translate-y-1 disabled:opacity-50 flex items-center justify-center gap-3 mt-6 group"
+              className="w-full py-6 bg-navy text-white rounded-xl transition-all font-black uppercase tracking-[0.1em] shadow-2xl shadow-navy/20 hover:bg-burgundy hover:-translate-y-1 disabled:opacity-50 flex items-center justify-center gap-3 mt-6 group"
             >
-              {isLoading ? 'Enrolling Identity...' : 'Finalize Enrollment'}
+              {isLoading ? 'Enrolling Identity...' : 'Register'}
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </button>
 
-            <p className="text-sm font-bold text-gray-400 text-center uppercase tracking-widest leading-relaxed px-4 pt-4">
+            <p className="font-bold text-gray-400 text-center uppercase tracking-widest leading-relaxed px-4 pt-4">
               By enrolling, you agree to our <Link href="/pages/terms" className="text-burgundy hover:underline">Strategic Terms</Link> and <Link href="/pages/privacy" className="text-burgundy hover:underline">Surveillance Policy</Link>
             </p>
           </form>
 
-          <div className="mt-10 pt-10 border-t border-gray-50 text-center">
+          <div className="mt-10 pt-10 border-t border-gray-200 text-center">
             <p className="text-sm font-black text-gray-400 uppercase tracking-widest">
               Already Identified?{" "}
               <Link
