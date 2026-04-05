@@ -102,7 +102,7 @@ export default function Header() {
 
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 bg-white border-b ${isScrolled ? 'shadow-md' : 'border-gray-200'}`}>
-      <div className="bg-navy text-sm font-medium text-white/80 border-b border-white/5">
+      <div className="hidden sm:block bg-navy text-sm font-medium text-white/80 border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-8">
             <div className="flex items-center gap-4">
@@ -123,17 +123,16 @@ export default function Header() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <div className="text-burgundy">
-               <Gavel className="h-8 w-8" />
+               <Gavel className="h-6 w-6 sm:h-8 sm:w-8" />
             </div>
             <div className="flex flex-col">
-              <span className="text-3xl font-black text-navy tracking-tighter leading-none">AUGEO</span>
-              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">AUCTIONS</span>
+              <span className="text-2xl sm:text-3xl font-black text-navy tracking-tighter leading-none">AUGEO</span>
+              <span className="text-[10px] sm:text-sm font-bold text-gray-400 uppercase tracking-widest leading-none mt-1">AUCTIONS</span>
             </div>
           </Link>
 
-          {/* Search Bar */}
           <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-lg mx-8">
             <div className="relative w-full">
               <input
@@ -153,7 +152,7 @@ export default function Header() {
           <nav className="flex items-center gap-4">
             <Link 
               href="/auctions" 
-              className="flex items-center gap-2 px-4 py-2 bg-burgundy text-white rounded font-bold text-base uppercase tracking-wider hover:bg-burgundy-dark transition-colors"
+              className="hidden md:flex items-center gap-2 px-4 py-2 bg-burgundy text-white rounded font-bold text-base uppercase tracking-wider hover:bg-burgundy-dark transition-colors"
             >
               Live Auctions
               <span className="bg-white text-burgundy text-sm px-1.5 py-0.5 rounded-full">
@@ -170,9 +169,9 @@ export default function Header() {
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <Link href="/dashboard/notifications" className="p-2 text-navy hover:text-burgundy relative group">
-                  <Bell className={`h-6 w-6 ${unreadCount > 0 ? 'animate-bell-shake' : ''}`} />
+                  <Bell className={`h-5 w-5 sm:h-6 sm:w-6 ${unreadCount > 0 ? 'animate-bell-shake' : ''}`} />
                   {unreadCount > 0 && (
-                    <span className="absolute top-1.5 right-1.5 bg-burgundy text-white text-sm rounded-full h-4 w-4 flex items-center justify-center font-bold animate-pulse shadow-[0_0_8px_rgba(160,21,35,0.4)]">
+                    <span className="absolute top-1.5 right-1.5 bg-burgundy text-white text-[10px] sm:text-sm rounded-full h-3 w-3 sm:h-4 sm:w-4 flex items-center justify-center font-bold animate-pulse shadow-[0_0_8px_rgba(160,21,35,0.4)]">
                       {unreadCount}
                     </span>
                   )}
@@ -181,12 +180,12 @@ export default function Header() {
                 <div className="relative" ref={userMenuRef}>
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    className="flex items-center gap-2 p-1 rounded-full border border-gray-200 hover:border-burgundy transition-all"
+                    className="flex items-center gap-1 sm:gap-2 p-1 rounded-full border border-gray-200 hover:border-burgundy transition-all"
                   >
-                    <div className="h-8 w-8 bg-gray-50 rounded-full flex items-center justify-center">
-                      <User className="h-5 w-5 text-navy" />
+                    <div className="h-7 w-7 sm:h-8 sm:w-8 bg-gray-50 rounded-full flex items-center justify-center">
+                      <User className="h-4 w-4 sm:h-5 sm:w-5 text-navy" />
                     </div>
-                    <ChevronDown className={`h-4 w-4 text-navy transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`h-3 w-3 sm:h-4 sm:w-4 text-navy transition-transform ${isUserMenuOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {isUserMenuOpen && (
@@ -206,7 +205,7 @@ export default function Header() {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                <Link href="/auth/login" className="px-4 py-2 text-navy font-bold text-base uppercase hover:text-burgundy transition-colors">
+                <Link href="/auth/login" className="hidden sm:block px-4 py-2 text-navy font-bold text-base uppercase hover:text-burgundy transition-colors">
                   Login
                 </Link>
                 <Link href="/auth/register" className="hidden sm:block px-4 py-2 bg-navy text-white rounded font-bold text-base uppercase hover:bg-navy-dark transition-colors">
@@ -241,7 +240,10 @@ export default function Header() {
             <Link href="/auctions" className="py-2 text-navy font-bold uppercase border-b border-gray-200" onClick={() => setIsMobileMenuOpen(false)}>Live Auctions</Link>
             <Link href="/categories" className="py-2 text-navy font-bold uppercase border-b border-gray-200" onClick={() => setIsMobileMenuOpen(false)}>Categories</Link>
             {!isAuthenticated && (
-              <Link href="/auth/register" className="py-2 text-burgundy font-bold uppercase" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
+              <>
+                <Link href="/auth/login" className="py-2 text-navy font-bold uppercase border-b border-gray-200" onClick={() => setIsMobileMenuOpen(false)}>Login</Link>
+                <Link href="/auth/register" className="py-2 text-burgundy font-bold uppercase" onClick={() => setIsMobileMenuOpen(false)}>Register</Link>
+              </>
             )}
           </nav>
         </div>
